@@ -26,6 +26,10 @@
     "responsive": {
       "title": "Responsive Design Test",
       "description": "Testing layout on different screen sizes"
+    },
+    "utilities": {
+      "title": "Utility Libraries Test",
+      "description": "Testing VueUse, date-fns and Radash utility libraries"
     }
   },
   "techStackItems": {
@@ -48,7 +52,11 @@
     "submit": "Submit",
     "sendGreeting": "Send Greeting",
     "getUserInfo": "Get User Info",
-    "testHealthAPI": "Test Health API"
+    "testHealthAPI": "Test Health API",
+    "shuffle": "Shuffle Array",
+    "increment": "Increment",
+    "decrement": "Decrement",
+    "reset": "Reset"
   },
   "forms": {
     "namePlaceholder": "Enter your name",
@@ -76,5 +84,37 @@
     "tablet": "Tablet",
     "desktop": "Desktop",
     "columns": "columns"
+  },
+  "utilities": {
+    "vueuse": {
+      "title": "VueUse Features",
+      "windowSize": "Window Size",
+      "width": "Width",
+      "height": "Height",
+      "mousePosition": "Mouse Position",
+      "currentTime": "Current Time",
+      "toggleDemo": "Toggle Demo",
+      "on": "On",
+      "off": "Off"
+    },
+    "dateFns": {
+      "title": "date-fns Features",
+      "currentDate": "Current Date",
+      "relativeTime": "Relative Time",
+      "dateAdd": "Date Addition (+7 days)",
+      "dateDifference": "Date Difference (30 days later)"
+    },
+    "radash": {
+      "title": "Radash Features",
+      "arrayShuffle": "Array Shuffle",
+      "objectSelect": "Object Select",
+      "stringCamel": "String to Camel Case",
+      "numberClamp": "Number Clamp (0-100)"
+    },
+    "comprehensive": {
+      "title": "Comprehensive Test",
+      "liveCounter": "Live Counter",
+      "lastUpdate": "Last Update"
+    }
   }
 }

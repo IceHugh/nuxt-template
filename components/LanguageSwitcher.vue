@@ -14,21 +14,21 @@
 </template>
 
 <script setup lang="ts">
-const { $i18n } = useNuxtApp()
+const { $i18n } = useNuxtApp();
 
-const { locale, locales, setLocale } = useI18n()
+const { locale, locales, setLocale } = useI18n();
 
 const currentLocale = computed(() => {
-  return locales.value.find((loc: any) => loc.code === locale.value) || locales.value[0]
-})
+  return locales.value.find((loc: any) => loc.code === locale.value) || locales.value[0];
+});
 
 const nextLocale = computed(() => {
-  const currentIndex = locales.value.findIndex((loc: any) => loc.code === locale.value)
-  const nextIndex = (currentIndex + 1) % locales.value.length
-  return locales.value[nextIndex] || locales.value[0]
-})
+  const currentIndex = locales.value.findIndex((loc: any) => loc.code === locale.value);
+  const nextIndex = (currentIndex + 1) % locales.value.length;
+  return locales.value[nextIndex] || locales.value[0];
+});
 
 const toggleLocale = () => {
-  setLocale(nextLocale.value.code)
-}
+  setLocale(nextLocale.value.code);
+};
 </script>

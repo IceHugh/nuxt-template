@@ -115,7 +115,7 @@ const testHealth = async () => {
   try {
     result.health = await trpc.health.query();
   } catch (err) {
-    error.health = err instanceof Error ? err.message : $t('api.error');
+    error.health = err instanceof Error ? err.message : $t("api.error");
   } finally {
     loading.health = false;
   }
@@ -128,7 +128,7 @@ const testGreeting = async () => {
   try {
     result.greeting = await trpc.greeting.query({ name: name.value });
   } catch (err) {
-    error.greeting = err instanceof Error ? err.message : $t('api.error');
+    error.greeting = err instanceof Error ? err.message : $t("api.error");
   } finally {
     loading.greeting = false;
   }
@@ -141,7 +141,7 @@ const testUserInfo = async () => {
   try {
     result.userInfo = await trpc.userInfo.query({ id: userId.value });
   } catch (err) {
-    error.userInfo = err instanceof Error ? err.message : $t('api.error');
+    error.userInfo = err instanceof Error ? err.message : $t("api.error");
   } finally {
     loading.userInfo = false;
   }
