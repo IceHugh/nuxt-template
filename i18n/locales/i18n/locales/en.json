@@ -1,0 +1,80 @@
+{
+  "common": {
+    "title": "Nuxt 4 Template Project",
+    "subtitle": "Modern Tech Stack Integration Test",
+    "language": "Language"
+  },
+  "navigation": {
+    "currentMode": "Current Mode",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "sections": {
+    "ui": {
+      "title": "UI Components Test",
+      "description": "Testing shadcn-vue basic components"
+    },
+    "techStack": {
+      "title": "Tech Stack Integration Status",
+      "description": "Display integration progress of various tech stacks"
+    },
+    "api": {
+      "title": "tRPC API Test",
+      "description": "Testing type-safe tRPC API calls"
+    },
+    "responsive": {
+      "title": "Responsive Design Test",
+      "description": "Testing layout on different screen sizes"
+    }
+  },
+  "techStackItems": {
+    "tailwind": "Tailwind CSS V4",
+    "shadcn": "shadcn-vue",
+    "darkMode": "Dark Mode",
+    "iconSystem": "Icon System",
+    "trpc": "tRPC API",
+    "i18n": "Internationalization",
+    "utilityLibs": "Utility Libraries",
+    "biome": "Biome",
+    "deployment": "Deployment Configuration"
+  },
+  "buttons": {
+    "default": "Default Button",
+    "secondary": "Secondary Button",
+    "outline": "Outline Button",
+    "ghost": "Ghost Button",
+    "destructive": "Destructive Button",
+    "submit": "Submit",
+    "sendGreeting": "Send Greeting",
+    "getUserInfo": "Get User Info",
+    "testHealthAPI": "Test Health API"
+  },
+  "forms": {
+    "namePlaceholder": "Enter your name",
+    "userIdPlaceholder": "Enter user ID",
+    "enterToSubmit": "Press Enter to submit"
+  },
+  "api": {
+    "loading": "Please wait...",
+    "error": "Unknown error",
+    "health": {
+      "title": "Health Check",
+      "description": "Test server health status"
+    },
+    "greeting": {
+      "title": "Greeting API",
+      "description": "Send personalized greeting"
+    },
+    "userInfo": {
+      "title": "User Info API",
+      "description": "Get information by user ID"
+    }
+  },
+  "responsive": {
+    "mobile": "Mobile",
+    "tablet": "Tablet",
+    "desktop": "Desktop",
+    "columns": "columns"
+  }
+}

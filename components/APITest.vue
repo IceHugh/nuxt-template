@@ -1,20 +1,21 @@
 <template>
   <Card>
     <CardHeader>
-      <CardTitle>tRPC API 测试</CardTitle>
-      <CardDescription>测试 tRPC API 的类型安全调用</CardDescription>
+      <CardTitle>{{ $t('sections.api.title') }}</CardTitle>
+      <CardDescription>{{ $t('sections.api.description') }}</CardDescription>
     </CardHeader>
     <CardContent class="space-y-4">
       <!-- Health Check -->
       <div class="space-y-2">
-        <h4 class="font-medium">健康检查</h4>
+        <h4 class="font-medium">{{ $t('api.health.title') }}</h4>
+        <p class="text-sm text-muted-foreground">{{ $t('api.health.description') }}</p>
         <Button
           @click="testHealth"
           :disabled="loading.health"
           variant="outline"
         >
           <Icon v-if="loading.health" name="lucide:loader-2" class="mr-2 h-4 w-4 animate-spin" />
-          测试 Health API
+          {{ $t('buttons.testHealthAPI') }}
         </Button>
         <div v-if="result.health" class="p-3 bg-muted rounded-md">
           <pre class="text-sm">{{ JSON.stringify(result.health, null, 2) }}</pre>
@@ -26,11 +27,12 @@
 
       <!-- Greeting -->
       <div class="space-y-2">
-        <h4 class="font-medium">问候 API</h4>
+        <h4 class="font-medium">{{ $t('api.greeting.title') }}</h4>
+        <p class="text-sm text-muted-foreground">{{ $t('api.greeting.description') }}</p>
         <div class="flex items-center space-x-2">
           <Input
             v-model="name"
-            placeholder="输入你的名字"
+            :placeholder="$t('forms.namePlaceholder')"
             class="max-w-xs"
             @keyup.enter="testGreeting"
           />
@@ -40,7 +42,7 @@
             variant="outline"
           >
             <Icon v-if="loading.greeting" name="lucide:loader-2" class="mr-2 h-4 w-4 animate-spin" />
-            发送问候
+            {{ $t('buttons.sendGreeting') }}
           </Button>
         </div>
         <div v-if="result.greeting" class="p-3 bg-muted rounded-md">
@@ -53,11 +55,12 @@
 
       <!-- User Info -->
       <div class="space-y-2">
-        <h4 class="font-medium">用户信息 API</h4>
+        <h4 class="font-medium">{{ $t('api.userInfo.title') }}</h4>
+        <p class="text-sm text-muted-foreground">{{ $t('api.userInfo.description') }}</p>
         <div class="flex items-center space-x-2">
           <Input
             v-model="userId"
-            placeholder="输入用户 ID"
+            :placeholder="$t('forms.userIdPlaceholder')"
             class="max-w-xs"
             @keyup.enter="testUserInfo"
           />
@@ -67,7 +70,7 @@
             variant="outline"
           >
             <Icon v-if="loading.userInfo" name="lucide:loader-2" class="mr-2 h-4 w-4 animate-spin" />
-            获取用户信息
+            {{ $t('buttons.getUserInfo') }}
           </Button>
         </div>
         <div v-if="result.userInfo" class="p-3 bg-muted rounded-md">
@@ -112,7 +115,7 @@ const testHealth = async () => {
   try {
     result.health = await trpc.health.query();
   } catch (err) {
-    error.health = err instanceof Error ? err.message : "未知错误";
+    error.health = err instanceof Error ? err.message : $t('api.error');
   } finally {
     loading.health = false;
   }
@@ -125,7 +128,7 @@ const testGreeting = async () => {
   try {
     result.greeting = await trpc.greeting.query({ name: name.value });
   } catch (err) {
-    error.greeting = err instanceof Error ? err.message : "未知错误";
+    error.greeting = err instanceof Error ? err.message : $t('api.error');
   } finally {
     loading.greeting = false;
   }
@@ -138,7 +141,7 @@ const testUserInfo = async () => {
   try {
     result.userInfo = await trpc.userInfo.query({ id: userId.value });
   } catch (err) {
-    error.userInfo = err instanceof Error ? err.message : "未知错误";
+    error.userInfo = err instanceof Error ? err.message : $t('api.error');
   } finally {
     loading.userInfo = false;
   }

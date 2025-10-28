@@ -1,0 +1,80 @@
+{
+  "common": {
+    "title": "Nuxt 4 模板项目",
+    "subtitle": "现代化技术栈集成测试",
+    "language": "语言"
+  },
+  "navigation": {
+    "currentMode": "当前模式",
+    "system": "系统",
+    "light": "亮色",
+    "dark": "暗色"
+  },
+  "sections": {
+    "ui": {
+      "title": "UI 组件测试",
+      "description": "测试 shadcn-vue 基础组件"
+    },
+    "techStack": {
+      "title": "技术栈集成状态",
+      "description": "显示各个技术栈的集成进度"
+    },
+    "api": {
+      "title": "tRPC API 测试",
+      "description": "测试 tRPC API 的类型安全调用"
+    },
+    "responsive": {
+      "title": "响应式设计测试",
+      "description": "测试不同屏幕尺寸下的布局"
+    }
+  },
+  "techStackItems": {
+    "tailwind": "Tailwind CSS V4",
+    "shadcn": "shadcn-vue",
+    "darkMode": "Dark Mode",
+    "iconSystem": "图标系统",
+    "trpc": "tRPC API",
+    "i18n": "多语言",
+    "utilityLibs": "工具库",
+    "biome": "Biome",
+    "deployment": "部署配置"
+  },
+  "buttons": {
+    "default": "默认按钮",
+    "secondary": "次要按钮",
+    "outline": "轮廓按钮",
+    "ghost": "幽灵按钮",
+    "destructive": "危险按钮",
+    "submit": "提交",
+    "sendGreeting": "发送问候",
+    "getUserInfo": "获取用户信息",
+    "testHealthAPI": "测试 Health API"
+  },
+  "forms": {
+    "namePlaceholder": "输入你的名字",
+    "userIdPlaceholder": "输入用户 ID",
+    "enterToSubmit": "按回车键提交"
+  },
+  "api": {
+    "loading": "请稍候...",
+    "error": "未知错误",
+    "health": {
+      "title": "健康检查",
+      "description": "测试服务器健康状态"
+    },
+    "greeting": {
+      "title": "问候 API",
+      "description": "发送个性化问候"
+    },
+    "userInfo": {
+      "title": "用户信息 API",
+      "description": "根据用户ID获取信息"
+    }
+  },
+  "responsive": {
+    "mobile": "移动端",
+    "tablet": "平板端",
+    "desktop": "桌面端",
+    "columns": "列"
+  }
+}

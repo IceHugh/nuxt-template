@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     "@nuxt/test-utils",
     "shadcn-nuxt",
     "@nuxtjs/color-mode",
+    "@nuxtjs/i18n",
   ],
 
   shadcn: {
@@ -33,6 +34,29 @@ export default defineNuxtConfig({
     fallback: "light",
     dataValue: "theme",
     classSuffix: "",
+  },
+
+  i18n: {
+    locales: [
+      {
+        code: "zh",
+        language: "zh-CN",
+        name: "简体中文",
+        files: ["i18n/locales/zh.json"],
+      },
+      {
+        code: "en",
+        language: "en-US",
+        name: "English",
+        files: ["i18n/locales/en.json"],
+      },
+    ],
+    defaultLocale: "zh",
+    lazy: true,
+    detectBrowserLanguage: {
+      useCookie: true,
+      redirectOn: "root",
+    },
   },
 
   vite: {
