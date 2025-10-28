@@ -146,81 +146,81 @@
 </template>
 
 <script setup lang="ts">
-import { format, addDays, formatDistanceToNow } from 'date-fns'
-import { shuffle, select, camel, clamp } from 'radash'
+import { addDays, format, formatDistanceToNow } from "date-fns";
+import { camel, clamp, select, shuffle } from "radash";
 
 // VueUse composables
-const { width, height } = useWindowSize()
-const { x: mouseX, y: mouseY } = useMouse()
-const formattedTime = useDateFormat(new Date(), 'YYYY-MM-DD HH:mm:ss')
-const [toggleValue, toggle] = useToggle(false)
+const { width, height } = useWindowSize();
+const { x: mouseX, y: mouseY } = useMouse();
+const formattedTime = useDateFormat(new Date(), "YYYY-MM-DD HH:mm:ss");
+const [toggleValue, toggle] = useToggle(false);
 
 // 响应式数据
-const counter = ref(0)
-const lastUpdate = ref(new Date())
-const testArray = ref([1, 2, 3, 4, 5])
-const shuffledArray = ref([...testArray.value])
+const counter = ref(0);
+const lastUpdate = ref(new Date());
+const testArray = ref([1, 2, 3, 4, 5]);
+const shuffledArray = ref([...testArray.value]);
 
 // 计算属性
 const addDaysToDate = computed(() => {
-  return format(addDays(new Date(), 7), 'YYYY-MM-DD')
-})
+  return format(addDays(new Date(), 7), "YYYY-MM-DD");
+});
 
 const formatRelative = computed(() => {
-  return formatDistanceToNow(new Date(), { addSuffix: true })
-})
+  return formatDistanceToNow(new Date(), { addSuffix: true });
+});
 
 const formatDate = (date: Date) => {
-  return format(date, 'YYYY年MM月DD日 HH:mm:ss')
-}
+  return format(date, "YYYY年MM月DD日 HH:mm:ss");
+};
 
 const daysDifference = computed(() => {
-  const targetDate = addDays(new Date(), 30)
-  return formatDistanceToNow(targetDate, { addSuffix: true })
-})
+  const targetDate = addDays(new Date(), 30);
+  return formatDistanceToNow(targetDate, { addSuffix: true });
+});
 
 const selectedObject = computed(() => {
   const testObj = {
-    name: '测试对象',
+    name: "测试对象",
     value: 42,
     active: true,
-    timestamp: new Date()
-  }
-  return select(testObj, ['name', 'value'])
-})
+    timestamp: new Date(),
+  };
+  return select(testObj, ["name", "value"]);
+});
 
 const camelCaseString = computed(() => {
-  return camel('hello-world-example')
-})
+  return camel("hello-world-example");
+});
 
 const clampedNumber = computed(() => {
-  return clamp(150, 0, 100)
-})
+  return clamp(150, 0, 100);
+});
 
 const lastUpdateFormatted = computed(() => {
-  return formatDate(lastUpdate.value)
-})
+  return formatDate(lastUpdate.value);
+});
 
 // 方法
 const increment = () => {
-  counter.value++
-  lastUpdate.value = new Date()
-}
+  counter.value++;
+  lastUpdate.value = new Date();
+};
 
 const decrement = () => {
-  counter.value--
-  lastUpdate.value = new Date()
-}
+  counter.value--;
+  lastUpdate.value = new Date();
+};
 
 const reset = () => {
-  counter.value = 0
-  lastUpdate.value = new Date()
-}
+  counter.value = 0;
+  lastUpdate.value = new Date();
+};
 
 const shuffleArray = () => {
-  shuffledArray.value = shuffle(testArray.value)
-}
+  shuffledArray.value = shuffle(testArray.value);
+};
 
 // 初始化
-shuffleArray()
+shuffleArray();
 </script>
