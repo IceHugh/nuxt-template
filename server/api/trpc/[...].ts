@@ -1,10 +1,10 @@
-import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
-import { appRouter } from '../../trpc/router'
+import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
+import { appRouter } from "../../trpc/router";
 
 const handler = fetchRequestHandler({
-  endpoint: '/api/trpc',
+  endpoint: "/api/trpc",
   router: appRouter,
   createContext: () => ({}),
-})
+});
 
-export default defineEventHandler(handler)
+export default defineEventHandler(handler);

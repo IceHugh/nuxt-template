@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running Biome checks..."
+bun run check
+
+echo "✅ Pre-commit checks passed!"

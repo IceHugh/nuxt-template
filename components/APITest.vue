@@ -82,70 +82,70 @@
 </template>
 
 <script setup lang="ts">
-const name = ref('World')
-const userId = ref('123')
+const name = ref("World");
+const userId = ref("123");
 
 const loading = reactive({
   health: false,
   greeting: false,
   userInfo: false,
-})
+});
 
 const result = reactive({
   health: null as any,
   greeting: null as any,
   userInfo: null as any,
-})
+});
 
 const error = reactive({
-  health: '',
-  greeting: '',
-  userInfo: '',
-})
+  health: "",
+  greeting: "",
+  userInfo: "",
+});
 
-const trpc = useTRPC()
+const trpc = useTRPC();
 
 const testHealth = async () => {
-  loading.health = true
-  error.health = ''
+  loading.health = true;
+  error.health = "";
 
   try {
-    result.health = await trpc.health.query()
+    result.health = await trpc.health.query();
   } catch (err) {
-    error.health = err instanceof Error ? err.message : '未知错误'
+    error.health = err instanceof Error ? err.message : "未知错误";
   } finally {
-    loading.health = false
+    loading.health = false;
   }
-}
+};
 
 const testGreeting = async () => {
-  loading.greeting = true
-  error.greeting = ''
+  loading.greeting = true;
+  error.greeting = "";
 
   try {
-    result.greeting = await trpc.greeting.query({ name: name.value })
+    result.greeting = await trpc.greeting.query({ name: name.value });
   } catch (err) {
-    error.greeting = err instanceof Error ? err.message : '未知错误'
+    error.greeting = err instanceof Error ? err.message : "未知错误";
   } finally {
-    loading.greeting = false
+    loading.greeting = false;
   }
-}
+};
 
 const testUserInfo = async () => {
-  loading.userInfo = true
-  error.userInfo = ''
+  loading.userInfo = true;
+  error.userInfo = "";
 
   try {
-    result.userInfo = await trpc.userInfo.query({ id: userId.value })
+    result.userInfo = await trpc.userInfo.query({ id: userId.value });
   } catch (err) {
-    error.userInfo = err instanceof Error ? err.message : '未知错误'
+    error.userInfo = err instanceof Error ? err.message : "未知错误";
   } finally {
-    loading.userInfo = false
+    loading.userInfo = false;
   }
-}
+};
 
 // 组件挂载时自动测试健康检查
 onMounted(() => {
-  testHealth()
-})
+  testHealth();
+});
 </script>

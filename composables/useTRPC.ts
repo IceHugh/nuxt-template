@@ -1,5 +1,5 @@
-import { trpc } from '~/lib/trpc'
+import { trpc } from "~/lib/trpc";
 
 export const useTRPC = () => {
-  return trpc
-}
+  return trpc;
+};
