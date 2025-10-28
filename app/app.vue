@@ -6,9 +6,17 @@
     <main class="min-h-screen bg-background">
       <!-- 头部 -->
       <header class="border-b">
-        <div class="container mx-auto px-4 py-6">
-          <h1 class="text-3xl font-bold">Nuxt 4 模板项目</h1>
-          <p class="text-muted-foreground mt-2">现代化技术栈集成测试</p>
+        <div class="container mx-auto px-4 py-6 flex justify-between items-center">
+          <div>
+            <h1 class="text-3xl font-bold">Nuxt 4 模板项目</h1>
+            <p class="text-muted-foreground mt-2">现代化技术栈集成测试</p>
+          </div>
+          <div class="flex items-center space-x-4">
+            <ThemeToggle />
+            <span class="text-sm text-muted-foreground">
+              当前模式: {{ $colorMode.preference }}
+            </span>
+          </div>
         </div>
       </header>
 
@@ -55,11 +63,11 @@
                   <span class="text-sm">shadcn-vue</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                  <div class="w-3 h-3 bg-gray-300 rounded-full"></div>
+                  <div class="w-3 h-3 bg-green-500 rounded-full"></div>
                   <span class="text-sm">Dark Mode</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                  <div class="w-3 h-3 bg-gray-300 rounded-full"></div>
+                  <div class="w-3 h-3 bg-green-500 rounded-full"></div>
                   <span class="text-sm">图标系统</span>
                 </div>
                 <div class="flex items-center space-x-2">
