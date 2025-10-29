@@ -1,15 +1,16 @@
-name: Deploy to Cloudflare Pages
+name: CI Checks for Template Project
 
 on:
-  push:
-    branches: [main]
+  # push:
+  #   branches: [main]  # 模板项目不需要自动部署
   pull_request:
     branches: [main]
 
+# 注释说明：这是模板项目，仅在 PR 时运行代码检查，不进行实际部署
 jobs:
-  deploy:
+  ci-checks:
     runs-on: ubuntu-latest
-    name: Deploy to Cloudflare Pages
+    name: Code Quality and Build Checks
 
     steps:
       - name: Checkout
@@ -34,24 +35,25 @@ jobs:
         env:
           NODE_VERSION: 20
 
-      - name: Deploy to Cloudflare Pages
-        if: github.ref == 'refs/heads/main'
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: nuxt-template
-          directory: .output/public
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          wranglerVersion: '3'
+      # 部署步骤已注释 - 模板项目不需要自动部署
+      # - name: Deploy to Cloudflare Pages
+      #   if: github.ref == 'refs/heads/main'
+      #   uses: cloudflare/pages-action@v1
+      #   with:
+      #     apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      #     accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      #     projectName: nuxt-template
+      #     directory: .output/public
+      #     gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+      #     wranglerVersion: '3'
 
-      - name: Preview Deployment
-        if: github.event_name == 'pull_request'
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: nuxt-template
-          directory: .output/public
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          wranglerVersion: '3'
+      # - name: Preview Deployment
+      #   if: github.event_name == 'pull_request'
+      #   uses: cloudflare/pages-action@v1
+      #   with:
+      #     apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      #     accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      #     projectName: nuxt-template
+      #     directory: .output/public
+      #     gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+      #     wranglerVersion: '3'
