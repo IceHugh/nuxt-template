@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { SelectGroupProps } from "reka-ui";
 import type { HTMLAttributes } from "vue";
-import { reactiveOmit } from "@vueuse/core";
 import { SelectGroup } from "reka-ui";
 import { cn } from "~/lib/utils";
 

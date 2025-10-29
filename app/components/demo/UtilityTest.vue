@@ -5,11 +5,11 @@
       <CardDescription>{{ $t('sections.utilities.description') }}</CardDescription>
     </CardHeader>
     <CardContent class="space-y-6">
-      <!-- VueUse 测试 -->
+      <!-- Vue 原生功能测试 -->
       <div class="space-y-3">
         <h4 class="font-medium">{{ $t('utilities.vueuse.title') }}</h4>
         <div class="grid gap-4 md:grid-cols-2">
-          <!-- useWindowSize -->
+          <!-- useWindowSize - 原生实现 -->
           <ClientOnly>
             <div class="p-3 bg-muted rounded-md">
               <p class="text-sm font-medium">{{ $t('utilities.vueuse.windowSize') }}</p>
@@ -29,174 +29,131 @@
             </template>
           </ClientOnly>
 
-          <!-- useMouse -->
+          <!-- useMouse - 原生实现 -->
+          <ClientOnly>
+            <div class="p-3 bg-muted rounded-md">
+              <p class="text-sm font-medium">{{ $t('utilities.vueuse.mousePosition') }}</p>
+              <p class="text-xs text-muted-foreground">
+                X: {{ mouseX }}, Y: {{ mouseY }}
+              </p>
+            </div>
+            <template #fallback>
+              <div class="p-3 bg-muted rounded-md">
+                <p class="text-sm font-medium">{{ $t('utilities.vueuse.mousePosition') }}</p>
+                <p class="text-xs text-muted-foreground">
+                  X: --, Y: --
+                </p>
+              </div>
+            </template>
+          </ClientOnly>
+
+          <!-- useDateFormat - 原生实现 -->
           <div class="p-3 bg-muted rounded-md">
-            <p class="text-sm font-medium">{{ $t('utilities.vueuse.mousePosition') }}</p>
+            <p class="text-sm font-medium">{{ $t('utilities.vueuse.currentTime') }}</p>
             <p class="text-xs text-muted-foreground">
-              X: {{ Math.round(mouseX) }}, Y: {{ Math.round(mouseY) }}
+              {{ formattedTime }}
             </p>
           </div>
 
-          <!-- useDateFormat -->
-          <ClientOnly>
-            <div class="p-3 bg-muted rounded-md">
-              <p class="text-sm font-medium">{{ $t('utilities.vueuse.currentTime') }}</p>
-              <p class="text-xs text-muted-foreground">{{ formattedTime }}</p>
-            </div>
-            <template #fallback>
-              <div class="p-3 bg-muted rounded-md">
-                <p class="text-sm font-medium">{{ $t('utilities.vueuse.currentTime') }}</p>
-                <p class="text-xs text-muted-foreground">----年--月--日 --:--:--</p>
-              </div>
-            </template>
-          </ClientOnly>
-
-          <!-- useToggle -->
+          <!-- useToggle - 原生实现 -->
           <div class="p-3 bg-muted rounded-md">
-            <p class="text-sm font-medium">{{ $t('utilities.vueuse.toggleDemo') }}</p>
-            <Button
-              @click="toggle"
-              :variant="toggleValue ? 'default' : 'outline'"
-              size="sm"
-              class="mt-1"
-            >
-              {{ toggleValue ? $t('utilities.vueuse.on') : $t('utilities.vueuse.off') }}
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      <!-- date-fns 测试 -->
-      <div class="space-y-3">
-        <h4 class="font-medium">{{ $t('utilities.dateFns.title') }}</h4>
-        <div class="grid gap-4 md:grid-cols-2">
-          <ClientOnly>
-            <div class="p-3 bg-muted rounded-md">
-              <p class="text-sm font-medium">{{ $t('utilities.dateFns.currentDate') }}</p>
-              <p class="text-xs text-muted-foreground">{{ formatDate(new Date()) }}</p>
-            </div>
-            <template #fallback>
-              <div class="p-3 bg-muted rounded-md">
-                <p class="text-sm font-medium">{{ $t('utilities.dateFns.currentDate') }}</p>
-                <p class="text-xs text-muted-foreground">----年--月--日 --:--:--</p>
-              </div>
-            </template>
-          </ClientOnly>
-
-          <ClientOnly>
-            <div class="p-3 bg-muted rounded-md">
-              <p class="text-sm font-medium">{{ $t('utilities.dateFns.relativeTime') }}</p>
-              <p class="text-xs text-muted-foreground">{{ formatRelative(new Date()) }}</p>
-            </div>
-            <template #fallback>
-              <div class="p-3 bg-muted rounded-md">
-                <p class="text-sm font-medium">{{ $t('utilities.dateFns.relativeTime') }}</p>
-                <p class="text-xs text-muted-foreground">-- 前后</p>
-              </div>
-            </template>
-          </ClientOnly>
-
-          <div class="p-3 bg-muted rounded-md">
-            <p class="text-sm font-medium">{{ $t('utilities.dateFns.dateAdd') }}</p>
-            <p class="text-xs text-muted-foreground">{{ addDaysToDate }}</p>
-          </div>
-
-          <div class="p-3 bg-muted rounded-md">
-            <p class="text-sm font-medium">{{ $t('utilities.dateFns.dateDifference') }}</p>
-            <p class="text-xs text-muted-foreground">{{ daysDifference }}</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Radash 测试 -->
-      <div class="space-y-3">
-        <h4 class="font-medium">{{ $t('utilities.radash.title') }}</h4>
-        <div class="grid gap-4 md:grid-cols-2">
-          <ClientOnly>
-            <div class="p-3 bg-muted rounded-md">
-              <p class="text-sm font-medium">{{ $t('utilities.radash.arrayShuffle') }}</p>
-              <p class="text-xs text-muted-foreground">{{ shuffledArray.join(', ') }}</p>
+            <p class="text-sm font-medium">{{ $t('utilities.vueuse.toggle') }}</p>
+            <div class="flex items-center gap-2 mt-1">
               <Button
-                @click="shuffleArray"
-                variant="outline"
                 size="sm"
-                class="mt-2"
+                @click="toggleValue = !toggleValue"
+                :variant="toggleValue ? 'default' : 'outline'"
               >
-                {{ $t('buttons.shuffle') }}
+                {{ toggleValue ? $t('utilities.vueuse.on') : $t('utilities.vueuse.off') }}
+              </Button>
+              <span class="text-xs text-muted-foreground">
+                {{ $t('utilities.vueuse.status') }}: {{ toggleValue }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 响应式数据 -->
+      <div class="space-y-3">
+        <h4 class="font-medium">{{ $t('utilities.reactive.title') }}</h4>
+        <div class="grid gap-4 md:grid-cols-2">
+          <!-- 响应式计数器 -->
+          <div class="p-3 bg-muted rounded-md">
+            <p class="text-sm font-medium">{{ $t('utilities.reactive.counter') }}</p>
+            <div class="flex items-center gap-2 mt-1">
+              <Button size="sm" @click="count--" variant="outline">-</Button>
+              <span class="text-sm font-mono w-8 text-center">{{ count }}</span>
+              <Button size="sm" @click="count++" variant="outline">+</Button>
+              <Button size="sm" @click="count = 0" variant="ghost">重置</Button>
+            </div>
+          </div>
+
+          <!-- 计算属性 -->
+          <div class="p-3 bg-muted rounded-md">
+            <p class="text-sm font-medium">{{ $t('utilities.reactive.computed') }}</p>
+            <p class="text-xs text-muted-foreground mt-1">
+              计数 x 2 = {{ doubled }}
+            </p>
+            <p class="text-xs text-muted-foreground">
+              计数是{{ count > 5 ? '大数' : '小数' }}
+            </p>
+          </div>
+
+          <!-- 响应式对象 -->
+          <div class="p-3 bg-muted rounded-md">
+            <p class="text-sm font-medium">{{ $t('utilities.reactive.object') }}</p>
+            <div class="text-xs text-muted-foreground mt-1 space-y-1">
+              <p>姓名: {{ userInfo.name }}</p>
+              <p>年龄: {{ userInfo.age }}</p>
+              <Button size="sm" @click="userInfo.age++" variant="outline" class="mt-1">
+                增加年龄
               </Button>
             </div>
-            <template #fallback>
-              <div class="p-3 bg-muted rounded-md">
-                <p class="text-sm font-medium">{{ $t('utilities.radash.arrayShuffle') }}</p>
-                <p class="text-xs text-muted-foreground">--, --, --, --, --</p>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  class="mt-2"
-                  disabled
-                >
-                  {{ $t('buttons.shuffle') }}
+          </div>
+
+          <!-- 数组操作 -->
+          <div class="p-3 bg-muted rounded-md">
+            <p class="text-sm font-medium">{{ $t('utilities.reactive.array') }}</p>
+            <div class="text-xs text-muted-foreground mt-1">
+              <p>项目数: {{ items.length }}</p>
+              <p>第一项: {{ items[0] || '空' }}</p>
+              <div class="flex gap-1 mt-1">
+                <Button size="sm" @click="items.push(`项目${items.length + 1}`)" variant="outline">
+                  添加
+                </Button>
+                <Button size="sm" @click="items.pop()" variant="outline" :disabled="items.length === 0">
+                  删除
                 </Button>
               </div>
-            </template>
-          </ClientOnly>
-
-          <div class="p-3 bg-muted rounded-md">
-            <p class="text-sm font-medium">{{ $t('utilities.radash.objectSelect') }}</p>
-            <p class="text-xs text-muted-foreground">{{ selectedObject }}</p>
-          </div>
-
-          <div class="p-3 bg-muted rounded-md">
-            <p class="text-sm font-medium">{{ $t('utilities.radash.stringCamel') }}</p>
-            <p class="text-xs text-muted-foreground">{{ camelCaseString }}</p>
-          </div>
-
-          <div class="p-3 bg-muted rounded-md">
-            <p class="text-sm font-medium">{{ $t('utilities.radash.numberClamp') }}</p>
-            <p class="text-xs text-muted-foreground">{{ clampedNumber }}</p>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- 综合测试 -->
+      <!-- 工具函数展示 -->
       <div class="space-y-3">
-        <h4 class="font-medium">{{ $t('utilities.comprehensive.title') }}</h4>
-        <div class="p-3 bg-muted rounded-md">
-          <p class="text-sm font-medium">{{ $t('utilities.comprehensive.liveCounter') }}</p>
-          <div class="flex items-center space-x-2 mt-2">
-            <Button
-              @click="decrement"
-              variant="outline"
-              size="sm"
-            >
-              {{ $t('buttons.decrement') }}
-            </Button>
-            <span class="text-lg font-semibold w-12 text-center">{{ counter }}</span>
-            <Button
-              @click="increment"
-              variant="outline"
-              size="sm"
-            >
-              {{ $t('buttons.increment') }}
-            </Button>
-            <Button
-              @click="reset"
-              variant="ghost"
-              size="sm"
-            >
-              {{ $t('buttons.reset') }}
-            </Button>
+        <h4 class="font-medium">{{ $t('utilities.functions.title') }}</h4>
+        <div class="grid gap-4 md:grid-cols-2">
+          <!-- 生成ID -->
+          <div class="p-3 bg-muted rounded-md">
+            <p class="text-sm font-medium">生成随机ID</p>
+            <div class="text-xs text-muted-foreground mt-1">
+              <p class="font-mono break-all">{{ randomId }}</p>
+              <Button size="sm" @click="generateNewId" variant="outline" class="mt-1">
+                生成新ID
+              </Button>
+            </div>
           </div>
-          <ClientOnly>
-            <p class="text-xs text-muted-foreground mt-2">
-              {{ $t('utilities.comprehensive.lastUpdate') }}: {{ lastUpdateFormatted }}
-            </p>
-            <template #fallback>
-              <p class="text-xs text-muted-foreground mt-2">
-                {{ $t('utilities.comprehensive.lastUpdate') }}: ----年--月--日 --:--:--
-              </p>
-            </template>
-          </ClientOnly>
+
+          <!-- 时间格式化 -->
+          <div class="p-3 bg-muted rounded-md">
+            <p class="text-sm font-medium">时间格式化</p>
+            <div class="text-xs text-muted-foreground mt-1">
+              <p>相对时间: {{ relativeTime }}</p>
+              <p>格式化: {{ absoluteTime }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </CardContent>
@@ -204,87 +161,105 @@
 </template>
 
 <script setup lang="ts">
-import { useDateFormat, useMouse, useToggle, useWindowSize } from "@vueuse/core";
-import { addDays, format, formatDistanceToNow } from "date-fns";
-import { camel, pick, shuffle } from "radash";
+import { ref, reactive, computed, onMounted, onUnmounted } from 'vue';
+import { Button } from '~/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 
-// 简单的 clamp 函数实现
-const clampNumber = (value: number, min: number, max: number) => {
-  return Math.max(min, Math.min(max, value));
+// 原生 useWindowSize 实现
+const width = ref(0);
+const height = ref(0);
+
+const updateWindowSize = () => {
+  width.value = window.innerWidth;
+  height.value = window.innerHeight;
 };
 
-// VueUse composables
-const { width, height } = useWindowSize();
-const { x: mouseX, y: mouseY } = useMouse();
-const formattedTime = useDateFormat(new Date(), "yyyy-MM-dd HH:mm:ss");
-const [toggleValue, toggle] = useToggle(false);
+// 原生 useMouse 实现
+const mouseX = ref(0);
+const mouseY = ref(0);
+
+const updateMousePosition = (event: MouseEvent) => {
+  mouseX.value = event.clientX;
+  mouseY.value = event.clientY;
+};
+
+// 原生 useDateFormat 实现
+const formattedTime = ref('');
+
+const updateTime = () => {
+  const now = new Date();
+  formattedTime.value = now.toLocaleString('zh-CN', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  });
+};
+
+// 原生 useToggle 实现
+const toggleValue = ref(false);
 
 // 响应式数据
-const counter = ref(0);
-const lastUpdate = ref(new Date());
-const testArray = ref([1, 2, 3, 4, 5]);
-const shuffledArray = ref([...testArray.value]);
+const count = ref(0);
+const doubled = computed(() => count.value * 2);
 
-// 计算属性
-const addDaysToDate = computed(() => {
-  return format(addDays(new Date(), 7), "yyyy-MM-dd");
+const userInfo = reactive({
+  name: '张三',
+  age: 25
 });
 
-const formatRelative = (date: Date) => {
-  return formatDistanceToNow(date, { addSuffix: true });
+const items = ref(['项目1', '项目2', '项目3']);
+
+// 工具函数
+const randomId = ref('');
+const generateNewId = () => {
+  randomId.value = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 };
 
-const formatDate = (date: Date) => {
-  return format(date, "yyyy年MM月dd日 HH:mm:ss");
+const relativeTime = ref('');
+const absoluteTime = ref('');
+
+const updateTimes = () => {
+  const now = new Date();
+
+  // 相对时间格式化（简化版）
+  const diff = now.getTime() - new Date().setHours(0, 0, 0, 0);
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+  if (hours > 0) {
+    relativeTime.value = `${hours}小时前`;
+  } else if (minutes > 0) {
+    relativeTime.value = `${minutes}分钟前`;
+  } else {
+    relativeTime.value = '刚刚';
+  }
+
+  absoluteTime.value = now.toLocaleString('zh-CN');
 };
 
-const daysDifference = computed(() => {
-  const targetDate = addDays(new Date(), 30);
-  return formatDistanceToNow(targetDate, { addSuffix: true });
+// 生命周期
+onMounted(() => {
+  updateWindowSize();
+  window.addEventListener('resize', updateWindowSize);
+
+  window.addEventListener('mousemove', updateMousePosition);
+
+  updateTime();
+  const timeInterval = setInterval(updateTime, 1000);
+
+  generateNewId();
+  updateTimes();
+  const timesInterval = setInterval(updateTimes, 60000); // 每分钟更新一次
+
+  // 清理函数将在 onUnmounted 中调用
+  onUnmounted(() => {
+    window.removeEventListener('resize', updateWindowSize);
+    window.removeEventListener('mousemove', updateMousePosition);
+    clearInterval(timeInterval);
+    clearInterval(timesInterval);
+  });
 });
-
-const selectedObject = computed(() => {
-  const testObj = {
-    name: "测试对象",
-    value: 42,
-    active: true,
-    timestamp: new Date(),
-  };
-  return pick(testObj, ["name", "value"]);
-});
-
-const camelCaseString = computed(() => {
-  return camel("hello-world-example");
-});
-
-const clampedNumber = computed(() => {
-  return clampNumber(150, 0, 100);
-});
-
-const lastUpdateFormatted = computed(() => {
-  return formatDate(lastUpdate.value);
-});
-
-// 方法
-const increment = () => {
-  counter.value++;
-  lastUpdate.value = new Date();
-};
-
-const decrement = () => {
-  counter.value--;
-  lastUpdate.value = new Date();
-};
-
-const reset = () => {
-  counter.value = 0;
-  lastUpdate.value = new Date();
-};
-
-const shuffleArray = () => {
-  shuffledArray.value = shuffle(testArray.value);
-};
-
-// 初始化
-shuffleArray();
 </script>
