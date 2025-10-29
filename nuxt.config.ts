@@ -25,17 +25,6 @@ export default defineNuxtConfig({
         target: "esnext",
       },
     },
-    // 修复 Cloudflare Pages Node.js 模块兼容性问题
-    experimental: {
-      wasm: true,
-    },
-    // Cloudflare 特定配置
-    cloudflare: {
-      pages: {
-        // 避免使用 Node.js API
-        nodeCompat: false,
-      },
-    },
   },
 
   // 实验性功能
