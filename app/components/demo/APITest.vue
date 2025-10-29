@@ -85,6 +85,7 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
 const name = ref("World");
 const userId = ref("123");
 

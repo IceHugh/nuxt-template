@@ -8,6 +8,13 @@ export default defineNuxtConfig({
   // 启用 pages
   pages: true,
 
+  // 使用本地 VueUse 实现，避免 Cloudflare Pages 兼容性问题
+
+  // 优化构建配置
+  build: {
+    transpile: ['@vueuse/core']
+  },
+
   // SSR 配置
   ssr: true,
 
@@ -101,19 +108,24 @@ export default defineNuxtConfig({
         code: "zh",
         language: "zh-CN",
         name: "简体中文",
-        file: "./i18n/locales/zh.json",
+        file: "zh.json",
       },
       {
         code: "en",
         language: "en-US",
         name: "English",
-        file: "./i18n/locales/en.json",
+        file: "en.json",
       },
     ],
-    defaultLocale: "zh",
+    defaultLocale: "en",
+    fallbackLocale: "en",
     detectBrowserLanguage: {
       useCookie: true,
       redirectOn: "root",
     },
+    // 在开发环境禁用缺失键警告
+    silent: true,
+    silentTranslationWarn: true,
+    silentFallbackWarn: true,
   },
 });

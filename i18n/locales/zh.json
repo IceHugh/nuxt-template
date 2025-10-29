@@ -2,13 +2,19 @@
   "common": {
     "title": "Nuxt 4 模板项目",
     "subtitle": "现代化技术栈集成测试",
-    "language": "语言"
+    "language": "语言",
+    "appName": "应用名称"
   },
   "navigation": {
     "currentMode": "当前模式",
     "system": "系统",
     "light": "亮色",
-    "dark": "暗色"
+    "dark": "暗色",
+    "dashboard": "仪表盘",
+    "analytics": "分析",
+    "projects": "项目",
+    "team": "团队",
+    "settings": "设置"
   },
   "sections": {
     "ui": {
@@ -85,7 +91,26 @@
     "desktop": "桌面端",
     "columns": "列"
   },
+  "components": {
+    "demoCounter": {
+      "title": "Nuxt 4 应用组件演示",
+      "description": "展示 Nuxt 4 应用组件的功能",
+      "currentCount": "当前计数",
+      "incrementTip": "点击增加计数",
+      "decrementTip": "点击减少计数"
+    }
+  },
   "utilities": {
+    "reactive": {
+      "title": "响应式数据",
+      "counter": "计数器",
+      "computed": "计算属性",
+      "object": "对象操作",
+      "array": "数组操作"
+    },
+    "functions": {
+      "title": "工具函数"
+    },
     "vueuse": {
       "title": "VueUse 功能",
       "windowSize": "窗口尺寸",
@@ -94,6 +119,8 @@
       "mousePosition": "鼠标位置",
       "currentTime": "当前时间",
       "toggleDemo": "开关演示",
+      "toggle": "开关切换",
+      "status": "状态",
       "on": "开启",
       "off": "关闭"
     },
@@ -115,6 +142,33 @@
       "title": "综合测试",
       "liveCounter": "实时计数器",
       "lastUpdate": "最后更新"
+    }
+  },
+  "theme": {
+    "light": "浅色",
+    "dark": "深色",
+    "system": "系统"
+  },
+  "accessibility": {
+    "toggleTheme": "切换到系统模式",
+    "toggleLanguage": "切换语言"
+  },
+  "error": {
+    "404": {
+      "title": "页面未找到",
+      "description": "抱歉，您访问的页面不存在。"
+    },
+    "500": {
+      "title": "服务器错误",
+      "description": "服务器遇到问题，请稍后再试。"
+    },
+    "network": {
+      "title": "网络错误",
+      "description": "网络连接失败，请检查网络设置。"
+    },
+    "unknown": {
+      "title": "未知错误",
+      "description": "发生未知错误，请刷新页面重试。"
     }
   }
 }

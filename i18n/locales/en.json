@@ -2,13 +2,19 @@
   "common": {
     "title": "Nuxt 4 Template Project",
     "subtitle": "Modern Tech Stack Integration Test",
-    "language": "Language"
+    "language": "Language",
+    "appName": "Application Name"
   },
   "navigation": {
     "currentMode": "Current Mode",
     "system": "System",
     "light": "Light",
-    "dark": "Dark"
+    "dark": "Dark",
+    "dashboard": "Dashboard",
+    "analytics": "Analytics",
+    "projects": "Projects",
+    "team": "Team",
+    "settings": "Settings"
   },
   "sections": {
     "ui": {
@@ -85,7 +91,26 @@
     "desktop": "Desktop",
     "columns": "columns"
   },
+  "components": {
+    "demoCounter": {
+      "title": "Nuxt 4 App Component Demo",
+      "description": "Showcase Nuxt 4 app component features",
+      "currentCount": "Current Count",
+      "incrementTip": "Click to increment count",
+      "decrementTip": "Click to decrement count"
+    }
+  },
   "utilities": {
+    "reactive": {
+      "title": "Reactive Data",
+      "counter": "Counter",
+      "computed": "Computed Property",
+      "object": "Object Operations",
+      "array": "Array Operations"
+    },
+    "functions": {
+      "title": "Utility Functions"
+    },
     "vueuse": {
       "title": "VueUse Features",
       "windowSize": "Window Size",
@@ -94,6 +119,8 @@
       "mousePosition": "Mouse Position",
       "currentTime": "Current Time",
       "toggleDemo": "Toggle Demo",
+      "toggle": "Toggle Switch",
+      "status": "Status",
       "on": "On",
       "off": "Off"
     },
@@ -115,6 +142,33 @@
       "title": "Comprehensive Test",
       "liveCounter": "Live Counter",
       "lastUpdate": "Last Update"
+    }
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "accessibility": {
+    "toggleTheme": "Toggle theme",
+    "toggleLanguage": "Toggle language"
+  },
+  "error": {
+    "404": {
+      "title": "Page Not Found",
+      "description": "Sorry, the page you are looking for does not exist."
+    },
+    "500": {
+      "title": "Server Error",
+      "description": "Server encountered an error, please try again later."
+    },
+    "network": {
+      "title": "Network Error",
+      "description": "Network connection failed, please check your network settings."
+    },
+    "unknown": {
+      "title": "Unknown Error",
+      "description": "An unknown error occurred, please refresh the page and try again."
     }
   }
 }

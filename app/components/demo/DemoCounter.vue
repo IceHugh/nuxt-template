@@ -31,6 +31,7 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
 // 使用应用特定的工具函数（自动导入）
 const count = ref(0);
 const lastUpdate = ref(new Date());

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed } from "vue";
 import { useRoute } from "#app";
 import type { SidebarProps } from "~/components/ui/sidebar";
 
@@ -68,7 +67,7 @@ const isMenuItemActive = (item: MenuItem): boolean => {
 </script>
 
 <template>
-    <Sidebar>
+    <Sidebar v-bind="props">
         <SidebarHeader>
             <SidebarMenu>
                 <SidebarMenuItem>

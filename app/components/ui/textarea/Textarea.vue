@@ -10,9 +10,14 @@ const props = defineProps<{
 
 const emits = defineEmits<(e: "update:modelValue", payload: string | number) => void>();
 
-const modelValue = useVModel(props, "modelValue", emits, {
-  passive: true,
-  defaultValue: props.defaultValue,
+// 原生 computed 实现，避免 useVModel 的潜在问题
+const modelValue = computed({
+  get() {
+    return props.modelValue ?? props.defaultValue ?? "";
+  },
+  set(value) {
+    emits("update:modelValue", value);
+  },
 });
 </script>
 

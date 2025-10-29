@@ -3,6 +3,9 @@
 definePageMeta({
   title: "Dashboard",
 });
+
+// 获取国际化函数
+const { t } = useI18n();
 </script>
 
 <template>
@@ -10,6 +13,11 @@ definePageMeta({
     <div>
       <h2 class="text-2xl font-bold tracking-tight">{{ $t('navigation.dashboard') }}</h2>
       <p class="text-muted-foreground">欢迎来到 Nuxt 4 模板项目仪表盘</p>
+      <div class="mt-2">
+        <span class="text-sm text-muted-foreground">
+          访问任意不存在页面即可测试 404 错误页面
+        </span>
+      </div>
     </div>
 
     <div class="grid gap-6">

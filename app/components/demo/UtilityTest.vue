@@ -161,6 +161,7 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
 import { ref, reactive, computed, onMounted, onUnmounted } from "vue";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";

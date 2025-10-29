@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { TooltipContentEmits, TooltipContentProps } from "reka-ui";
-import { useForwardPropsEmits } from "reka-ui";
 import type { HTMLAttributes } from "vue";
+import { TooltipArrow, TooltipContent, TooltipPortal, useForwardPropsEmits } from "reka-ui";
+import { cn } from "~/lib/utils";
 
 defineOptions({
   inheritAttrs: false,
@@ -17,7 +18,7 @@ const props = withDefaults(
 const emits = defineEmits<TooltipContentEmits>();
 
 const delegatedProps = reactiveOmit(props, "class");
-const _forwarded = useForwardPropsEmits(delegatedProps, emits);
+const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>

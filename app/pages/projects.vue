@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { t } = useI18n();
 // 设置页面布局和标题
 definePageMeta({
   layout: "default",
