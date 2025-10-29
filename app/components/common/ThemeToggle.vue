@@ -34,15 +34,13 @@
 </template>
 
 <script setup lang="ts">
-import { Button } from "~/components/ui/button";
-
 // 使用 @nuxtjs/color-mode 提供的 useColorMode
 const colorMode = useColorMode();
 
 // 切换主题函数
-const toggleTheme = () => {
+const _toggleTheme = () => {
   // 在浅色和深色之间切换
-  const newTheme = colorMode.preference === 'dark' ? 'light' : 'dark';
+  const newTheme = colorMode.preference === "dark" ? "light" : "dark";
   colorMode.preference = newTheme;
 };
 </script>

@@ -1,4 +1,3 @@
-import type { Config } from "drizzle-kit";
 import { defineConfig } from "drizzle-kit";
 
 export default defineConfig({
@@ -12,10 +11,12 @@ export default defineConfig({
   verbose: true,
   strict: true,
   // 为 D1 数据库添加特定的配置
-  ...(process.env.NODE_ENV === "production" && {
-    driver: "d1-http",
-    dbCredentials: {
-      url: process.env.DATABASE_URL!,
-    },
-  }),
+  ...(process.env.NODE_ENV === "production" && process.env.DATABASE_URL
+    ? {
+        driver: "d1-http",
+        dbCredentials: {
+          url: process.env.DATABASE_URL,
+        },
+      }
+    : {}),
 });

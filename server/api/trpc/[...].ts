@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
   const url = getRequestURL(event);
 
   // 读取请求体
-  let body;
+  let body: any;
   const method = event.node.req.method;
 
   if (!["GET", "HEAD"].includes(method)) {

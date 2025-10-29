@@ -80,5 +80,5 @@ export { schema };
 export { eq };
 
 // 导出数据库类型
-export type Database = ReturnType<typeof drizzle>;
+export type AppDatabase = ReturnType<typeof drizzle>;
 export type LocalDatabase = ReturnType<typeof drizzleLocal>;

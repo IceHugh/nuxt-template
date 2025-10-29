@@ -1,2 +1,0 @@
-import{d as o,c as t}from"../../nitro/nitro.mjs";import{g as r,u as s}from"../../_/db.mjs";import"node:events";import"node:buffer";import"node:process";import"cloudflare:workers";import"node:timers";import"node:module";const e=o(async o=>{try{const t=r(o),e=await t.select().from(s);return{success:!0,data:e,count:e.length}}catch(o){throw t({statusCode:500,statusMessage:"获取用户列表失败",data:{error:o instanceof Error?o.message:"未知错误"}})}});export{e as default};
-//# sourceMappingURL=index.get.mjs.map

@@ -23,11 +23,7 @@
         "files_scanned": 25,
         "coverage_percentage": 36
       },
-      "entry_points": [
-        "app/app.vue",
-        "app/app.config.ts",
-        "app/error.vue"
-      ],
+      "entry_points": ["app/app.vue", "app/app.config.ts", "app/error.vue"],
       "key_interfaces": [
         "pages/index.vue - 主仪表盘",
         "pages/components-test.vue - 组件测试",
@@ -57,11 +53,7 @@
         "files_scanned": 10,
         "coverage_percentage": 83
       },
-      "entry_points": [
-        "server/trpc/router.ts",
-        "server/lib/db.ts",
-        "server/lib/schema.ts"
-      ],
+      "entry_points": ["server/trpc/router.ts", "server/lib/db.ts", "server/lib/schema.ts"],
       "key_interfaces": [
         "tRPC routes - 类型安全 API",
         "database models - Drizzle ORM",
@@ -73,10 +65,7 @@
         "api": "tRPC + Nitro",
         "validation": "Zod"
       },
-      "gaps": [
-        "部分 API 端点未详细分析",
-        "错误处理机制需深入检查"
-      ]
+      "gaps": ["部分 API 端点未详细分析", "错误处理机制需深入检查"]
     },
     {
       "name": "components",
@@ -88,22 +77,15 @@
         "files_scanned": 1,
         "coverage_percentage": 100
       },
-      "entry_points": [
-        "components/CLAUDE.md"
-      ],
-      "key_interfaces": [
-        "全局组件文档",
-        "shadcn-vue 配置和使用指南"
-      ],
+      "entry_points": ["components/CLAUDE.md"],
+      "key_interfaces": ["全局组件文档", "shadcn-vue 配置和使用指南"],
       "dependencies": {
         "core": "reka-ui",
         "styling": "Tailwind CSS + CVA",
-        "icons": "lucide-vue-next",
+        "icons": "@nuxt/icon",
         "utils": "clsx, tailwind-merge"
       },
-      "gaps": [
-        "实际 UI 组件位于 app/components/ui/ 目录"
-      ]
+      "gaps": ["实际 UI 组件位于 app/components/ui/ 目录"]
     },
     {
       "name": "i18n",
@@ -115,24 +97,13 @@
         "files_scanned": 4,
         "coverage_percentage": 67
       },
-      "entry_points": [
-        "i18n/locales/zh.json",
-        "i18n/locales/en.json"
-      ],
-      "key_interfaces": [
-        "zh.json - 中文语言包",
-        "en.json - 英文语言包",
-        "语言切换组件"
-      ],
+      "entry_points": ["i18n/locales/zh.json", "i18n/locales/en.json"],
+      "key_interfaces": ["zh.json - 中文语言包", "en.json - 英文语言包", "语言切换组件"],
       "dependencies": {
         "core": "@nuxtjs/i18n",
         "runtime": "vue-i18n"
       },
-      "gaps": [
-        "翻译文件内容未完全扫描",
-        "语言检测逻辑需分析",
-        "路由级语言配置需检查"
-      ]
+      "gaps": ["翻译文件内容未完全扫描", "语言检测逻辑需分析", "路由级语言配置需检查"]
     },
     {
       "name": "migrations",
@@ -149,19 +120,13 @@
         "migrations/0001_lyrical_mole_man.sql",
         "migrations/meta/_journal.json"
       ],
-      "key_interfaces": [
-        "数据库架构定义",
-        "迁移历史管理",
-        "Drizzle ORM 集成"
-      ],
+      "key_interfaces": ["数据库架构定义", "迁移历史管理", "Drizzle ORM 集成"],
       "dependencies": {
         "orm": "Drizzle ORM",
         "database": "SQLite + Cloudflare D1",
         "tooling": "Drizzle Kit"
       },
-      "gaps": [
-        "无重大缺口，覆盖率完整"
-      ]
+      "gaps": ["无重大缺口，覆盖率完整"]
     }
   ],
   "global_dependencies": {
@@ -181,14 +146,7 @@
     }
   },
   "coverage_details": {
-    "scanned_file_types": [
-      ".vue",
-      ".ts",
-      ".js",
-      ".json",
-      ".md",
-      ".sql"
-    ],
+    "scanned_file_types": [".vue", ".ts", ".js", ".json", ".md", ".sql"],
     "ignored_patterns": [
       "node_modules/**",
       ".git/**",
@@ -200,11 +158,7 @@
       "*.lock"
     ],
     "scan_method": "three_phase_adaptive",
-    "phases_completed": [
-      "phase_a_full_inventory",
-      "phase_b_module_scan",
-      "phase_c_deep_dive"
-    ]
+    "phases_completed": ["phase_a_full_inventory", "phase_b_module_scan", "phase_c_deep_dive"]
   },
   "gaps_and_recommendations": {
     "major_gaps": [
@@ -226,10 +180,7 @@
       "app/pages/ 的完整页面内容",
       "测试配置和测试文件（如需要）"
     ],
-    "optimization_suggestions": [
-      "当前项目配置完善，无需重大优化",
-      "可考虑添加更多使用示例"
-    ]
+    "optimization_suggestions": ["当前项目配置完善，无需重大优化", "可考虑添加更多使用示例"]
   },
   "quality_metrics": {
     "typescript_adoption": "100%",

@@ -25,7 +25,7 @@ async function seed() {
       })
       .returning();
 
-    const [lifeCategory] = await db
+    const [_lifeCategory] = await db
       .insert(categories)
       .values({
         name: "生活",

@@ -41,22 +41,22 @@ onMounted(() => {
   randomId.value = generateId();
 });
 
-const increment = () => {
+const _increment = () => {
   count.value++;
   lastUpdate.value = new Date();
 };
 
-const decrement = () => {
+const _decrement = () => {
   count.value--;
   lastUpdate.value = new Date();
 };
 
-const reset = () => {
+const _reset = () => {
   count.value = 0;
   lastUpdate.value = new Date();
 };
 
-const generateNewId = () => {
+const _generateNewId = () => {
   randomId.value = generateId();
 };
 </script>

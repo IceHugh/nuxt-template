@@ -1,7 +1,7 @@
 import { desc, eq } from "drizzle-orm";
 import { z } from "zod";
 import { getDb } from "../../lib/db";
-import type { DebugRecord, NewDebugRecord } from "../../lib/schema";
+import type { NewDebugRecord } from "../../lib/schema";
 import { debugRecords } from "../../lib/schema";
 
 // 辅助函数：获取数据库连接

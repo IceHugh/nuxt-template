@@ -27,7 +27,6 @@
 
 ### 开发工具
 - **Biome** - 代码格式化和检查
-- **@vueuse/nuxt** - Vue 组合式函数
 - **date-fns** - 日期处理库
 - **radash** - 函数式编程工具库
 
@@ -77,89 +76,118 @@ bun run preview
 
 ```
 nuxt-template/
-├── .github/workflows/          # GitHub Actions 工作流
-├── app/                       # Nuxt 应用目录
-│   ├── app.vue               # 根组件
-│   ├── components/           # Vue 组件
-│   │   ├── APITest.vue
-│   │   ├── LanguageSwitcher.vue
-│   │   ├── ThemeToggle.vue
-│   │   ├── UtilityTest.vue
-│   │   └── ui/               # shadcn-vue 组件
-│   ├── composables/          # 组合式函数
-│   ├── lib/                  # 应用工具库
-│   ├── pages/                # 页面组件
-│   └── utils/                # 工具函数
+├── app/                       # Nuxt 4 核心应用目录
+│   ├── app.vue               # 主应用组件（根布局）
+│   ├── components/           # 应用特定 Vue 组件
+│   │   ├── common/           # 通用组件
+│   │   │   ├── LanguageSwitcher.vue
+│   │   │   └── ThemeToggle.vue
+│   │   ├── demo/             # 演示组件
+│   │   │   ├── APITest.vue
+│   │   │   ├── DatabaseDebug.vue
+│   │   │   ├── DemoCounter.vue
+│   │   │   └── UtilityTest.vue
+│   │   ├── layout/           # 布局组件
+│   │   │   └── AppSidebar.vue
+│   │   └── ui/               # shadcn-vue 组件库
+│   ├── composables/          # 应用层组合式函数
+│   │   └── useTRPC.ts        # tRPC 客户端
+│   ├── error.vue             # 全局错误页面
+│   ├── layouts/              # 页面布局模板
+│   │   └── default.vue       # 默认布局
+│   ├── pages/                # 页面文件（自动生成路由）
+│   │   ├── index.vue         # 首页
+│   │   ├── analytics.vue     # 分析页面
+│   │   ├── components-test.vue # 组件测试页面
+│   │   ├── projects.vue      # 项目页面
+│   │   ├── settings.vue      # 设置页面
+│   │   └── team.vue          # 团队页面
+│   ├── plugins/              # 应用层插件
+│   └── utils/                # 应用层工具函数
 ├── components/               # 全局组件
-├── i18n/locales/             # 国际化文件
-│   ├── zh.json              # 中文
-│   └── en.json              # 英文
+│   └── ui/                   # shadcn-vue UI 组件库
+│       ├── alert/            # Alert 组件
+│       ├── avatar/           # Avatar 组件
+│       ├── badge/            # Badge 组件
+│       ├── breadcrumb/       # Breadcrumb 组件
+│       ├── button/           # Button 组件
+│       ├── card/             # Card 组件
+│       ├── collapsible/      # Collapsible 组件
+│       ├── dialog/           # Dialog 组件
+│       ├── dropdown-menu/    # Dropdown Menu 组件
+│       ├── input/            # Input 组件
+│       ├── label/            # Label 组件
+│       ├── progress/         # Progress 组件
+│       ├── select/           # Select 组件
+│       ├── separator/        # Separator 组件
+│       ├── sheet/            # Sheet 组件
+│       ├── sidebar/          # Sidebar 组件
+│       ├── skeleton/         # Skeleton 组件
+│       ├── table/            # Table 组件
+│       ├── tabs/             # Tabs 组件
+│       ├── textarea/         # Textarea 组件
+│       └── tooltip/          # Tooltip 组件
+├── i18n/                     # 国际化配置
+│   └── locales/              # 语言包文件
+│       ├── zh.json           # 中文语言包
+│       └── en.json           # 英文语言包
 ├── server/                   # 服务端代码
 │   ├── api/                  # API 路由
-│   │   ├── health.get.ts    # 健康检查
-│   │   ├── users/           # 用户 API
-│   │   └── trpc/            # tRPC API 路由
+│   │   └── trpc/             # tRPC API 路由
+│   │       └── [...].ts      # tRPC 捕获所有路由
 │   ├── lib/                  # 服务端工具库
-│   │   ├── db.ts           # 数据库连接
-│   │   └── schema.ts       # 数据库架构
+│   │   ├── db.ts             # 数据库连接
+│   │   └── schema.ts         # 数据库架构
 │   ├── scripts/              # 数据库脚本
-│   ├── trpc/                 # tRPC 配置
-│   │   └── router.ts        # tRPC 路由配置
-│   └── trpc/                 # tRPC 路由定义
-│       └── routes/          # API 路由定义
-├── assets/                   # 静态资源
-│   └── css/
-│       └── tailwind.css   # Tailwind CSS
-├── public/                   # 公共文件
-├── content/                  # 内容文件
-├── migrations/               # 数据库迁移文件
-├── modules/                  # Nuxt 模块
-├── plan/                     # 项目规划文档
-├── shared/                   # 共享代码
-├── DEPLOYMENT.md            # 部署指南
-├── README.md                # 项目说明
-├── wrangler.toml            # Cloudflare 配置
-├── wrangler.toml.example    # Cloudflare 配置模板
-├── drizzle.config.ts        # Drizzle 配置
-├── biome.json               # Biome 配置
-├── nuxt.config.ts           # Nuxt 配置
-├── package.json             # 项目依赖
-└── tsconfig.json            # TypeScript 配置
+│   │   ├── init-db.ts        # 数据库初始化
+│   │   └── seed.ts           # 数据库种子数据
+│   └── trpc/                 # tRPC 服务端配置
+│       ├── router.ts         # tRPC 路由器
+│       └── routes/           # tRPC 路由定义
+│           └── debug.ts      # 调试路由
+├── .biomeignore              # Biome 忽略文件
+├── drizzle.config.ts         # Drizzle ORM 配置
+├── biome.json                # Biome 代码格式化配置
+├── nuxt.config.ts            # Nuxt 主配置文件
+├── package.json              # 项目包配置
+├── wrangler.toml             # Cloudflare Workers 配置
+└── tsconfig.json             # TypeScript 配置
 ```
 
 ## 🎯 功能展示
 
-### UI 组件测试
-- 各种按钮样式（默认、次要、轮廓、幽灵、危险）
-- 输入框和表单组件
-- 卡片布局组件
+### 📱 页面导航
+- **侧边栏导航**：现代化的响应式侧边栏，支持折叠和移动端适配
+- **多页面应用**：首页、分析、项目、设置、团队、组件测试等完整页面
+- **路由管理**：基于 Nuxt 4 文件路由的自动路由生成
 
-### tRPC API 测试
-- 健康检查 API
-- 个性化问候 API
-- 用户信息 API
+### UI 组件库
+- **完整的 shadcn-vue 组件**：包含 20+ 种常用 UI 组件
+- **响应式设计**：移动端、平板端、桌面端完美适配
+- **深色模式**：一键切换明暗主题，支持系统主题检测
+- **交互组件**：对话框、下拉菜单、标签页、工具提示等
 
-### 数据库支持
-- **Drizzle ORM**：类型安全的数据库操作
-- **Cloudflare D1**：生产环境 SQLite 数据库
-- **本地开发**：SQLite 文件数据库
-- **自动迁移**：数据库架构管理
+### 🔧 开发工具演示
+- **tRPC API 测试**：类型安全的前后端通信，包含健康检查和调试接口
+- **数据库调试**：实时查看数据库连接状态和操作结果
+- **工具函数测试**：VueUse、date-fns、radash 等工具库的实际应用演示
+- **实时计数器**：展示 Vue 3 响应式系统和组合式 API
 
-### 工具库演示
-- **VueUse**：窗口尺寸、鼠标位置、时间格式、开关切换
-- **date-fns**：日期格式化、相对时间、日期计算
-- **radash**：数组操作、对象选择、字符串转换、数字限制
-- **综合测试**：实时计数器
+### 🗄️ 数据库支持
+- **Drizzle ORM**：类型安全的数据库操作，支持 SQL 和 NoSQL 风格
+- **双数据库支持**：本地开发使用 SQLite，生产环境使用 Cloudflare D1
+- **数据库脚本**：包含初始化、种子数据、重置等完整的数据库管理工具
+- **自动迁移**：数据库架构版本管理和自动迁移
 
-### 响应式设计
-- 移动端布局（1列）
-- 平板端布局（2列）
-- 桌面端布局（4列）
+### 🌍 国际化
+- **中英双语**：完整的界面翻译，支持动态语言切换
+- **浏览器检测**：自动检测用户浏览器语言偏好
+- **路由本地化**：支持 URL 路径的本地化
 
-### 国际化支持
-- 中英文语言切换
-- 完整的多语言界面
-- 浏览器语言检测
+### 🎨 代码质量
+- **Biome**：现代化的代码格式化和检查工具
+- **TypeScript**：全栈类型安全，从前端到后端的完整类型支持
+- **组件化开发**：基于 Vue 3 Composition API 的现代组件模式
 
 ## 🔧 开发脚本
 
@@ -180,8 +208,14 @@ bun run lint:fix         # 自动修复 lint 问题
 # 数据库
 bun run db:generate      # 生成数据库迁移文件
 bun run db:migrate       # 应用数据库迁移
-bun run db:studio        # 打开 Drizzle Studio
 bun run db:push          # 推送数据库架构到 D1
+bun run db:studio        # 打开 Drizzle Studio
+bun run db:reset         # 重置数据库（删除并重新初始化）
+bun run db:init          # 初始化数据库
+bun run db:seed          # 添加种子数据
+bun run db:local:migrate # 本地数据库迁移
+bun run db:local:generate # 本地迁移文件生成
+bun run db:local:studio  # 本地 Drizzle Studio
 ```
 
 ## 🚀 部署
@@ -195,17 +229,25 @@ bun run db:push          # 推送数据库架构到 D1
 
 详细数据库配置和迁移步骤请参考 [DEPLOYMENT.md](./DEPLOYMENT.md#-d1-数据库配置)。
 
-### 自动部署
+### 手动部署
 
-项目配置了 GitHub Actions，推送到 `main` 分支会自动部署到 Cloudflare Pages。
+由于项目暂未配置自动化 CI/CD，需要手动部署到 Cloudflare Pages：
 
-#### GitHub Secrets 配置
+1. **构建项目**：
+   ```bash
+   bun run build:cf
+   ```
 
-在 GitHub 仓库设置中添加以下 Secrets：
+2. **部署到 Cloudflare Pages**：
+   ```bash
+   # 使用 Wrangler CLI
+   npx wrangler pages deploy dist
+   ```
 
-- `CLOUDFLARE_API_TOKEN`：Cloudflare API Token
-- `CLOUDFLARE_ACCOUNT_ID`：Cloudflare Account ID
-- `CLOUDFLARE_DATABASE_ID`：D1 数据库 ID
+3. **配置环境变量**：
+   在 Cloudflare Pages 项目设置中添加：
+   - `NODE_VERSION=20`
+   - `NITRO_PRESET=cloudflare-pages`
 
 详细部署指南请参考 [DEPLOYMENT.md](./DEPLOYMENT.md)。
 

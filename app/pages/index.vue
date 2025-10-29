@@ -1,8 +1,8 @@
 <script setup lang="ts">
 // 设置页面标题
 definePageMeta({
-  title: 'Dashboard'
-})
+  title: "Dashboard",
+});
 </script>
 
 <template>

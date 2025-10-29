@@ -42,18 +42,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-
 // 定义菜单项类型
 interface MenuItem {
-  title: string
-  url: string
-  icon: string
-  isActive?: boolean
+  title: string;
+  url: string;
+  icon: string;
+  isActive?: boolean;
 }
 
 // 简化的菜单配置，AppSidebar 组件会自动处理激活状态
-const menuItems: MenuItem[] = [
+const _menuItems: MenuItem[] = [
   {
     title: "首页",
     url: "/",
@@ -84,7 +82,7 @@ const menuItems: MenuItem[] = [
     url: "/settings",
     icon: "lucide:settings",
   },
-]
+];
 </script>
 
 <style scoped>

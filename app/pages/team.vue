@@ -1,8 +1,8 @@
 <script setup lang="ts">
 // 设置页面布局和标题
 definePageMeta({
-  layout: 'default'
-})
+  layout: "default",
+});
 </script>
 
 <template>

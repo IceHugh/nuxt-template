@@ -1,40 +1,26 @@
 <script setup lang="ts">
-import type { SidebarProps } from '~/components/ui/sidebar'
-import { NuxtLink } from '#components'
-import { Icon } from '@iconify/vue'
-import { computed } from 'vue'
-import { useRoute } from '#app'
+import { computed } from "vue";
+import { useRoute } from "#app";
+import type { SidebarProps } from "~/components/ui/sidebar";
 
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarRail,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarGroup,
-  SidebarGroupLabel,
-  useSidebar,
-} from '~/components/ui/sidebar'
+import { useSidebar } from "~/components/ui/sidebar";
 
 // 定义菜单项类型
 interface MenuItem {
-  title: string
-  url: string
-  icon: string
-  isActive?: boolean
+  title: string;
+  url: string;
+  icon: string;
+  isActive?: boolean;
 }
 
 // 定义组件 Props
 interface AppSidebarProps extends SidebarProps {
-  logo?: string
-  title?: string
-  menuItems?: MenuItem[]
+  logo?: string;
+  title?: string;
+  menuItems?: MenuItem[];
 }
 
-const props = withDefaults(defineProps<AppSidebarProps>(), {
+const _props = withDefaults(defineProps<AppSidebarProps>(), {
   collapsible: "icon",
   logo: "/logo.svg",
   title: "Nuxt Template",
@@ -70,18 +56,18 @@ const props = withDefaults(defineProps<AppSidebarProps>(), {
       icon: "lucide:settings",
     },
   ],
-})
+});
 
-const route = useRoute()
-const { state } = useSidebar()
+const route = useRoute();
+const { state } = useSidebar();
 
 // 检查菜单项是否激活
-const isMenuItemActive = (item: MenuItem): boolean => {
-  return route.path === item.url || item.isActive || false
-}
+const _isMenuItemActive = (item: MenuItem): boolean => {
+  return route.path === item.url || item.isActive || false;
+};
 
 // 检查侧边栏是否折叠
-const isCollapsed = computed(() => state === 'collapsed')
+const _isCollapsed = computed(() => state === "collapsed");
 </script>
 
 <template>

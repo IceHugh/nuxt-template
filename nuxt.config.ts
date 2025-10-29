@@ -22,7 +22,6 @@ export default defineNuxtConfig({
         target: "esnext",
       },
     },
-    external: ["@vueuse/core"],
   },
 
   // 实验性功能
