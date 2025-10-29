@@ -46,44 +46,44 @@
 <script setup lang="ts">
 // 定义菜单项类型
 interface MenuItem {
-    title: string;
-    url: string;
-    icon: string;
-    isActive?: boolean;
+  title: string;
+  url: string;
+  icon: string;
+  isActive?: boolean;
 }
 
 // 简化的菜单配置，AppSidebar 组件会自动处理激活状态
 const menuItems: MenuItem[] = [
-    {
-        title: "首页",
-        url: "/",
-        icon: "lucide:home",
-    },
-    {
-        title: "组件测试",
-        url: "/components-test",
-        icon: "lucide:component",
-    },
-    {
-        title: "分析",
-        url: "/analytics",
-        icon: "lucide:bar-chart-3",
-    },
-    {
-        title: "项目",
-        url: "/projects",
-        icon: "lucide:folder",
-    },
-    {
-        title: "团队",
-        url: "/team",
-        icon: "lucide:users",
-    },
-    {
-        title: "设置",
-        url: "/settings",
-        icon: "lucide:settings",
-    },
+  {
+    title: "首页",
+    url: "/",
+    icon: "lucide:home",
+  },
+  {
+    title: "组件测试",
+    url: "/components-test",
+    icon: "lucide:component",
+  },
+  {
+    title: "分析",
+    url: "/analytics",
+    icon: "lucide:bar-chart-3",
+  },
+  {
+    title: "项目",
+    url: "/projects",
+    icon: "lucide:folder",
+  },
+  {
+    title: "团队",
+    url: "/team",
+    icon: "lucide:users",
+  },
+  {
+    title: "设置",
+    url: "/settings",
+    icon: "lucide:settings",
+  },
 ];
 </script>
 

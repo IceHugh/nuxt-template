@@ -7,55 +7,55 @@ import { useSidebar } from "~/components/ui/sidebar";
 
 // 定义菜单项类型
 interface MenuItem {
-    title: string;
-    url: string;
-    icon: string;
-    isActive?: boolean;
+  title: string;
+  url: string;
+  icon: string;
+  isActive?: boolean;
 }
 
 // 定义组件 Props
 interface AppSidebarProps extends SidebarProps {
-    logo?: string;
-    title?: string;
-    menuItems?: MenuItem[];
+  logo?: string;
+  title?: string;
+  menuItems?: MenuItem[];
 }
 
 const props = withDefaults(defineProps<AppSidebarProps>(), {
-    collapsible: "icon",
-    logo: "/logo.svg",
-    title: "Nuxt Template",
-    menuItems: () => [
-        {
-            title: "首页",
-            url: "/",
-            icon: "lucide:home",
-        },
-        {
-            title: "组件测试",
-            url: "/components-test",
-            icon: "lucide:component",
-        },
-        {
-            title: "分析",
-            url: "/analytics",
-            icon: "lucide:bar-chart-3",
-        },
-        {
-            title: "项目",
-            url: "/projects",
-            icon: "lucide:folder",
-        },
-        {
-            title: "团队",
-            url: "/team",
-            icon: "lucide:users",
-        },
-        {
-            title: "设置",
-            url: "/settings",
-            icon: "lucide:settings",
-        },
-    ],
+  collapsible: "icon",
+  logo: "/logo.svg",
+  title: "Nuxt Template",
+  menuItems: () => [
+    {
+      title: "首页",
+      url: "/",
+      icon: "lucide:home",
+    },
+    {
+      title: "组件测试",
+      url: "/components-test",
+      icon: "lucide:component",
+    },
+    {
+      title: "分析",
+      url: "/analytics",
+      icon: "lucide:bar-chart-3",
+    },
+    {
+      title: "项目",
+      url: "/projects",
+      icon: "lucide:folder",
+    },
+    {
+      title: "团队",
+      url: "/team",
+      icon: "lucide:users",
+    },
+    {
+      title: "设置",
+      url: "/settings",
+      icon: "lucide:settings",
+    },
+  ],
 });
 
 const route = useRoute();
@@ -63,7 +63,7 @@ const { state } = useSidebar();
 
 // 检查菜单项是否激活
 const isMenuItemActive = (item: MenuItem): boolean => {
-    return route.path === item.url || item.isActive || false;
+  return route.path === item.url || item.isActive || false;
 };
 </script>
 
