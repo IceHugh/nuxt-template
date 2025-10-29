@@ -8,20 +8,21 @@ const props = defineProps<{
   class?: HTMLAttributes["class"];
 }>();
 
-const emits = defineEmits<{
-  (e: "update:modelValue", payload: string | number): void;
-}>();
+const emits = defineEmits<(e: "update:modelValue", payload: string | number) => void>();
 
-const localValue = ref(props.modelValue ?? props.defaultValue ?? '');
+const localValue = ref(props.modelValue ?? props.defaultValue ?? "");
 
-watch(() => props.modelValue, (newValue) => {
-  localValue.value = newValue ?? '';
-});
+watch(
+  () => props.modelValue,
+  (newValue) => {
+    localValue.value = newValue ?? "";
+  }
+);
 
 function onInput(event: Event) {
   const target = event.target as HTMLInputElement;
   localValue.value = target.value;
-  emits('update:modelValue', target.value);
+  emits("update:modelValue", target.value);
 }
 </script>
 
