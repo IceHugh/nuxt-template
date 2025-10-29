@@ -1,12 +1,13 @@
 # 🚀 部署指南
 
-本文档详细说明如何将 Nuxt 4 模板项目部署到 Cloudflare Pages。
+本文档详细说明如何将 Nuxt 4 模板项目部署到 Cloudflare Pages，包括 D1 数据库的完整配置。
 
 ## 📋 前置要求
 
 1. **GitHub 仓库**：项目已推送到 GitHub
 2. **Cloudflare 账户**：注册 Cloudflare 账户
 3. **Cloudflare Pages 项目**：在 Cloudflare 中创建 Pages 项目
+4. **Wrangler CLI**：安装 Cloudflare CLI 工具
 
 ## 🔧 环境变量配置
 
@@ -24,6 +25,64 @@ NITRO_PRESET=cloudflare-pages
 NUXT_PUBLIC_API_URL=https://your-api.com
 ```
 
+## 🗄️ D1 数据库配置
+
+本项目集成了 Cloudflare D1 数据库，支持本地开发和生产环境的数据存储。
+
+### 1. 创建 D1 数据库
+
+```bash
+# 安装 Wrangler CLI（如果还没有）
+bun add -D wrangler
+
+# 登录 Cloudflare
+bunx wrangler auth login
+
+# 创建 D1 数据库
+bunx wrangler d1 create nuxt-template-db
+```
+
+**重要**：记下创建的数据库 ID，后续配置需要用到。
+
+### 2. 配置 wrangler.toml
+
+参考 `wrangler.toml.example` 文件，填入实际的数据库 ID：
+
+```toml
+# 复制模板文件并配置
+cp wrangler.toml.example wrangler.toml
+
+# 编辑配置文件，填入实际的数据库 ID
+# database_id = "你的实际数据库ID"
+```
+
+### 3. 数据库迁移
+
+```bash
+# 生成迁移文件
+bun run db:generate
+
+# 应用到本地数据库
+bunx wrangler d1 migrations apply nuxt-template-db --local
+
+# 应用到远程数据库
+bunx wrangler d1 migrations apply nuxt-template-db --remote
+```
+
+### 4. 数据库架构
+
+项目包含以下数据表：
+- **users**：用户表
+- **posts**：文章表
+- **categories**：分类表
+- **post_categories**：文章分类关联表
+- **debug_records**：调试记录表
+
+### 5. 环境自动切换
+
+- **本地开发**：使用 SQLite 文件 (`./data/app.db`)
+- **Cloudflare Pages**：自动使用 D1 数据库
+
 ## 📦 自动部署 (GitHub Actions)
 
 ### 1. 配置 GitHub Secrets
@@ -34,6 +93,7 @@ NUXT_PUBLIC_API_URL=https://your-api.com
 |------------|------|----------|
 | `CLOUDFLARE_API_TOKEN` | Cloudflare API Token | Cloudflare Dashboard → My Profile → API Tokens |
 | `CLOUDFLARE_ACCOUNT_ID` | Cloudflare Account ID | Cloudflare Dashboard → Right sidebar → Account ID |
+| `CLOUDFLARE_DATABASE_ID` | D1 数据库 ID | 运行 `bunx wrangler d1 list` 获取 |
 
 ### 2. 获取 Cloudflare API Token
 
