@@ -161,9 +161,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted, onUnmounted } from 'vue';
-import { Button } from '~/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
+import { ref, reactive, computed, onMounted, onUnmounted } from "vue";
+import { Button } from "~/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
 
 // 原生 useWindowSize 实现
 const width = ref(0);
@@ -184,17 +184,17 @@ const updateMousePosition = (event: MouseEvent) => {
 };
 
 // 原生 useDateFormat 实现
-const formattedTime = ref('');
+const formattedTime = ref("");
 
 const updateTime = () => {
   const now = new Date();
-  formattedTime.value = now.toLocaleString('zh-CN', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
+  formattedTime.value = now.toLocaleString("zh-CN", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
   });
 };
 
@@ -206,20 +206,21 @@ const count = ref(0);
 const doubled = computed(() => count.value * 2);
 
 const userInfo = reactive({
-  name: '张三',
-  age: 25
+  name: "张三",
+  age: 25,
 });
 
-const items = ref(['项目1', '项目2', '项目3']);
+const items = ref(["项目1", "项目2", "项目3"]);
 
 // 工具函数
-const randomId = ref('');
+const randomId = ref("");
 const generateNewId = () => {
-  randomId.value = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  randomId.value =
+    Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 };
 
-const relativeTime = ref('');
-const absoluteTime = ref('');
+const relativeTime = ref("");
+const absoluteTime = ref("");
 
 const updateTimes = () => {
   const now = new Date();
@@ -234,18 +235,18 @@ const updateTimes = () => {
   } else if (minutes > 0) {
     relativeTime.value = `${minutes}分钟前`;
   } else {
-    relativeTime.value = '刚刚';
+    relativeTime.value = "刚刚";
   }
 
-  absoluteTime.value = now.toLocaleString('zh-CN');
+  absoluteTime.value = now.toLocaleString("zh-CN");
 };
 
 // 生命周期
 onMounted(() => {
   updateWindowSize();
-  window.addEventListener('resize', updateWindowSize);
+  window.addEventListener("resize", updateWindowSize);
 
-  window.addEventListener('mousemove', updateMousePosition);
+  window.addEventListener("mousemove", updateMousePosition);
 
   updateTime();
   const timeInterval = setInterval(updateTime, 1000);
@@ -256,8 +257,8 @@ onMounted(() => {
 
   // 清理函数将在 onUnmounted 中调用
   onUnmounted(() => {
-    window.removeEventListener('resize', updateWindowSize);
-    window.removeEventListener('mousemove', updateMousePosition);
+    window.removeEventListener("resize", updateWindowSize);
+    window.removeEventListener("mousemove", updateMousePosition);
     clearInterval(timeInterval);
     clearInterval(timesInterval);
   });
