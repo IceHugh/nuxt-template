@@ -5,6 +5,9 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
 
+  // 启用 pages
+  pages: true,
+
   // SSR 配置
   ssr: true,
 

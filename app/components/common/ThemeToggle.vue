@@ -38,7 +38,7 @@
 const colorMode = useColorMode();
 
 // 切换主题函数
-const _toggleTheme = () => {
+const toggleTheme = () => {
   // 在浅色和深色之间切换
   const newTheme = colorMode.preference === "dark" ? "light" : "dark";
   colorMode.preference = newTheme;

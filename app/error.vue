@@ -16,9 +16,9 @@
 </template>
 
 <script setup lang="ts">
-const _props = defineProps({
+const props = defineProps({
   error: Object,
 });
 
-const _handleError = () => clearError({ redirect: "/" });
+const handleError = () => clearError({ redirect: "/" });
 </script>

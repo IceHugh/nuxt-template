@@ -216,8 +216,8 @@ const clampNumber = (value: number, min: number, max: number) => {
 // VueUse composables
 const { width, height } = useWindowSize();
 const { x: mouseX, y: mouseY } = useMouse();
-const _formattedTime = useDateFormat(new Date(), "yyyy-MM-dd HH:mm:ss");
-const [_toggleValue, _toggle] = useToggle(false);
+const formattedTime = useDateFormat(new Date(), "yyyy-MM-dd HH:mm:ss");
+const [toggleValue, toggle] = useToggle(false);
 
 // 响应式数据
 const counter = ref(0);
@@ -226,11 +226,11 @@ const testArray = ref([1, 2, 3, 4, 5]);
 const shuffledArray = ref([...testArray.value]);
 
 // 计算属性
-const _addDaysToDate = computed(() => {
+const addDaysToDate = computed(() => {
   return format(addDays(new Date(), 7), "yyyy-MM-dd");
 });
 
-const _formatRelative = (date: Date) => {
+const formatRelative = (date: Date) => {
   return formatDistanceToNow(date, { addSuffix: true });
 };
 
@@ -238,12 +238,12 @@ const formatDate = (date: Date) => {
   return format(date, "yyyy年MM月dd日 HH:mm:ss");
 };
 
-const _daysDifference = computed(() => {
+const daysDifference = computed(() => {
   const targetDate = addDays(new Date(), 30);
   return formatDistanceToNow(targetDate, { addSuffix: true });
 });
 
-const _selectedObject = computed(() => {
+const selectedObject = computed(() => {
   const testObj = {
     name: "测试对象",
     value: 42,
@@ -253,30 +253,30 @@ const _selectedObject = computed(() => {
   return pick(testObj, ["name", "value"]);
 });
 
-const _camelCaseString = computed(() => {
+const camelCaseString = computed(() => {
   return camel("hello-world-example");
 });
 
-const _clampedNumber = computed(() => {
+const clampedNumber = computed(() => {
   return clampNumber(150, 0, 100);
 });
 
-const _lastUpdateFormatted = computed(() => {
+const lastUpdateFormatted = computed(() => {
   return formatDate(lastUpdate.value);
 });
 
 // 方法
-const _increment = () => {
+const increment = () => {
   counter.value++;
   lastUpdate.value = new Date();
 };
 
-const _decrement = () => {
+const decrement = () => {
   counter.value--;
   lastUpdate.value = new Date();
 };
 
-const _reset = () => {
+const reset = () => {
   counter.value = 0;
   lastUpdate.value = new Date();
 };

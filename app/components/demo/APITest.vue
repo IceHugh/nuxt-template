@@ -121,7 +121,7 @@ const testHealth = async () => {
   }
 };
 
-const _testGreeting = async () => {
+const testGreeting = async () => {
   loading.greeting = true;
   error.greeting = "";
 
@@ -134,7 +134,7 @@ const _testGreeting = async () => {
   }
 };
 
-const _testUserInfo = async () => {
+const testUserInfo = async () => {
   loading.userInfo = true;
   error.userInfo = "";
 

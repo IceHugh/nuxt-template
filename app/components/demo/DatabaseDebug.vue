@@ -274,7 +274,7 @@ const message = ref<{
 const $trpc = useTRPC();
 
 // 计算属性
-const _filteredRecords = computed(() => {
+const filteredRecords = computed(() => {
   if (!searchQuery.value) return records.value;
   const query = searchQuery.value.toLowerCase();
   return records.value.filter(
@@ -313,11 +313,11 @@ const loadData = async () => {
   }
 };
 
-const _refreshData = () => {
+const refreshData = () => {
   loadData();
 };
 
-const _editRecord = (record: DebugRecord) => {
+const editRecord = (record: DebugRecord) => {
   editingRecord.value = record;
   formData.value = {
     title: record.title,
@@ -327,7 +327,7 @@ const _editRecord = (record: DebugRecord) => {
   showCreateDialog.value = true;
 };
 
-const _deleteRecord = async (id: number) => {
+const deleteRecord = async (id: number) => {
   if (!confirm("确定要删除这条记录吗？")) return;
 
   try {
@@ -345,7 +345,7 @@ const _deleteRecord = async (id: number) => {
   }
 };
 
-const _saveRecord = async () => {
+const saveRecord = async () => {
   try {
     submitting.value = true;
 
@@ -376,7 +376,7 @@ const _saveRecord = async () => {
   }
 };
 
-const _clearAllRecords = async () => {
+const clearAllRecords = async () => {
   if (!confirm("确定要清空所有记录吗？此操作不可恢复！")) return;
 
   try {
@@ -411,7 +411,7 @@ const showMessage = (text: string, type: "success" | "error" | "info") => {
   }, 3000);
 };
 
-const _formatTime = (timestamp: string | Date) => {
+const formatTime = (timestamp: string | Date) => {
   const date = new Date(timestamp);
   return date.toLocaleString("zh-CN", {
     year: "numeric",

@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from "vue";
+import type { HTMLAttributes } from "vue"
+import { AvatarRoot } from "reka-ui"
+import { cn } from '~/lib/utils'
 
-const _props = defineProps<{
-  class?: HTMLAttributes["class"];
-}>();
+const props = defineProps<{
+  class?: HTMLAttributes["class"]
+}>()
 </script>
 
 <template>
