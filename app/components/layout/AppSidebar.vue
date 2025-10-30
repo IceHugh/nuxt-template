@@ -30,11 +30,6 @@ const props = withDefaults(defineProps<AppSidebarProps>(), {
       icon: "lucide:home",
     },
     {
-      title: "组件测试",
-      url: "/components-test",
-      icon: "lucide:component",
-    },
-    {
       title: "分析",
       url: "/analytics",
       icon: "lucide:bar-chart-3",

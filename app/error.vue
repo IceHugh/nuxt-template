@@ -1,37 +1,37 @@
 <script setup lang="ts">
-import type { NuxtError } from '#app'
+import type { NuxtError } from "#app";
 
 interface Props {
-  error: NuxtError
+  error: NuxtError;
 }
 
-const props = defineProps<Props>()
+const props = defineProps<Props>();
 
 // 国际化支持
-const { t } = useI18n()
+const { t } = useI18n();
 
 // 检查开发环境
-const isDev = computed(() => import.meta.dev)
+const isDev = computed(() => import.meta.dev);
 
 // 处理错误信息
 const errorInfo = computed(() => {
   return {
-    title: t('error.general.title', '出现错误'),
-    description: t('error.general.description', '抱歉，应用程序遇到了一个错误。'),
-    icon: 'lucide:alert-triangle',
-    iconClass: 'text-red-500'
-  }
-})
+    title: t("error.general.title", "出现错误"),
+    description: t("error.general.description", "抱歉，应用程序遇到了一个错误。"),
+    icon: "lucide:alert-triangle",
+    iconClass: "text-red-500",
+  };
+});
 
 // 处理错误
-const handleError = () => clearError({ redirect: "/" })
+const handleError = () => clearError({ redirect: "/" });
 
 // SEO 元数据
 useSeoMeta({
-  title: `${errorInfo.value.title} - ${t('common.title', 'Nuxt 4 模板项目')}`,
+  title: `${errorInfo.value.title} - ${t("common.title", "Nuxt 4 模板项目")}`,
   description: errorInfo.value.description,
-  robots: 'noindex, nofollow'
-})
+  robots: "noindex, nofollow",
+});
 </script>
 
 <template>

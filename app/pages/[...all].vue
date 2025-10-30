@@ -1,39 +1,39 @@
 <script setup lang="ts">
 // 获取路由信息
-const route = useRoute()
-const router = useRouter()
+const route = useRoute();
+const router = useRouter();
 
 // 国际化支持
-const { t } = useI18n()
+const { t } = useI18n();
 
 // 检查是否为 404 错误
 const is404 = computed(() => {
-  return route.path !== '/' && !route.matched.length
-})
+  return route.path !== "/" && !route.matched.length;
+});
 
 // 获取页面信息
 const pageInfo = computed(() => {
   return {
-    title: t('error.404.title', '页面未找到'),
-    description: t('error.404.description', '抱歉，您访问的页面不存在或已被移动。'),
-    icon: 'lucide:search-x',
-    iconClass: 'text-blue-500'
-  }
-})
+    title: t("error.404.title", "页面未找到"),
+    description: t("error.404.description", "抱歉，您访问的页面不存在或已被移动。"),
+    icon: "lucide:search-x",
+    iconClass: "text-blue-500",
+  };
+});
 
 // 返回首页
 const goHome = () => {
-  router.push('/')
-}
+  router.push("/");
+};
 
 // 返回上一页
 const goBack = () => {
-  if (typeof window !== 'undefined' && window.history.length > 1) {
-    router.back()
+  if (typeof window !== "undefined" && window.history.length > 1) {
+    router.back();
   } else {
-    router.push('/')
+    router.push("/");
   }
-}
+};
 </script>
 
 <template>
