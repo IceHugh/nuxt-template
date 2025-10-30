@@ -1,7 +1,7 @@
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
 import { appRouter } from '../../trpc/router'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async event => {
   const url = getRequestURL(event)
 
   // 读取请求体
@@ -18,11 +18,9 @@ export default defineEventHandler(async (event) => {
     Object.entries(event.node.req.headers).forEach(([key, value]) => {
       if (typeof value === 'string') {
         headers[key] = value
-      }
-      else if (Array.isArray(value)) {
+      } else if (Array.isArray(value)) {
         headers[key] = value.join(', ')
-      }
-      else if (value !== undefined) {
+      } else if (value !== undefined) {
         headers[key] = String(value)
       }
     })

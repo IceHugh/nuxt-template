@@ -42,13 +42,12 @@ const $trpc = useTRPC()
 
 // 计算属性
 const filteredRecords = computed(() => {
-  if (!searchQuery.value)
-    return records.value
+  if (!searchQuery.value) return records.value
   const query = searchQuery.value.toLowerCase()
   return records.value.filter(
     record =>
-      record.title.toLowerCase().includes(query)
-      || record.description?.toLowerCase().includes(query),
+      record.title.toLowerCase().includes(query) ||
+      record.description?.toLowerCase().includes(query)
   )
 })
 
@@ -73,12 +72,10 @@ async function loadData() {
     }
 
     connectionStatus.value = connectionResult
-  }
-  catch (error) {
+  } catch (error) {
     console.error('加载数据失败:', error)
     showMessage('加载数据失败', 'error')
-  }
-  finally {
+  } finally {
     loading.value = false
   }
 }
@@ -98,8 +95,7 @@ function editRecord(record: DebugRecord) {
 }
 
 async function deleteRecord(id: number) {
-  if (!confirm('确定要删除这条记录吗？'))
-    return
+  if (!confirm('确定要删除这条记录吗？')) return
 
   try {
     const result = await $trpc.debug.deleteRecord.mutate({ id })
@@ -107,12 +103,10 @@ async function deleteRecord(id: number) {
     if (result.success) {
       showMessage('删除成功', 'success')
       await loadData()
-    }
-    else {
+    } else {
       showMessage(result.error || '删除失败', 'error')
     }
-  }
-  catch (error) {
+  } catch (error) {
     console.error('删除记录失败:', error)
     showMessage('删除记录失败', 'error')
   }
@@ -129,8 +123,7 @@ async function saveRecord() {
         id: editingRecord.value.id,
         ...formData.value,
       })
-    }
-    else {
+    } else {
       // 创建记录
       result = await $trpc.debug.createRecord.mutate(formData.value)
     }
@@ -139,23 +132,19 @@ async function saveRecord() {
       showMessage(editingRecord.value ? '更新成功' : '创建成功', 'success')
       closeDialog()
       await loadData()
-    }
-    else {
+    } else {
       showMessage(result.error || '操作失败', 'error')
     }
-  }
-  catch (error) {
+  } catch (error) {
     console.error('保存记录失败:', error)
     showMessage('保存记录失败', 'error')
-  }
-  finally {
+  } finally {
     submitting.value = false
   }
 }
 
 async function clearAllRecords() {
-  if (!confirm('确定要清空所有记录吗？此操作不可恢复！'))
-    return
+  if (!confirm('确定要清空所有记录吗？此操作不可恢复！')) return
 
   try {
     const result = await $trpc.debug.clearAll.mutate()
@@ -163,12 +152,10 @@ async function clearAllRecords() {
     if (result.success) {
       showMessage('清空成功', 'success')
       await loadData()
-    }
-    else {
+    } else {
       showMessage(result.error || '清空失败', 'error')
     }
-  }
-  catch (error) {
+  } catch (error) {
     console.error('清空记录失败:', error)
     showMessage('清空记录失败', 'error')
   }
@@ -222,12 +209,8 @@ onMounted(() => {
     <!-- 标题栏 -->
     <header class="flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-bold tracking-tight">
-          数据库调试面板
-        </h1>
-        <p class="text-muted-foreground">
-          tRPC + Drizzle 数据操作测试工具
-        </p>
+        <h1 class="text-2xl font-bold tracking-tight">数据库调试面板</h1>
+        <p class="text-muted-foreground">tRPC + Drizzle 数据操作测试工具</p>
       </div>
       <div class="flex items-center space-x-2">
         <Button :disabled="loading" variant="outline" size="sm" @click="refreshData">
@@ -276,24 +259,18 @@ onMounted(() => {
       <!-- 统计信息 -->
       <Card>
         <CardHeader class="pb-3">
-          <CardTitle class="text-base font-medium">
-            数据统计
-          </CardTitle>
+          <CardTitle class="text-base font-medium"> 数据统计 </CardTitle>
         </CardHeader>
         <CardContent class="pt-0">
           <div class="grid grid-cols-2 gap-4 text-sm">
             <div>
-              <p class="text-muted-foreground">
-                总记录
-              </p>
+              <p class="text-muted-foreground">总记录</p>
               <p class="font-semibold">
                 {{ stats.totalRecords }}
               </p>
             </div>
             <div>
-              <p class="text-muted-foreground">
-                活跃
-              </p>
+              <p class="text-muted-foreground">活跃</p>
               <p class="font-semibold text-green-600">
                 {{ stats.activeRecords }}
               </p>
@@ -305,9 +282,7 @@ onMounted(() => {
       <!-- 快速操作 -->
       <Card>
         <CardHeader class="pb-3">
-          <CardTitle class="text-base font-medium">
-            快速操作
-          </CardTitle>
+          <CardTitle class="text-base font-medium"> 快速操作 </CardTitle>
         </CardHeader>
         <CardContent class="pt-0">
           <div class="flex flex-wrap gap-2">
@@ -346,17 +321,13 @@ onMounted(() => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead class="w-16">
-                  ID
-                </TableHead>
+                <TableHead class="w-16"> ID </TableHead>
                 <TableHead>标题</TableHead>
                 <TableHead>描述</TableHead>
                 <TableHead>状态</TableHead>
                 <TableHead>创建时间</TableHead>
                 <TableHead>更新时间</TableHead>
-                <TableHead class="w-24">
-                  操作
-                </TableHead>
+                <TableHead class="w-24"> 操作 </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -445,19 +416,13 @@ onMounted(() => {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="active">
-                  活跃
-                </SelectItem>
-                <SelectItem value="inactive">
-                  非活跃
-                </SelectItem>
+                <SelectItem value="active"> 活跃 </SelectItem>
+                <SelectItem value="inactive"> 非活跃 </SelectItem>
               </SelectContent>
             </Select>
           </div>
           <DialogFooter>
-            <Button type="button" variant="outline" @click="closeDialog">
-              取消
-            </Button>
+            <Button type="button" variant="outline" @click="closeDialog"> 取消 </Button>
             <Button type="submit" :disabled="submitting">
               {{ submitting ? '保存中...' : '保存' }}
             </Button>

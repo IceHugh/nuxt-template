@@ -79,9 +79,7 @@ useSeoMeta({
                   <div>状态码: {{ error.statusCode }}</div>
                   <div>消息: {{ error.statusMessage || error.message }}</div>
                   <div v-if="error.stack" class="mt-2">
-                    <div class="font-semibold">
-                      堆栈:
-                    </div>
+                    <div class="font-semibold">堆栈:</div>
                     <pre class="whitespace-pre-wrap">{{ error.stack }}</pre>
                   </div>
                 </div>

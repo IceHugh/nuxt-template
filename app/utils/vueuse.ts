@@ -22,7 +22,7 @@ export function reactiveOmit<T extends Record<string, any>, K extends keyof T>(
 export function useVModel<T extends Record<string, any>, K extends keyof T>(
   props: T,
   key: K,
-  _emit?: (event: 'update:' & string, value: T[K]) => void,
+  _emit?: (event: 'update:' & string, value: T[K]) => void
 ): Ref<T[K]> {
   // 这里提供一个基础的实现，实际项目中可能需要更复杂的逻辑
   return ref(props[key]) as Ref<T[K]>
@@ -33,7 +33,7 @@ export function useEventListener(
   target: EventTarget | Window | undefined,
   event: string,
   handler: EventListener,
-  options?: AddEventListenerOptions,
+  options?: AddEventListenerOptions
 ) {
   const cleanup = () => {
     if (target && target.removeEventListener) {
@@ -68,8 +68,7 @@ export function useMediaQuery(query: string): Ref<boolean> {
     if (mediaQuery && mediaQuery.removeListener) {
       // 旧版 API
       mediaQuery.removeListener(handleChange)
-    }
-    else if (mediaQuery && mediaQuery.removeEventListener) {
+    } else if (mediaQuery && mediaQuery.removeEventListener) {
       // 新版 API
       mediaQuery.removeEventListener('change', handleChange)
     }
@@ -83,8 +82,7 @@ export function useMediaQuery(query: string): Ref<boolean> {
     if (mediaQuery.addListener) {
       // 旧版浏览器
       mediaQuery.addListener(handleChange)
-    }
-    else if (mediaQuery.addEventListener) {
+    } else if (mediaQuery.addEventListener) {
       // 新版浏览器
       mediaQuery.addEventListener('change', handleChange)
     }
@@ -101,9 +99,9 @@ export function useDark(): Ref<boolean> {
 
   if (process.client) {
     // 检查系统偏好或本地存储
-    const darkModePreference
-      = localStorage.getItem('theme')
-        || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+    const darkModePreference =
+      localStorage.getItem('theme') ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
 
     isDark.value = darkModePreference === 'dark'
   }
@@ -129,8 +127,7 @@ export function useClipboard() {
   const copied = ref(false)
 
   const copy = async (source: string) => {
-    if (!isSupported.value)
-      return false
+    if (!isSupported.value) return false
 
     try {
       await navigator.clipboard.writeText(source)
@@ -140,8 +137,7 @@ export function useClipboard() {
         copied.value = false
       }, 2000)
       return true
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Failed to copy:', error)
       return false
     }

@@ -37,8 +37,7 @@ export const debugRouter = {
         timestamp: new Date().toISOString(),
         message: '数据库连接正常',
       }
-    }
-    catch (error) {
+    } catch (error) {
       return {
         status: 'error',
         timestamp: new Date().toISOString(),
@@ -58,8 +57,7 @@ export const debugRouter = {
         data: records,
         count: records.length,
       }
-    }
-    catch (error) {
+    } catch (error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : '获取记录失败',
@@ -88,8 +86,7 @@ export const debugRouter = {
         success: true,
         data: record[0],
       }
-    }
-    catch (error) {
+    } catch (error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : '获取记录失败',
@@ -114,8 +111,7 @@ export const debugRouter = {
         success: true,
         data: result[0],
       }
-    }
-    catch (error) {
+    } catch (error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : '创建记录失败',
@@ -144,12 +140,9 @@ export const debugRouter = {
 
       // 准备更新数据
       const updateData: Partial<NewDebugRecord> = {}
-      if (input.title !== undefined)
-        updateData.title = input.title
-      if (input.description !== undefined)
-        updateData.description = input.description
-      if (input.status !== undefined)
-        updateData.status = input.status
+      if (input.title !== undefined) updateData.title = input.title
+      if (input.description !== undefined) updateData.description = input.description
+      if (input.status !== undefined) updateData.status = input.status
 
       const result = await db
         .update(debugRecords)
@@ -161,8 +154,7 @@ export const debugRouter = {
         success: true,
         data: result[0],
       }
-    }
-    catch (error) {
+    } catch (error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : '更新记录失败',
@@ -196,8 +188,7 @@ export const debugRouter = {
         message: '删除成功',
         deletedId: input.id,
       }
-    }
-    catch (error) {
+    } catch (error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : '删除记录失败',
@@ -223,8 +214,7 @@ export const debugRouter = {
         data: result,
         count: result.length,
       }
-    }
-    catch (error) {
+    } catch (error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : '批量创建失败',
@@ -243,8 +233,7 @@ export const debugRouter = {
         message: '清空成功',
         deletedCount: result.changes || 0,
       }
-    }
-    catch (error) {
+    } catch (error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : '清空失败',
@@ -272,8 +261,7 @@ export const debugRouter = {
         success: true,
         data: stats,
       }
-    }
-    catch (error) {
+    } catch (error) {
       return {
         success: false,
         error: error instanceof Error ? error.message : '获取统计信息失败',

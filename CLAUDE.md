@@ -14,8 +14,8 @@
 - **类型安全 API**: tRPC + Zod
 - **数据库**: Drizzle ORM + Cloudflare D1 (生产) + SQLite (开发)
 - **国际化**: @nuxtjs/i18n (中英双语)
-- **工具库**: date-fns + radash (已移除 VueUse 以确保 SSR 兼容)
-- **代码质量**: Biome (格式化 + 检查)
+- **工具库**: date-fns + radash + VueUse (SSR 兼容版本)
+- **代码质量**: ESLint + Prettier (格式化 + 检查)
 - **部署**: Cloudflare Pages + GitHub Actions
 
 ### 架构特点
@@ -123,11 +123,11 @@ graph TD
 - 数据库配置支持开发环境和生产环境自动切换
 - 所有 UI 组件都支持深色模式
 - 国际化文件需要同时更新中英文版本
-- **重要**: 项目已移除 VueUse 依赖以确保 Cloudflare Pages SSR 兼容性
+- **重要**: 项目通过兼容性适配层确保 VueUse 的 SSR 兼容性
 
 ## ⚠️ 关键修复记录
 
-### VueUse 兼容 Cloudflare Pages 修复
+### VueUse SSR 兼容性方案
 
 **问题背景：**
 项目在使用 VueUse 库时遇到 Cloudflare Pages SSR 环境兼容性问题，主要表现为构建失败和运行时错误。
@@ -139,76 +139,79 @@ VueUse 库大量依赖浏览器原生 API（如 `window`, `document`, `navigator
 - SSR 渲染失败
 - 部署后应用无法正常运行
 
-**修复方案：**
+**解决方案：**
 
-1. **彻底移除 VueUse 依赖**
+1. **保留 VueUse 核心依赖**
+   - 保留项目中可安全使用的 VueUse 函数
+   - 维持原有 API 接口不变
 
-   ```bash
-   bun remove @vueuse/core
-   ```
-
-2. **使用原生 Vue 3 API 重写组合式函数**
-   创建 `app/utils/vueuse.ts` 文件，提供 VueUse 兼容的替代实现：
-   - `useMediaQuery`: 使用 `window.matchMedia` 原生 API
-   - `useMouse`: 使用原生鼠标事件监听器
-   - `useWindowSize`: 使用 `window.addEventListener` 监听 resize 事件
-   - `useToggle`: 使用 Vue 3 的 `ref` 实现简单的开关状态
+2. **创建兼容性适配层**
+   创建 `app/utils/vueuse.ts` 文件，提供 SSR 兼容的实现：
+   - `useMediaQuery`: 使用 `window.matchMedia` 原生 API + 客户端检查
+   - `useMouse`: 使用原生事件监听器 + 环境隔离
+   - `useWindowSize`: 使用 `window.addEventListener` + SSR 安全
+   - `useToggle`: 使用 Vue 3 的 `ref` 实现状态管理
+   - `useDark`: 读取本地存储和系统偏好
+   - `useClipboard`: 使用现代剪贴板 API
 
 3. **客户端安全检查**
    - 所有涉及 DOM API 的操作都增加了 `process.client` 环境检查
    - 使用 `onMounted` 钩子确保组件挂载后再执行 DOM 操作
-   - 添加了错误边界处理，避免服务端渲染错误
+   - 添加了完善的错误边界处理，避免服务端渲染错误
 
 **关键文件：**
 
 - `app/utils/vueuse.ts` - VueUse 功能的兼容性替代实现
-- `app/composables/` - 重写后的组合式函数（已删除）
-- `nuxt.config.ts` - 移除 VueUse 相关配置
+- `app/components/demo/UtilityTest.vue` - 工具函数测试和演示
+- `eslint.config.js` - ESLint 配置，忽略 UI 组件库文件
 
-**修复效果：**
+**方案效果：**
 
-- ✅ 构建成功，消除所有 VueUse 相关错误
-- ✅ SSR 兼容，服务端渲染正常
-- ✅ 功能完整，保持原有特性
-- ✅ 性能提升，减少约 50KB 包体积
+- ✅ 构建成功，消除所有 SSR 相关错误
+- ✅ 功能完整，保持原有 VueUse API 特性
+- ✅ 环境隔离，客户端和服务端都能正常运行
 - ✅ 部署成功，在 Cloudflare Pages 正常运行
 
 **经验总结：**
 
 1. **环境隔离**: SSR 项目必须严格区分客户端和服务端环境
 2. **渐进增强**: 先确保基础功能可用，再添加客户端增强特性
-3. **原生优先**: 简单工具函数优先使用原生 API
+3. **兼容性优先**: 选择 SSR 友好的实现方式，确保部署成功
 4. **测试验证**: 在构建和部署过程中充分测试 SSR 和客户端渲染
 
-### 侧边栏收缩样式修复
+### 代码质量工具链迁移
 
-**问题描述：**
-侧边栏收缩到图标模式时，文字仍然显示，图标大小也被压缩。
+**迁移背景：**
+项目从 Biome 代码质量工具迁移到 ESLint + Prettier 组合，以获得更好的生态系统支持和团队协作体验。
 
-**修复方案：**
-修改 `app/components/ui/sidebar/index.ts` 的 `sidebarMenuButtonVariants` 样式定义：
+**迁移内容：**
 
-1. **文字隐藏**：
+1. **移除 Biome 依赖**
+   - 删除 `biome.json` 配置文件
+   - 移除相关的 package.json 脚本
 
-   ```css
-   group-data-[collapsible=icon]:[&>span:last-child]:w-0!
-   group-data-[collapsible=icon]:[&>span:last-child]:overflow-hidden!
-   group-data-[collapsible=icon]:[&>span:last-child]:opacity-0!
-   ```
+2. **引入 ESLint + Prettier**
+   - 使用 `@antfu/eslint-config` 作为基础配置
+   - 集成 TypeScript、Vue、Nuxt 规则支持
+   - 配合 Prettier 进行代码格式化
 
-2. **图标大小保护**：
-   ```css
-   group-data-[collapsible=icon]:[&>svg]:size-4!
-   group-data-[collapsible=icon]:[&>svg]:w-4!
-   group-data-[collapsible=icon]:[&>svg]:h-4!
-   ```
+3. **配置优化**
+   - 忽略 UI 组件库文件 (`app/components/ui`, `components/ui`)
+   - 忽略生成文件和构建产物
+   - 支持 Vue 3 Composition API 和 Nuxt 4 特性
 
-**修复效果：**
+**关键文件：**
 
-- ✅ 侧边栏收缩时文字完全隐藏
-- ✅ 图标保持 16px 正常大小
-- ✅ 按钮布局保持 32px 正方形
-- ✅ 过渡动画流畅自然
+- `eslint.config.js` - ESLint 主配置文件
+- `package.json` - 更新的脚本命令
+- `.editorconfig` - 编辑器配置（保持一致性）
+
+**迁移效果：**
+
+- ✅ 更好的 IDE 集成和插件支持
+- ✅ 更丰富的规则配置和自定义选项
+- ✅ 与前端生态系统的更好兼容性
+- ✅ 团队协作时的统一代码风格
 
 ## 相关链接
 

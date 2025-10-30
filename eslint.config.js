@@ -61,7 +61,7 @@ export default antfu({
     'no-undef': 'off', // 让 TypeScript 处理
     'prefer-const': 'error', // 优先使用 const
     'no-var': 'error', // 禁止使用 var
-    'eqeqeq': ['error', 'always'], // 强制使用 ===
+    eqeqeq: ['error', 'always'], // 强制使用 ===
     'no-eval': 'error', // 禁止 eval
     'no-implied-eval': 'error', // 禁止隐式 eval
     'no-new-func': 'error', // 禁止 new Function

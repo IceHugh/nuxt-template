@@ -18,7 +18,7 @@ export const appRouter = t.router({
     .input(
       z.object({
         name: z.string().nullish(),
-      }),
+      })
     )
     .query(({ input }) => {
       return {
@@ -39,7 +39,7 @@ export const appRouter = t.router({
     .input(
       z.object({
         id: z.string(),
-      }),
+      })
     )
     .query(({ input }) => {
       return {
@@ -70,7 +70,7 @@ export const appRouter = t.router({
           title: z.string().min(1).max(255),
           description: z.string().optional(),
           status: z.string().default('active'),
-        }),
+        })
       )
       .mutation(({ input, ctx }) => debugRouter.createRecord(input, ctx.event)),
 
@@ -82,7 +82,7 @@ export const appRouter = t.router({
           title: z.string().min(1).max(255).optional(),
           description: z.string().optional(),
           status: z.string().optional(),
-        }),
+        })
       )
       .mutation(({ input, ctx }) => debugRouter.updateRecord(input, ctx.event)),
 
@@ -100,9 +100,9 @@ export const appRouter = t.router({
               title: z.string().min(1).max(255),
               description: z.string().optional(),
               status: z.string().default('active'),
-            }),
+            })
           ),
-        }),
+        })
       )
       .mutation(({ input, ctx }) => debugRouter.bulkCreate(input, ctx.event)),
 

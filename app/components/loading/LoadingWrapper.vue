@@ -33,8 +33,7 @@ function simulateProgress() {
     const easeOutQuart = 1 - (1 - progress.value / 100) ** 4
     const targetProgress = (elapsed / props.duration) * 100
     progress.value = Math.min(95, targetProgress + (95 - targetProgress) * (1 - easeOutQuart))
-  }
-  else {
+  } else {
     // 确保达到最小显示时间
     const displayTime = Date.now() - startTime
     if (displayTime >= props.minDisplayTime) {
@@ -116,8 +115,7 @@ onMounted(() => {
   const handleVisibilityChange = () => {
     if (document.hidden) {
       cleanup()
-    }
-    else if (isLoading.value) {
+    } else if (isLoading.value) {
       // 页面重新可见时恢复动画
       animationFrame = requestAnimationFrame(() => {
         const updateProgress = () => {
@@ -146,7 +144,7 @@ watch(
     if (progress.value > 50) {
       completeLoading()
     }
-  },
+  }
 )
 </script>
 

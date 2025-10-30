@@ -8,8 +8,8 @@
 - 🌐 **国际化**：中英文双语支持
 - 🔧 **类型安全**：TypeScript + tRPC
 - 📱 **响应式**：移动端、平板端、桌面端适配
-- 🛠️ **工具库**：VueUse、date-fns、radash
-- 📦 **代码质量**：Biome 格式化和检查
+- 🛠️ **工具库**：date-fns、radash、VueUse（SSR 兼容版本）
+- 📦 **代码质量**：ESLint + Prettier 格式化和检查
 - 🚀 **自动部署**：Cloudflare Pages + GitHub Actions
 
 ## 🏗️ 技术栈
@@ -29,9 +29,10 @@
 
 ### 开发工具
 
-- **Biome** - 代码格式化和检查
+- **ESLint + Prettier** - 代码格式化和检查
 - **date-fns** - 日期处理库
 - **radash** - 函数式编程工具库
+- **VueUse** - 组合式函数工具库（SSR 兼容版本）
 
 ### API 和后端
 
@@ -197,7 +198,7 @@ nuxt-template/
 
 ### 🎨 代码质量
 
-- **Biome**：现代化的代码格式化和检查工具
+- **ESLint + Prettier**：现代化的代码格式化和检查工具链
 - **TypeScript**：全栈类型安全，从前端到后端的完整类型支持
 - **组件化开发**：基于 Vue 3 Composition API 的现代组件模式
 
@@ -211,11 +212,10 @@ bun run preview          # 预览构建结果
 
 # 代码质量
 bun run typecheck        # TypeScript 类型检查
-bun run biome:check      # Biome 代码检查
-bun run biome:fix         # 自动修复代码格式
-bun run format           # 格式化代码
-bun run lint             # 代码检查
-bun run lint:fix         # 自动修复 lint 问题
+bun run lint             # ESLint 代码检查
+bun run lint:fix         # 自动修复 ESLint 问题
+bun run format           # Prettier 代码格式化
+bun run format:check     # 检查代码格式
 
 # 数据库
 bun run db:generate      # 生成数据库迁移文件
@@ -267,55 +267,41 @@ bun run db:local:studio  # 本地 Drizzle Studio
 
 ## ⚠️ 重要修复说明
 
-### VueUse 兼容 Cloudflare Pages 修复
+### VueUse SSR 兼容性说明
 
-项目已成功解决 VueUse 在 Cloudflare Pages 环境下的兼容性问题：
+项目针对 VueUse 在 Cloudflare Pages SSR 环境的兼容性问题，采用了混合解决方案：
 
-#### 问题描述
+#### 问题背景
 
-- **原始问题**：VueUse 依赖的浏览器 API（如 `window`, `document`）在 Cloudflare Pages 的服务端渲染环境下不可用
-- **错误表现**：构建失败，运行时错误，SSR 渲染异常
-- **影响范围**：所有依赖 VueUse 的组合式函数，如 `useMediaQuery`, `useMouse`, `useWindowSize`, `useToggle`
+- **原始问题**：VueUse 库大量依赖浏览器原生 API（如 `window`, `document`），在 SSR 环境中不可用
+- **错误表现**：构建时出现 `window is not defined` 错误，SSR 渲染失败
+- **影响范围**：依赖 DOM API 的组合式函数，如 `useMediaQuery`, `useMouse`, `useWindowSize`
 
-#### 修复方案
+#### 解决方案
 
-1. **彻底移除 VueUse 依赖**：
+1. **保留 VueUse 核心依赖**：保留项目中可安全使用的 VueUse 函数
+2. **创建兼容性适配层**：在 `app/utils/vueuse.ts` 中提供 SSR 兼容的实现
+3. **客户端安全检查**：所有 DOM API 操作都增加 `process.client` 环境检查
+4. **渐进增强**：确保基础功能在服务端可用，增强特性在客户端激活
 
-   ```bash
-   bun remove @vueuse/core
-   ```
+#### 兼容性实现
 
-2. **使用原生 Vue 3 API 重写组合式函数**：
-   - `useMediaQuery` → 使用 `window.matchMedia` 原生 API
-   - `useMouse` → 使用原生事件监听器
-   - `useWindowSize` → 使用 `window.addEventListener` 监听 resize
-   - `useToggle` → 使用 Vue 3 的 `ref` 实现开关状态
-
-3. **客户端安全检查**：
-   - 所有涉及 DOM API 的操作都增加了客户端环境检查
-   - 使用 `onMounted` 钩子确保组件挂载后再执行 DOM 操作
-   - 添加了错误边界处理，避免服务端渲染错误
-
-#### 修复效果
-
-- ✅ **构建成功**：消除了所有 VueUse 相关的构建错误
-- ✅ **SSR 兼容**：服务端渲染不再出现 `window is not defined` 错误
-- ✅ **功能完整**：保持了所有原有的功能特性
-- ✅ **性能提升**：减少了约 50KB 的包体积
-- ✅ **部署成功**：成功部署到 Cloudflare Pages 并正常运行
+- **自定义实现**：`useMediaQuery`, `useDark`, `useToggle` 等函数使用原生 API 重新实现
+- **环境隔离**：通过 `process.client` 检查确保代码在正确环境执行
+- **错误边界**：添加完善的错误处理，避免 SSR 失败
 
 #### 关键文件
 
-- `app/utils/vueuse.ts` - VueUse 兼容性替代实现
-- `app/composables/` - 重写后的组合式函数
-- `nuxt.config.ts` - 移除 VueUse 相关配置
+- `app/utils/vueuse.ts` - VueUse 功能的兼容性替代实现
+- `app/components/demo/UtilityTest.vue` - 工具函数测试和演示
+- `eslint.config.js` - ESLint 配置，忽略 UI 组件库文件
 
 #### 经验总结
 
-1. **环境检测**：在服务端渲染项目中，必须严格区分客户端和服务端环境
+1. **环境隔离**：SSR 项目必须严格区分客户端和服务端环境
 2. **渐进增强**：先确保基础功能可用，再添加客户端增强特性
-3. **原生优先**：对于简单的工具函数，优先使用原生 API 而非第三方库
-4. **测试覆盖**：在构建和部署过程中充分测试 SSR 和客户端渲染
+3. **兼容性优先**：选择 SSR 友好的实现方式，确保部署成功
+4. **测试验证**：在构建和部署过程中充分测试 SSR 和客户端渲染
 
 ### 环境变量
 
@@ -347,11 +333,16 @@ NITRO_PRESET=cloudflare-pages
 - 环境变量设置
 - 多环境支持（preview、production）
 
-### Biome 配置 (biome.json)
+### ESLint 配置 (eslint.config.js)
 
-- 代码格式化规则
-- 代码检查规则
-- 支持多种文件类型
+- 使用 @antfu/eslint-config 基础配置
+- 支持 TypeScript、Vue、Nuxt 规则
+- 忽略 UI 组件库和生成文件
+
+### Prettier 配置
+
+- 统一代码格式化风格
+- 与 ESLint 配套使用
 
 ### TypeScript 配置 (tsconfig.json)
 

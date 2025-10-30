@@ -1,7 +1,7 @@
 import { getDb } from '../../lib/db'
 import { users } from '../../lib/schema'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async event => {
   try {
     // 获取 D1 数据库实例
     const db = getDb(event)
@@ -14,8 +14,7 @@ export default defineEventHandler(async (event) => {
       data: result,
       count: result.length,
     }
-  }
-  catch (error) {
+  } catch (error) {
     throw createError({
       statusCode: 500,
       statusMessage: '获取用户列表失败',

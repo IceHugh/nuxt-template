@@ -53,8 +53,8 @@ const items = ref(['项目1', '项目2', '项目3'])
 // 工具函数
 const randomId = ref('')
 function generateNewId() {
-  randomId.value
-    = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+  randomId.value =
+    Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
 
 const relativeTime = ref('')
@@ -70,11 +70,9 @@ function updateTimes() {
 
   if (hours > 0) {
     relativeTime.value = `${hours}小时前`
-  }
-  else if (minutes > 0) {
+  } else if (minutes > 0) {
     relativeTime.value = `${minutes}分钟前`
-  }
-  else {
+  } else {
     relativeTime.value = '刚刚'
   }
 
@@ -148,18 +146,14 @@ onMounted(() => {
               <p class="text-sm font-medium">
                 {{ $t('utilities.vueuse.mousePosition') }}
               </p>
-              <p class="text-xs text-muted-foreground">
-                X: {{ mouseX }}, Y: {{ mouseY }}
-              </p>
+              <p class="text-xs text-muted-foreground">X: {{ mouseX }}, Y: {{ mouseY }}</p>
             </div>
             <template #fallback>
               <div class="p-3 bg-muted rounded-md">
                 <p class="text-sm font-medium">
                   {{ $t('utilities.vueuse.mousePosition') }}
                 </p>
-                <p class="text-xs text-muted-foreground">
-                  X: --, Y: --
-                </p>
+                <p class="text-xs text-muted-foreground">X: --, Y: --</p>
               </div>
             </template>
           </ClientOnly>
@@ -207,16 +201,10 @@ onMounted(() => {
               {{ $t('utilities.reactive.counter') }}
             </p>
             <div class="flex items-center gap-2 mt-1">
-              <Button size="sm" variant="outline" @click="count--">
-                -
-              </Button>
+              <Button size="sm" variant="outline" @click="count--"> - </Button>
               <span class="text-sm font-mono w-8 text-center">{{ count }}</span>
-              <Button size="sm" variant="outline" @click="count++">
-                +
-              </Button>
-              <Button size="sm" variant="ghost" @click="count = 0">
-                重置
-              </Button>
+              <Button size="sm" variant="outline" @click="count++"> + </Button>
+              <Button size="sm" variant="ghost" @click="count = 0"> 重置 </Button>
             </div>
           </div>
 
@@ -225,12 +213,8 @@ onMounted(() => {
             <p class="text-sm font-medium">
               {{ $t('utilities.reactive.computed') }}
             </p>
-            <p class="text-xs text-muted-foreground mt-1">
-              计数 x 2 = {{ doubled }}
-            </p>
-            <p class="text-xs text-muted-foreground">
-              计数是{{ count > 5 ? '大数' : '小数' }}
-            </p>
+            <p class="text-xs text-muted-foreground mt-1">计数 x 2 = {{ doubled }}</p>
+            <p class="text-xs text-muted-foreground">计数是{{ count > 5 ? '大数' : '小数' }}</p>
           </div>
 
           <!-- 响应式对象 -->
@@ -281,9 +265,7 @@ onMounted(() => {
         <div class="grid gap-4 md:grid-cols-2">
           <!-- 生成ID -->
           <div class="p-3 bg-muted rounded-md">
-            <p class="text-sm font-medium">
-              生成随机ID
-            </p>
+            <p class="text-sm font-medium">生成随机ID</p>
             <div class="text-xs text-muted-foreground mt-1">
               <p class="font-mono break-all">
                 {{ randomId }}
@@ -296,9 +278,7 @@ onMounted(() => {
 
           <!-- 时间格式化 -->
           <div class="p-3 bg-muted rounded-md">
-            <p class="text-sm font-medium">
-              时间格式化
-            </p>
+            <p class="text-sm font-medium">时间格式化</p>
             <div class="text-xs text-muted-foreground mt-1">
               <p>相对时间: {{ relativeTime }}</p>
               <p>格式化: {{ absoluteTime }}</p>

@@ -25,8 +25,7 @@ function goHome() {
 function goBack() {
   if (typeof window !== 'undefined' && window.history.length > 1) {
     router.back()
-  }
-  else {
+  } else {
     router.push('/')
   }
 }
@@ -145,8 +144,10 @@ function goBack() {
             <div class="flex items-center justify-center gap-4 text-xs text-muted-foreground">
               <div class="flex items-center gap-1">
                 <Icon name="lucide:globe" class="w-3 h-3" />
-                <span>{{ t('common.language', '语言') }}:
-                  {{ $i18n.locale === 'zh' ? '简体中文' : 'English' }}</span>
+                <span
+                  >{{ t('common.language', '语言') }}:
+                  {{ $i18n.locale === 'zh' ? '简体中文' : 'English' }}</span
+                >
               </div>
               <div class="flex items-center gap-1">
                 <Icon name="lucide:map-pin" class="w-3 h-3" />

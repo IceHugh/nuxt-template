@@ -54,12 +54,8 @@ function generateNewId() {
     </div>
 
     <div class="mt-4 flex space-x-2">
-      <Button variant="secondary" size="sm" @click="reset">
-        重置
-      </Button>
-      <Button variant="ghost" size="sm" @click="generateNewId">
-        生成新ID
-      </Button>
+      <Button variant="secondary" size="sm" @click="reset"> 重置 </Button>
+      <Button variant="ghost" size="sm" @click="generateNewId"> 生成新ID </Button>
     </div>
   </div>
 </template>

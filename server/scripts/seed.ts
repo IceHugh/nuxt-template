@@ -197,8 +197,7 @@ Nuxt 4 带来了许多令人兴奋的新特性和改进。
     console.log(`   - 分类数量: ${categoryCount.length}`)
     console.log(`   - 已发布文章: ${postCount.filter(p => p.published).length}`)
     console.log(`   - 草稿文章: ${postCount.filter(p => !p.published).length}`)
-  }
-  catch (error) {
+  } catch (error) {
     console.error('❌ 种子数据创建失败:', error)
     process.exit(1)
   }
@@ -210,7 +209,7 @@ seed()
     console.log('🎉 种子数据脚本执行完成')
     process.exit(0)
   })
-  .catch((error) => {
+  .catch(error => {
     console.error('❌ 种子数据脚本执行失败:', error)
     process.exit(1)
   })
