@@ -1,7 +1,7 @@
 import { getDb } from '../lib/db'
 import { users } from '../lib/schema'
 
-export default defineEventHandler(async event => {
+export default defineEventHandler(async (event) => {
   try {
     const db = getDb(event)
 
@@ -20,7 +20,8 @@ export default defineEventHandler(async event => {
         },
       },
     }
-  } catch (error) {
+  }
+  catch (error) {
     return {
       success: false,
       message: 'Database connection failed',

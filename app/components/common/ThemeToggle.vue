@@ -2,9 +2,6 @@
 // 使用 @nuxtjs/color-mode 提供的 useColorMode
 const colorMode = useColorMode()
 
-// 获取国际化函数
-const { t } = useI18n()
-
 // 切换主题函数
 function toggleTheme() {
   // 在浅色和深色之间切换

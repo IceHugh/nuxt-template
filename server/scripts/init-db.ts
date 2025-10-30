@@ -38,7 +38,8 @@ async function initDatabase() {
 
     console.log('🎉 数据库初始化完成！')
     console.log(`📁 数据库文件位置: ${dbPath}`)
-  } catch (error) {
+  }
+  catch (error) {
     console.error('❌ 数据库初始化失败:', error)
     process.exit(1)
   }
@@ -49,7 +50,7 @@ initDatabase()
   .then(() => {
     process.exit(0)
   })
-  .catch(error => {
+  .catch((error) => {
     console.error('❌ 数据库初始化脚本执行失败:', error)
     process.exit(1)
   })

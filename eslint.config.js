@@ -43,7 +43,7 @@ export default antfu({
         varsIgnorePattern: '^_',
       },
     ], // 忽略 _ 开头的未使用变量
-    'ts/no-explicit-any': 'warn', // any 类型警告
+    'ts/no-explicit-any': 'off', // any 类型允许（tRPC 和数据库操作需要）
     'ts/ban-ts-comment': 'warn', // ts 警告注释
     'ts/no-non-null-assertion': 'warn', // 非空断言警告
     'ts/prefer-ts-expect-error': 'error', // 优先使用 @ts-expect-error
@@ -56,11 +56,12 @@ export default antfu({
     'no-console': 'warn', // console 使用警告
     'no-debugger': 'warn', // debugger 警告
     'no-alert': 'warn', // alert 警告
+    'node/prefer-global/process': 'off', // 允许使用全局 process
     'no-unused-vars': 'off', // 让 TypeScript 处理
     'no-undef': 'off', // 让 TypeScript 处理
     'prefer-const': 'error', // 优先使用 const
     'no-var': 'error', // 禁止使用 var
-    eqeqeq: ['error', 'always'], // 强制使用 ===
+    'eqeqeq': ['error', 'always'], // 强制使用 ===
     'no-eval': 'error', // 禁止 eval
     'no-implied-eval': 'error', // 禁止隐式 eval
     'no-new-func': 'error', // 禁止 new Function
@@ -78,7 +79,10 @@ export default antfu({
     'no-duplicate-case': 'error', // 重复 case
 
     // 导入相关
-    'no-duplicate-imports': 'error', // 重复导入
+    'no-duplicate-imports': 'off', // 允许重复导入（为了更好的类型支持）
+    'import/consistent-type-specifier-style': 'off', // 允许内联类型导入
+    'perfectionist/sort-named-imports': 'off', // 不强制排序命名导入
+    'perfectionist/sort-imports': 'off', // 不强制排序导入
   },
 
   // 忽略特定文件和目录

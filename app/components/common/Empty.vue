@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
-import type { EmptyVariants } from '.'
 import { cn } from '~/lib/utils'
 import { emptyVariants } from '.'
+import type { EmptyVariants } from '.'
 
 interface Props {
   class?: HTMLAttributes['class']

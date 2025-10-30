@@ -2,7 +2,7 @@ import { eq } from 'drizzle-orm'
 import { getDb } from '../../lib/db'
 import { users } from '../../lib/schema'
 
-export default defineEventHandler(async event => {
+export default defineEventHandler(async (event) => {
   try {
     const body = await readBody(event)
 
@@ -43,7 +43,8 @@ export default defineEventHandler(async event => {
       data: result[0],
       message: '用户创建成功',
     }
-  } catch (error) {
+  }
+  catch (error) {
     // 如果是我们主动抛出的错误，直接抛出
     if (error instanceof Error && 'statusCode' in error) {
       throw error

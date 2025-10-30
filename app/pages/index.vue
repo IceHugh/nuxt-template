@@ -3,18 +3,19 @@
 definePageMeta({
   title: 'Dashboard',
 })
-
-// 获取国际化函数
-const { t } = useI18n()
 </script>
 
 <template>
   <div class="space-y-6">
     <!-- 组件测试区域 -->
     <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
-      <h3 class="text-lg font-semibold text-yellow-800 mb-2">🔧 组件调试区域</h3>
+      <h3 class="text-lg font-semibold text-yellow-800 mb-2">
+        🔧 组件调试区域
+      </h3>
       <div class="space-y-2">
-        <p class="text-sm text-yellow-700">测试 CopyButton 和 Empty 组件：</p>
+        <p class="text-sm text-yellow-700">
+          测试 CopyButton 和 Empty 组件：
+        </p>
         <div class="flex items-center gap-4">
           <CopyButton text="测试复制功能" />
           <Empty title="测试空状态" size="sm" layout="inline" />
@@ -26,7 +27,9 @@ const { t } = useI18n()
       <h2 class="text-2xl font-bold tracking-tight">
         {{ $t('navigation.dashboard') }}
       </h2>
-      <p class="text-muted-foreground">欢迎来到 Nuxt 4 模板项目仪表盘</p>
+      <p class="text-muted-foreground">
+        欢迎来到 Nuxt 4 模板项目仪表盘
+      </p>
       <div class="mt-2">
         <span class="text-sm text-muted-foreground"> 访问任意不存在页面即可测试 404 错误页面 </span>
       </div>
@@ -145,22 +148,40 @@ const { t } = useI18n()
         <CardContent class="space-y-8">
           <!-- Button 组件测试 -->
           <div class="space-y-4">
-            <h4 class="text-lg font-semibold text-foreground">Button 组件</h4>
-            <p class="text-sm text-muted-foreground">测试不同样式的按钮</p>
+            <h4 class="text-lg font-semibold text-foreground">
+              Button 组件
+            </h4>
+            <p class="text-sm text-muted-foreground">
+              测试不同样式的按钮
+            </p>
             <div class="flex flex-wrap gap-2">
               <Button>默认按钮</Button>
-              <Button variant="secondary"> 次要按钮 </Button>
-              <Button variant="destructive"> 危险按钮 </Button>
-              <Button variant="outline"> 边框按钮 </Button>
-              <Button variant="ghost"> 幽灵按钮 </Button>
-              <Button variant="link"> 链接按钮 </Button>
+              <Button variant="secondary">
+                次要按钮
+              </Button>
+              <Button variant="destructive">
+                危险按钮
+              </Button>
+              <Button variant="outline">
+                边框按钮
+              </Button>
+              <Button variant="ghost">
+                幽灵按钮
+              </Button>
+              <Button variant="link">
+                链接按钮
+              </Button>
             </div>
           </div>
 
           <!-- Input 组件测试 -->
           <div class="space-y-4">
-            <h4 class="text-lg font-semibold text-foreground">Input 组件</h4>
-            <p class="text-sm text-muted-foreground">测试输入框和标签</p>
+            <h4 class="text-lg font-semibold text-foreground">
+              Input 组件
+            </h4>
+            <p class="text-sm text-muted-foreground">
+              测试输入框和标签
+            </p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <Label for="email">邮箱</Label>
@@ -175,20 +196,34 @@ const { t } = useI18n()
 
           <!-- Badge 组件测试 -->
           <div class="space-y-4">
-            <h4 class="text-lg font-semibold text-foreground">Badge 组件</h4>
-            <p class="text-sm text-muted-foreground">测试不同样式的徽章</p>
+            <h4 class="text-lg font-semibold text-foreground">
+              Badge 组件
+            </h4>
+            <p class="text-sm text-muted-foreground">
+              测试不同样式的徽章
+            </p>
             <div class="flex flex-wrap gap-2">
               <Badge>默认</Badge>
-              <Badge variant="secondary"> 次要 </Badge>
-              <Badge variant="destructive"> 危险 </Badge>
-              <Badge variant="outline"> 边框 </Badge>
+              <Badge variant="secondary">
+                次要
+              </Badge>
+              <Badge variant="destructive">
+                危险
+              </Badge>
+              <Badge variant="outline">
+                边框
+              </Badge>
             </div>
           </div>
 
           <!-- Alert 组件测试 -->
           <div class="space-y-4">
-            <h4 class="text-lg font-semibold text-foreground">Alert 组件</h4>
-            <p class="text-sm text-muted-foreground">测试不同样式的警告</p>
+            <h4 class="text-lg font-semibold text-foreground">
+              Alert 组件
+            </h4>
+            <p class="text-sm text-muted-foreground">
+              测试不同样式的警告
+            </p>
             <div class="space-y-4">
               <Alert>
                 <AlertTitle>信息提示</AlertTitle>
@@ -203,13 +238,23 @@ const { t } = useI18n()
 
           <!-- Tabs 组件测试 -->
           <div class="space-y-4">
-            <h4 class="text-lg font-semibold text-foreground">Tabs 组件</h4>
-            <p class="text-sm text-muted-foreground">测试标签页</p>
+            <h4 class="text-lg font-semibold text-foreground">
+              Tabs 组件
+            </h4>
+            <p class="text-sm text-muted-foreground">
+              测试标签页
+            </p>
             <Tabs default-value="tab1">
               <TabsList>
-                <TabsTrigger value="tab1"> 标签页 1 </TabsTrigger>
-                <TabsTrigger value="tab2"> 标签页 2 </TabsTrigger>
-                <TabsTrigger value="tab3"> 标签页 3 </TabsTrigger>
+                <TabsTrigger value="tab1">
+                  标签页 1
+                </TabsTrigger>
+                <TabsTrigger value="tab2">
+                  标签页 2
+                </TabsTrigger>
+                <TabsTrigger value="tab3">
+                  标签页 3
+                </TabsTrigger>
               </TabsList>
               <TabsContent value="tab1" class="mt-4">
                 <p>这是标签页 1 的内容</p>
@@ -225,8 +270,12 @@ const { t } = useI18n()
 
           <!-- Progress 组件测试 -->
           <div class="space-y-4">
-            <h4 class="text-lg font-semibold text-foreground">Progress 组件</h4>
-            <p class="text-sm text-muted-foreground">测试进度条</p>
+            <h4 class="text-lg font-semibold text-foreground">
+              Progress 组件
+            </h4>
+            <p class="text-sm text-muted-foreground">
+              测试进度条
+            </p>
             <div class="space-y-2">
               <Progress :value="33" />
               <Progress :value="66" />
@@ -236,12 +285,18 @@ const { t } = useI18n()
 
           <!-- CopyButton 组件测试 -->
           <div class="space-y-4">
-            <h4 class="text-lg font-semibold text-foreground">CopyButton 组件</h4>
-            <p class="text-sm text-muted-foreground">测试复制按钮功能</p>
+            <h4 class="text-lg font-semibold text-foreground">
+              CopyButton 组件
+            </h4>
+            <p class="text-sm text-muted-foreground">
+              测试复制按钮功能
+            </p>
 
             <div class="space-y-6">
               <div class="space-y-2">
-                <p class="text-sm font-medium">不同样式的复制按钮：</p>
+                <p class="text-sm font-medium">
+                  不同样式的复制按钮：
+                </p>
                 <div class="flex flex-wrap gap-2">
                   <CopyButton text="这是默认样式的复制按钮" />
                   <CopyButton text="这是次要样式的复制按钮" variant="secondary" />
@@ -252,7 +307,9 @@ const { t } = useI18n()
               </div>
 
               <div class="space-y-2">
-                <p class="text-sm font-medium">不同尺寸的复制按钮：</p>
+                <p class="text-sm font-medium">
+                  不同尺寸的复制按钮：
+                </p>
                 <div class="flex flex-wrap items-center gap-2">
                   <CopyButton text="小尺寸按钮" size="sm" />
                   <CopyButton text="默认尺寸按钮" size="default" />
@@ -262,7 +319,9 @@ const { t } = useI18n()
               </div>
 
               <div class="space-y-2">
-                <p class="text-sm font-medium">实际使用示例：</p>
+                <p class="text-sm font-medium">
+                  实际使用示例：
+                </p>
                 <div class="space-y-3">
                   <div class="flex items-center space-x-2">
                     <div class="bg-muted p-3 rounded-md font-mono text-sm max-w-xs">
@@ -287,15 +346,23 @@ const { t } = useI18n()
 
           <!-- Empty 组件测试 -->
           <div class="space-y-4">
-            <h4 class="text-lg font-semibold text-foreground">Empty 组件</h4>
-            <p class="text-sm text-muted-foreground">测试空状态展示</p>
+            <h4 class="text-lg font-semibold text-foreground">
+              Empty 组件
+            </h4>
+            <p class="text-sm text-muted-foreground">
+              测试空状态展示
+            </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div class="space-y-4">
-                <h5 class="text-sm font-medium">基础布局</h5>
+                <h5 class="text-sm font-medium">
+                  基础布局
+                </h5>
                 <div class="space-y-4">
                   <div>
-                    <p class="text-xs text-muted-foreground mb-2">卡片式布局（默认）</p>
+                    <p class="text-xs text-muted-foreground mb-2">
+                      卡片式布局（默认）
+                    </p>
                     <Empty
                       title="暂无数据"
                       description="当前列表中没有可显示的项目"
@@ -304,7 +371,9 @@ const { t } = useI18n()
                   </div>
 
                   <div>
-                    <p class="text-xs text-muted-foreground mb-2">全幅式布局</p>
+                    <p class="text-xs text-muted-foreground mb-2">
+                      全幅式布局
+                    </p>
                     <Empty
                       layout="full"
                       title="没有搜索结果"
@@ -316,10 +385,14 @@ const { t } = useI18n()
               </div>
 
               <div class="space-y-4">
-                <h5 class="text-sm font-medium">特殊布局</h5>
+                <h5 class="text-sm font-medium">
+                  特殊布局
+                </h5>
                 <div class="space-y-4">
                   <div>
-                    <p class="text-xs text-muted-foreground mb-2">内联式布局</p>
+                    <p class="text-xs text-muted-foreground mb-2">
+                      内联式布局
+                    </p>
                     <Empty
                       layout="inline"
                       title="没有选中项"
@@ -330,15 +403,21 @@ const { t } = useI18n()
                   </div>
 
                   <div>
-                    <p class="text-xs text-muted-foreground mb-2">带操作按钮</p>
+                    <p class="text-xs text-muted-foreground mb-2">
+                      带操作按钮
+                    </p>
                     <Empty
                       title="还没有项目"
                       description="创建您的第一个项目开始使用"
                       icon="lucide:folder-plus"
                     >
                       <template #action>
-                        <Button size="sm"> 创建项目 </Button>
-                        <Button size="sm" variant="outline"> 了解更多 </Button>
+                        <Button size="sm">
+                          创建项目
+                        </Button>
+                        <Button size="sm" variant="outline">
+                          了解更多
+                        </Button>
                       </template>
                     </Empty>
                   </div>
@@ -347,10 +426,14 @@ const { t } = useI18n()
             </div>
 
             <div class="space-y-4">
-              <h5 class="text-sm font-medium">高级示例</h5>
+              <h5 class="text-sm font-medium">
+                高级示例
+              </h5>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <p class="text-xs text-muted-foreground mb-2">自定义图标和内容</p>
+                  <p class="text-xs text-muted-foreground mb-2">
+                    自定义图标和内容
+                  </p>
                   <Empty
                     title="API 调用失败"
                     description="请检查网络连接或稍后重试"
@@ -360,13 +443,17 @@ const { t } = useI18n()
                       <Icon name="lucide:alert-circle" class="size-8 text-orange-500" />
                     </template>
                     <template #action>
-                      <Button size="sm" variant="outline"> 重试 </Button>
+                      <Button size="sm" variant="outline">
+                        重试
+                      </Button>
                     </template>
                   </Empty>
                 </div>
 
                 <div>
-                  <p class="text-xs text-muted-foreground mb-2">大尺寸布局</p>
+                  <p class="text-xs text-muted-foreground mb-2">
+                    大尺寸布局
+                  </p>
                   <Empty
                     layout="card"
                     size="lg"
@@ -400,25 +487,33 @@ const { t } = useI18n()
               <div class="text-lg font-semibold">
                 {{ $t('responsive.mobile') }}
               </div>
-              <div class="text-sm text-muted-foreground">1 {{ $t('responsive.columns') }}</div>
+              <div class="text-sm text-muted-foreground">
+                1 {{ $t('responsive.columns') }}
+              </div>
             </div>
             <div class="bg-muted p-4 rounded-lg text-center md:hidden">
               <div class="text-lg font-semibold">
                 {{ $t('responsive.tablet') }}
               </div>
-              <div class="text-sm text-muted-foreground">2 {{ $t('responsive.columns') }}</div>
+              <div class="text-sm text-muted-foreground">
+                2 {{ $t('responsive.columns') }}
+              </div>
             </div>
             <div class="bg-muted p-4 rounded-lg text-center hidden md:block lg:hidden">
               <div class="text-lg font-semibold">
                 {{ $t('responsive.tablet') }}
               </div>
-              <div class="text-sm text-muted-foreground">2 {{ $t('responsive.columns') }}</div>
+              <div class="text-sm text-muted-foreground">
+                2 {{ $t('responsive.columns') }}
+              </div>
             </div>
             <div class="bg-muted p-4 rounded-lg text-center hidden lg:block">
               <div class="text-lg font-semibold">
                 {{ $t('responsive.desktop') }}
               </div>
-              <div class="text-sm text-muted-foreground">4 {{ $t('responsive.columns') }}</div>
+              <div class="text-sm text-muted-foreground">
+                4 {{ $t('responsive.columns') }}
+              </div>
             </div>
           </div>
         </CardContent>

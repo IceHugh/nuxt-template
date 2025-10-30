@@ -1,5 +1,4 @@
 <script setup lang="ts">
-const { t } = useI18n()
 const name = ref('World')
 const userId = ref('123')
 
@@ -29,9 +28,11 @@ async function testHealth() {
 
   try {
     result.health = await trpc.health.query()
-  } catch (err) {
+  }
+  catch (err) {
     error.health = err instanceof Error ? err.message : $t('api.error')
-  } finally {
+  }
+  finally {
     loading.health = false
   }
 }
@@ -42,9 +43,11 @@ async function testGreeting() {
 
   try {
     result.greeting = await trpc.greeting.query({ name: name.value })
-  } catch (err) {
+  }
+  catch (err) {
     error.greeting = err instanceof Error ? err.message : $t('api.error')
-  } finally {
+  }
+  finally {
     loading.greeting = false
   }
 }
@@ -55,9 +58,11 @@ async function testUserInfo() {
 
   try {
     result.userInfo = await trpc.userInfo.query({ id: userId.value })
-  } catch (err) {
+  }
+  catch (err) {
     error.userInfo = err instanceof Error ? err.message : $t('api.error')
-  } finally {
+  }
+  finally {
     loading.userInfo = false
   }
 }

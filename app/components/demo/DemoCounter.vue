@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { t } = useI18n()
+import { formatRelativeTime } from '~/utils/format'
 // 使用应用特定的工具函数（自动导入）
 const count = ref(0)
 const lastUpdate = ref(new Date())
@@ -54,8 +54,12 @@ function generateNewId() {
     </div>
 
     <div class="mt-4 flex space-x-2">
-      <Button variant="secondary" size="sm" @click="reset"> 重置 </Button>
-      <Button variant="ghost" size="sm" @click="generateNewId"> 生成新ID </Button>
+      <Button variant="secondary" size="sm" @click="reset">
+        重置
+      </Button>
+      <Button variant="ghost" size="sm" @click="generateNewId">
+        生成新ID
+      </Button>
     </div>
   </div>
 </template>

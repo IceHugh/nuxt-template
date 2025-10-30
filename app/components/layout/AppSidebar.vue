@@ -2,8 +2,6 @@
 import type { SidebarProps } from '~/components/ui/sidebar'
 import { useRoute } from '#app'
 
-import { useSidebar } from '~/components/ui/sidebar'
-
 // 定义菜单项类型
 interface MenuItem {
   title: string
@@ -53,7 +51,6 @@ const props = withDefaults(defineProps<AppSidebarProps>(), {
 })
 
 const route = useRoute()
-const { state } = useSidebar()
 
 // 检查菜单项是否激活
 function isMenuItemActive(item: MenuItem): boolean {
@@ -73,7 +70,7 @@ function isMenuItemActive(item: MenuItem): boolean {
             <div
               class="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground"
             >
-              <img :src="logo" :alt="title" class="size-4" onerror="this.style.display='none'" />
+              <img :src="logo" :alt="title" class="size-4" onerror="this.style.display='none'">
               <!-- 如果 logo 加载失败，显示默认图标 -->
               <Icon name="lucide:layout-dashboard" class="size-4" />
             </div>

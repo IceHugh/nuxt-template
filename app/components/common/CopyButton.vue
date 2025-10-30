@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
-import type { CopyButtonVariants } from '.'
 import { cn } from '~/lib/utils'
 import { copyButtonVariants } from '.'
+import type { CopyButtonVariants } from '.'
 
 interface Props {
   class?: HTMLAttributes['class']
@@ -29,7 +29,8 @@ const isCopied = ref(false)
 const isLoading = ref(false)
 
 async function copyToClipboard() {
-  if (!process.client || props.disabled || isLoading.value) return
+  if (!process.client || props.disabled || isLoading.value)
+    return
 
   try {
     isLoading.value = true
@@ -37,7 +38,8 @@ async function copyToClipboard() {
     // 尝试使用现代的 Clipboard API
     if (navigator.clipboard && window.isSecureContext) {
       await navigator.clipboard.writeText(props.text)
-    } else {
+    }
+    else {
       // 降级到传统方法
       const textArea = document.createElement('textarea')
       textArea.value = props.text
@@ -64,10 +66,12 @@ async function copyToClipboard() {
     setTimeout(() => {
       isCopied.value = false
     }, 2000)
-  } catch (error) {
+  }
+  catch (error) {
     console.error('复制失败:', error)
     emit('error', error instanceof Error ? error : new Error('复制失败'))
-  } finally {
+  }
+  finally {
     isLoading.value = false
   }
 }
