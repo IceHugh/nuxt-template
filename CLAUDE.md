@@ -67,13 +67,13 @@ graph TD
 
 ## 模块索引
 
-| 模块路径      | 类型     | 职责描述                                        | 主要文件                                            |
-| ------------- | -------- | ----------------------------------------------- | --------------------------------------------------- |
-| `app/`        | 前端应用 | Nuxt 4 核心应用目录，包含页面、组件、组合式函数 | `app.vue`, `pages/`, `components/`, `composables/`  |
-| `server/`     | 后端服务 | 服务端 API、tRPC 路由、数据库操作               | `api/`, `trpc/`, `lib/db.ts`, `lib/schema.ts`       |
-| `components/` | UI 组件  | 全局 shadcn-vue 组件库                          | `ui/`, `button/`, `card/`, `input/`                 |
-| `i18n/`       | 国际化   | 中英文双语支持配置                              | `locales/zh.json`, `locales/en.json`                |
-| `migrations/` | 数据库   | Drizzle ORM 迁移文件                            | `.sql` 文件, `meta/`                                |
+| 模块路径      | 类型     | 职责描述                                        | 主要文件                                                  |
+| ------------- | -------- | ----------------------------------------------- | --------------------------------------------------------- |
+| `app/`        | 前端应用 | Nuxt 4 核心应用目录，包含页面、组件、组合式函数 | `app.vue`, `pages/`, `components/`, `composables/`        |
+| `server/`     | 后端服务 | 服务端 API、tRPC 路由、数据库操作               | `api/`, `trpc/`, `lib/db.ts`, `lib/schema.ts`             |
+| `components/` | UI 组件  | 全局 shadcn-vue 组件库                          | `ui/`, `button/`, `card/`, `input/`                       |
+| `i18n/`       | 国际化   | 中英文双语支持配置                              | `locales/zh.json`, `locales/en.json`                      |
+| `migrations/` | 数据库   | Drizzle ORM 迁移文件                            | `.sql` 文件, `meta/`                                      |
 | `配置文件`    | 项目配置 | 各种构建和开发工具配置                          | `nuxt.config.ts`, `drizzle.config.ts`, `eslint.config.js` |
 
 ## 编码规范
@@ -106,26 +106,28 @@ graph TD
 **⚠️ 重要规则：禁止在 `<script setup>` 或 `setup()` 函数外部定义 `ref` 状态**
 
 **错误示例：**
+
 ```typescript
 // ❌ 错误：在组件外部定义 ref
 export const globalState = ref({
   count: 0,
-  user: null
+  user: null,
 })
 
 // ❌ 错误：在模块作用域定义 ref
 const sharedState = ref({
-  data: []
+  data: [],
 })
 ```
 
 **正确示例：**
+
 ```vue
 <script setup>
 // ✅ 正确：在 setup 函数内部定义 ref
 const localState = ref({
   count: 0,
-  user: null
+  user: null,
 })
 
 // ✅ 正确：在 composable 内部定义 ref
@@ -154,6 +156,7 @@ const useCounter = () => {
 3. **组合式函数**: 将状态逻辑封装在 composable 中
 
 **检查清单：**
+
 - [ ] 所有 ref 都在 `<script setup>` 或 `setup()` 函数内部定义
 - [ ] 没有在模块级别导出 ref 变量
 - [ ] 全局状态通过 Pinia 管理

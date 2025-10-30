@@ -4,9 +4,12 @@ export default antfu({
   typescript: true,
   vue: true,
   nuxt: true,
+  // 禁用格式化相关规则，让 Prettier 处理
+  stylistic: false,
+  formatters: false,
   // 标准 Nuxt 项目规则配置
   rules: {
-    // Vue 相关规则 - 标准配置
+    // Vue 相关规则 - 标准配置（禁用格式化相关规则）
     'vue/multi-word-component-names': 'off', // Nuxt 项目通常允许单词组件名
     'vue/no-v-html': 'warn', // v-html 安全警告
     'vue/require-default-prop': 'off', // 不强制 prop 默认值
@@ -17,6 +20,13 @@ export default antfu({
     'vue/no-unused-components': 'warn', // 未使用组件警告
     'vue/no-unused-vars': 'warn', // 未使用变量警告
     'vue/custom-event-name-casing': ['error', 'camelCase'], // 自定义事件使用 camelCase
+    // 禁用 Vue HTML 格式化相关规则
+    'vue/singleline-html-element-content-newline': 'off',
+    'vue/multiline-html-element-content-newline': 'off',
+    'vue/html-indent': 'off',
+    'vue/max-attributes-per-line': 'off',
+    'vue/html-self-closing': 'off',
+    'vue/html-closing-bracket-newline': 'off',
     'vue/define-macros-order': [
       'error',
       {
@@ -24,16 +34,6 @@ export default antfu({
       },
     ],
     'vue/no-undef-properties': 'warn', // 未定义属性警告
-    'vue/html-self-closing': [
-      'error',
-      {
-        html: {
-          void: 'never',
-          normal: 'always',
-          component: 'always',
-        },
-      },
-    ],
 
     // TypeScript 相关规则 - 标准配置
     'ts/no-unused-vars': [
