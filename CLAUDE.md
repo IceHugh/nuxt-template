@@ -56,7 +56,7 @@ graph TD
 
     G --> G1["nuxt.config.ts"];
     G --> G2["drizzle.config.ts"];
-    G --> G3["biome.json"];
+    G --> G3["eslint.config.js"];
 
     click B "./app/CLAUDE.md" "查看 app 模块文档"
     click C "./server/CLAUDE.md" "查看 server 模块文档"
@@ -74,13 +74,13 @@ graph TD
 | `components/` | UI 组件  | 全局 shadcn-vue 组件库                          | `ui/`, `button/`, `card/`, `input/`                 |
 | `i18n/`       | 国际化   | 中英文双语支持配置                              | `locales/zh.json`, `locales/en.json`                |
 | `migrations/` | 数据库   | Drizzle ORM 迁移文件                            | `.sql` 文件, `meta/`                                |
-| `配置文件`    | 项目配置 | 各种构建和开发工具配置                          | `nuxt.config.ts`, `drizzle.config.ts`, `biome.json` |
+| `配置文件`    | 项目配置 | 各种构建和开发工具配置                          | `nuxt.config.ts`, `drizzle.config.ts`, `eslint.config.js` |
 
 ## 编码规范
 
 ### 代码风格
 
-- 使用 Biome 进行代码格式化和检查
+- 使用 ESLint + Prettier 进行代码格式化和检查
 - 2 空格缩进，100 字符行宽
 - 双引号字符串，尾随逗号
 - 自动导入：`app/` 目录内的组件、composables、utils
@@ -99,6 +99,66 @@ graph TD
 - **第三方库封装** → `lib/` 目录
 - **静态资源** → `public/` 或 `app/assets/`
 
+### Vue Reactivity 最佳实践
+
+#### ref 使用规范
+
+**⚠️ 重要规则：禁止在 `<script setup>` 或 `setup()` 函数外部定义 `ref` 状态**
+
+**错误示例：**
+```typescript
+// ❌ 错误：在组件外部定义 ref
+export const globalState = ref({
+  count: 0,
+  user: null
+})
+
+// ❌ 错误：在模块作用域定义 ref
+const sharedState = ref({
+  data: []
+})
+```
+
+**正确示例：**
+```vue
+<script setup>
+// ✅ 正确：在 setup 函数内部定义 ref
+const localState = ref({
+  count: 0,
+  user: null
+})
+
+// ✅ 正确：在 composable 内部定义 ref
+const useCounter = () => {
+  const count = ref(0)
+
+  const increment = () => {
+    count.value++
+  }
+
+  return { count, increment }
+}
+</script>
+```
+
+**原因说明：**
+
+1. **内存泄漏风险**: 在 SSR 环境中，模块级别的 ref 会在不同请求之间共享状态
+2. **状态污染**: 多个用户或请求可能共享同一个状态，导致数据混淆
+3. **服务器端渲染问题**: 服务端渲染时状态会意外持久化，影响后续请求
+
+**替代方案：**
+
+1. **组件内部状态**: 在组件的 `<script setup>` 内部定义 ref
+2. **状态管理**: 使用 Pinia 进行全局状态管理
+3. **组合式函数**: 将状态逻辑封装在 composable 中
+
+**检查清单：**
+- [ ] 所有 ref 都在 `<script setup>` 或 `setup()` 函数内部定义
+- [ ] 没有在模块级别导出 ref 变量
+- [ ] 全局状态通过 Pinia 管理
+- [ ] 组合式函数在内部创建和管理状态
+
 ## AI 使用指引
 
 ### 项目结构理解
@@ -115,6 +175,10 @@ graph TD
 3. **API 开发**: 在 `server/trpc/router.ts` 定义路由，在 `server/trpc/routes/` 实现
 4. **数据库操作**: 使用 Drizzle ORM，修改 `server/lib/schema.ts` 后运行迁移
 5. **样式开发**: 使用 Tailwind CSS 类名，参考 shadcn-vue 组件实现
+6. **状态管理**:
+   - 组件状态在 `<script setup>` 内部定义 ref
+   - 全局状态使用 Pinia store
+   - **避免**在模块级别导出 ref 变量
 
 ### 注意事项
 
@@ -124,6 +188,7 @@ graph TD
 - 所有 UI 组件都支持深色模式
 - 国际化文件需要同时更新中英文版本
 - **重要**: 项目通过兼容性适配层确保 VueUse 的 SSR 兼容性
+- **🚨 关键**: 永远不要在 `<script setup>` 或 `setup()` 函数外部定义 `const state = ref()`，这会导致 SSR 环境中的状态共享和内存泄漏
 
 ## ⚠️ 关键修复记录
 
