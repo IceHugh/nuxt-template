@@ -1,27 +1,27 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from "vue";
-import type { EmptyVariants } from ".";
-import { cn } from "~/lib/utils";
-import { emptyVariants } from ".";
+import type { HTMLAttributes } from 'vue'
+import type { EmptyVariants } from '.'
+import { cn } from '~/lib/utils'
+import { emptyVariants } from '.'
 
 interface Props {
-  class?: HTMLAttributes["class"];
-  layout?: EmptyVariants["layout"];
-  size?: EmptyVariants["size"];
-  title?: string;
-  description?: string;
-  icon?: string;
+  class?: HTMLAttributes['class']
+  layout?: EmptyVariants['layout']
+  size?: EmptyVariants['size']
+  title?: string
+  description?: string
+  icon?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  title: "暂无数据",
-  description: "当前没有可显示的内容",
-  icon: "lucide:inbox",
-});
+  title: '暂无数据',
+  description: '当前没有可显示的内容',
+  icon: 'lucide:inbox',
+})
 
 defineEmits<{
-  action: [];
-}>();
+  action: []
+}>()
 </script>
 
 <template>
@@ -37,7 +37,11 @@ defineEmits<{
       }"
     >
       <slot name="icon">
-        <Icon :name="icon" class="size-8" :class="{ 'size-6': size === 'sm', 'size-10': size === 'lg' }" />
+        <Icon
+          :name="icon"
+          class="size-8"
+          :class="{ 'size-6': size === 'sm', 'size-10': size === 'lg' }"
+        />
       </slot>
     </div>
 
@@ -52,7 +56,9 @@ defineEmits<{
           'text-lg': size === 'lg',
         }"
       >
-        <slot name="title">{{ title }}</slot>
+        <slot name="title">
+          {{ title }}
+        </slot>
       </h3>
 
       <!-- 描述 -->
@@ -65,11 +71,17 @@ defineEmits<{
           'mb-0': layout === 'inline',
         }"
       >
-        <slot name="description">{{ description }}</slot>
+        <slot name="description">
+          {{ description }}
+        </slot>
       </p>
 
       <!-- 操作按钮 -->
-      <div v-if="$slots.action" class="flex flex-wrap gap-2 justify-center" :class="{ 'justify-start': layout === 'inline' }">
+      <div
+        v-if="$slots.action"
+        class="flex flex-wrap gap-2 justify-center"
+        :class="{ 'justify-start': layout === 'inline' }"
+      >
         <slot name="action" />
       </div>
     </div>

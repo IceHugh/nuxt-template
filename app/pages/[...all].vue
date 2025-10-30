@@ -1,43 +1,45 @@
 <script setup lang="ts">
 // 获取路由信息
-const route = useRoute();
-const router = useRouter();
+const route = useRoute()
+const router = useRouter()
 
 // 国际化支持
-const { t } = useI18n();
+const { t } = useI18n()
 
 // 检查是否为 404 错误
 const is404 = computed(() => {
-  return route.path !== "/" && !route.matched.length;
-});
+  return route.path !== '/' && !route.matched.length
+})
 
 // 获取页面信息
 const pageInfo = computed(() => {
   return {
-    title: t("error.404.title", "页面未找到"),
-    description: t("error.404.description", "抱歉，您访问的页面不存在或已被移动。"),
-    icon: "lucide:search-x",
-    iconClass: "text-blue-500",
-  };
-});
+    title: t('error.404.title', '页面未找到'),
+    description: t('error.404.description', '抱歉，您访问的页面不存在或已被移动。'),
+    icon: 'lucide:search-x',
+    iconClass: 'text-blue-500',
+  }
+})
 
 // 返回首页
-const goHome = () => {
-  router.push("/");
-};
+function goHome() {
+  router.push('/')
+}
 
 // 返回上一页
-const goBack = () => {
-  if (typeof window !== "undefined" && window.history.length > 1) {
-    router.back();
+function goBack() {
+  if (typeof window !== 'undefined' && window.history.length > 1) {
+    router.back()
   } else {
-    router.push("/");
+    router.push('/')
   }
-};
+}
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted/20 p-4">
+  <div
+    class="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted/20 p-4"
+  >
     <!-- 背景装饰 -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
       <!-- 动态圆圈装饰 -->
@@ -53,7 +55,6 @@ const goBack = () => {
     <div class="relative z-10 w-full max-w-2xl">
       <Card class="border-border/50 shadow-2xl bg-background/90 backdrop-blur-sm">
         <CardContent class="p-8 md:p-12 text-center space-y-8">
-
           <!-- 图标和标题 -->
           <div class="space-y-4">
             <!-- 404 大号数字 -->
@@ -63,14 +64,21 @@ const goBack = () => {
               </div>
               <!-- 装饰圆环 -->
               <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div class="w-32 h-32 md:w-40 md:h-40 border-4 border-primary/10 rounded-full animate-spin-slow" />
-                <div class="absolute w-24 h-24 md:w-32 md:h-32 border-2 border-primary/5 rounded-full animate-spin-slow-reverse" />
+                <div
+                  class="w-32 h-32 md:w-40 md:h-40 border-4 border-primary/10 rounded-full animate-spin-slow"
+                />
+                <div
+                  class="absolute w-24 h-24 md:w-32 md:h-32 border-2 border-primary/5 rounded-full animate-spin-slow-reverse"
+                />
               </div>
             </div>
 
             <!-- 图标 -->
             <div class="flex justify-center">
-              <div :class="[pageInfo.iconClass, 'w-16 h-16 rounded-full bg-muted flex items-center justify-center']">
+              <div
+                class="w-16 h-16 rounded-full bg-muted flex items-center justify-center"
+                :class="[pageInfo.iconClass]"
+              >
                 <Icon :name="pageInfo.icon" class="w-8 h-8" />
               </div>
             </div>
@@ -120,19 +128,15 @@ const goBack = () => {
               {{ t('error.404.suggestion', '您可以尝试以下操作：') }}
             </p>
             <div class="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button
-                @click="goHome"
-                class="min-w-0 flex-1 sm:flex-none"
-                size="lg"
-              >
+              <Button class="min-w-0 flex-1 sm:flex-none" size="lg" @click="goHome">
                 <Icon name="lucide:home" class="w-4 h-4 mr-2" />
                 {{ t('error.404.actions.home', '返回首页') }}
               </Button>
               <Button
-                @click="goBack"
                 variant="outline"
                 class="min-w-0 flex-1 sm:flex-none"
                 size="lg"
+                @click="goBack"
               >
                 <Icon name="lucide:arrow-left" class="w-4 h-4 mr-2" />
                 {{ t('error.404.actions.back', '返回上一页') }}
@@ -145,7 +149,10 @@ const goBack = () => {
             <div class="flex items-center justify-center gap-4 text-xs text-muted-foreground">
               <div class="flex items-center gap-1">
                 <Icon name="lucide:globe" class="w-3 h-3" />
-                <span>{{ t('common.language', '语言') }}: {{ $i18n.locale === 'zh' ? '简体中文' : 'English' }}</span>
+                <span
+                  >{{ t('common.language', '语言') }}:
+                  {{ $i18n.locale === 'zh' ? '简体中文' : 'English' }}</span
+                >
               </div>
               <div class="flex items-center gap-1">
                 <Icon name="lucide:map-pin" class="w-3 h-3" />
@@ -153,16 +160,20 @@ const goBack = () => {
               </div>
             </div>
           </div>
-
         </CardContent>
       </Card>
     </div>
 
     <!-- 额外的视觉元素 -->
-    <div class="absolute bottom-10 left-10 text-primary/10 text-6xl font-bold select-none animate-pulse">
+    <div
+      class="absolute bottom-10 left-10 text-primary/10 text-6xl font-bold select-none animate-pulse"
+    >
       ?
     </div>
-    <div class="absolute top-10 right-20 text-primary/5 text-4xl font-bold select-none animate-pulse" style="animation-delay: 1s;">
+    <div
+      class="absolute top-10 right-20 text-primary/5 text-4xl font-bold select-none animate-pulse"
+      style="animation-delay: 1s"
+    >
       !
     </div>
   </div>

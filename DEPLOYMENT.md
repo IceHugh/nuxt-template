@@ -14,12 +14,14 @@
 在 Cloudflare Pages 中设置以下环境变量：
 
 ### 生产环境变量
+
 ```
 NODE_VERSION=20
 NITRO_PRESET=cloudflare-pages
 ```
 
 ### 可选环境变量
+
 ```
 # 如果需要其他环境变量
 NUXT_PUBLIC_API_URL=https://your-api.com
@@ -72,6 +74,7 @@ bunx wrangler d1 migrations apply nuxt-template-db --remote
 ### 4. 数据库架构
 
 项目包含以下数据表：
+
 - **users**：用户表
 - **posts**：文章表
 - **categories**：分类表
@@ -89,11 +92,11 @@ bunx wrangler d1 migrations apply nuxt-template-db --remote
 
 在 GitHub 仓库设置中添加以下 Secrets：
 
-| Secret 名称 | 描述 | 获取方式 |
-|------------|------|----------|
-| `CLOUDFLARE_API_TOKEN` | Cloudflare API Token | Cloudflare Dashboard → My Profile → API Tokens |
-| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare Account ID | Cloudflare Dashboard → Right sidebar → Account ID |
-| `CLOUDFLARE_DATABASE_ID` | D1 数据库 ID | 运行 `bunx wrangler d1 list` 获取 |
+| Secret 名称              | 描述                  | 获取方式                                          |
+| ------------------------ | --------------------- | ------------------------------------------------- |
+| `CLOUDFLARE_API_TOKEN`   | Cloudflare API Token  | Cloudflare Dashboard → My Profile → API Tokens    |
+| `CLOUDFLARE_ACCOUNT_ID`  | Cloudflare Account ID | Cloudflare Dashboard → Right sidebar → Account ID |
+| `CLOUDFLARE_DATABASE_ID` | D1 数据库 ID          | 运行 `bunx wrangler d1 list` 获取                 |
 
 ### 2. 获取 Cloudflare API Token
 

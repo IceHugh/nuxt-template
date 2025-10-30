@@ -1,20 +1,20 @@
-import { createTRPCClient, httpBatchLink } from "@trpc/client";
-import type { AppRouter } from "~/server/trpc/router";
+import type { AppRouter } from '~/server/trpc/router'
+import { createTRPCClient, httpBatchLink } from '@trpc/client'
 
-const getBaseUrl = () => {
-  if (typeof window !== "undefined") {
+function getBaseUrl() {
+  if (typeof window !== 'undefined') {
     // Browser should use relative URL
-    return "";
+    return ''
   }
 
   // Server-side rendering
   if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`;
+    return `https://${process.env.VERCEL_URL}`
   }
 
   // Development - 使用正确的端口
-  return `http://localhost:${process.env.NUXT_PORT || process.env.PORT || 3000}`;
-};
+  return `http://localhost:${process.env.NUXT_PORT || process.env.PORT || 3000}`
+}
 
 export const trpc = createTRPCClient<AppRouter>({
   links: [
@@ -22,4 +22,4 @@ export const trpc = createTRPCClient<AppRouter>({
       url: `${getBaseUrl()}/api/trpc`,
     }),
   ],
-});
+})

@@ -1,14 +1,14 @@
-import { initTRPC } from "@trpc/server";
-import { z } from "zod";
-import { debugRouter } from "./routes/debug";
+import { initTRPC } from '@trpc/server'
+import { z } from 'zod'
+import { debugRouter } from './routes/debug'
 
-const t = initTRPC.create();
+const t = initTRPC.create()
 
 /**
  * Export type router type signature,
  * this is used by the client.
  */
-export type AppRouter = typeof appRouter;
+export type AppRouter = typeof appRouter
 
 /**
  * Create your application's root router
@@ -22,17 +22,17 @@ export const appRouter = t.router({
     )
     .query(({ input }) => {
       return {
-        greeting: `Hello ${input?.name ?? "World"}!`,
+        greeting: `Hello ${input?.name ?? 'World'}!`,
         timestamp: new Date().toISOString(),
-      };
+      }
     }),
 
   health: t.procedure.query(() => {
     return {
-      status: "ok",
+      status: 'ok',
       timestamp: new Date().toISOString(),
       uptime: process.uptime(),
-    };
+    }
   }),
 
   userInfo: t.procedure
@@ -47,7 +47,7 @@ export const appRouter = t.router({
         name: `User ${input.id}`,
         email: `user${input.id}@example.com`,
         createdAt: new Date().toISOString(),
-      };
+      }
     }),
 
   // 调试相关路由
@@ -69,7 +69,7 @@ export const appRouter = t.router({
         z.object({
           title: z.string().min(1).max(255),
           description: z.string().optional(),
-          status: z.string().default("active"),
+          status: z.string().default('active'),
         })
       )
       .mutation(({ input, ctx }) => debugRouter.createRecord(input, ctx.event)),
@@ -99,7 +99,7 @@ export const appRouter = t.router({
             z.object({
               title: z.string().min(1).max(255),
               description: z.string().optional(),
-              status: z.string().default("active"),
+              status: z.string().default('active'),
             })
           ),
         })
@@ -112,4 +112,4 @@ export const appRouter = t.router({
     // 获取数据库统计信息
     getStats: t.procedure.query(({ ctx }) => debugRouter.getStats(ctx.event)),
   }),
-});
+})

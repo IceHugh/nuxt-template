@@ -7,6 +7,7 @@
 ## 架构总览
 
 ### 技术栈
+
 - **前端框架**: Nuxt 4 + Vue 3 + TypeScript
 - **UI 组件**: Tailwind CSS V4 + shadcn-vue + 深色模式
 - **状态管理**: Pinia
@@ -18,6 +19,7 @@
 - **部署**: Cloudflare Pages + GitHub Actions
 
 ### 架构特点
+
 - **全栈 TypeScript**: 从前端到后端的完整类型安全
 - **SSR/SSG 支持**: 服务端渲染和静态生成灵活切换
 - **响应式设计**: 移动端优先的自适应布局
@@ -65,30 +67,33 @@ graph TD
 
 ## 模块索引
 
-| 模块路径 | 类型 | 职责描述 | 主要文件 |
-|---------|------|----------|----------|
-| `app/` | 前端应用 | Nuxt 4 核心应用目录，包含页面、组件、组合式函数 | `app.vue`, `pages/`, `components/`, `composables/` |
-| `server/` | 后端服务 | 服务端 API、tRPC 路由、数据库操作 | `api/`, `trpc/`, `lib/db.ts`, `lib/schema.ts` |
-| `components/` | UI 组件 | 全局 shadcn-vue 组件库 | `ui/`, `button/`, `card/`, `input/` |
-| `i18n/` | 国际化 | 中英文双语支持配置 | `locales/zh.json`, `locales/en.json` |
-| `migrations/` | 数据库 | Drizzle ORM 迁移文件 | `.sql` 文件, `meta/` |
-| `配置文件` | 项目配置 | 各种构建和开发工具配置 | `nuxt.config.ts`, `drizzle.config.ts`, `biome.json` |
+| 模块路径      | 类型     | 职责描述                                        | 主要文件                                            |
+| ------------- | -------- | ----------------------------------------------- | --------------------------------------------------- |
+| `app/`        | 前端应用 | Nuxt 4 核心应用目录，包含页面、组件、组合式函数 | `app.vue`, `pages/`, `components/`, `composables/`  |
+| `server/`     | 后端服务 | 服务端 API、tRPC 路由、数据库操作               | `api/`, `trpc/`, `lib/db.ts`, `lib/schema.ts`       |
+| `components/` | UI 组件  | 全局 shadcn-vue 组件库                          | `ui/`, `button/`, `card/`, `input/`                 |
+| `i18n/`       | 国际化   | 中英文双语支持配置                              | `locales/zh.json`, `locales/en.json`                |
+| `migrations/` | 数据库   | Drizzle ORM 迁移文件                            | `.sql` 文件, `meta/`                                |
+| `配置文件`    | 项目配置 | 各种构建和开发工具配置                          | `nuxt.config.ts`, `drizzle.config.ts`, `biome.json` |
 
 ## 编码规范
 
 ### 代码风格
+
 - 使用 Biome 进行代码格式化和检查
 - 2 空格缩进，100 字符行宽
 - 双引号字符串，尾随逗号
 - 自动导入：`app/` 目录内的组件、composables、utils
 
 ### 命名约定
+
 - **组件**: PascalCase (如 `DemoCounter.vue`)
 - **Composables**: use 开头 (如 `useTRPC.ts`)
 - **工具函数**: camelCase (如 `formatRelativeTime`)
 - **文件名**: kebab-case 或 camelCase
 
 ### 目录组织原则
+
 - **应用特定代码** → `app/` 目录
 - **全局可复用代码** → 根目录对应目录
 - **第三方库封装** → `lib/` 目录
@@ -97,12 +102,14 @@ graph TD
 ## AI 使用指引
 
 ### 项目结构理解
+
 - 这是一个 Nuxt 4 全栈应用，采用新的 `app/` 目录结构
 - 前后端完全 TypeScript，通过 tRPC 实现类型安全通信
 - 数据库支持本地 SQLite 和生产环境 Cloudflare D1
 - 组件分为应用级 (`app/components/`) 和全局级 (`components/`)
 
 ### 开发建议
+
 1. **新增页面**: 在 `app/pages/` 创建 `.vue` 文件，路由自动生成
 2. **新增组件**: 根据作用域选择 `app/components/` 或 `components/`
 3. **API 开发**: 在 `server/trpc/router.ts` 定义路由，在 `server/trpc/routes/` 实现
@@ -110,6 +117,7 @@ graph TD
 5. **样式开发**: 使用 Tailwind CSS 类名，参考 shadcn-vue 组件实现
 
 ### 注意事项
+
 - `app/` 目录内的文件支持自动导入
 - tRPC 提供前后端类型安全的 API 通信
 - 数据库配置支持开发环境和生产环境自动切换
@@ -126,6 +134,7 @@ graph TD
 
 **根本原因：**
 VueUse 库大量依赖浏览器原生 API（如 `window`, `document`, `navigator`），这些 API 在 Cloudflare Pages 的服务端渲染环境中不可用，导致：
+
 - 构建时出现 `window is not defined` 错误
 - SSR 渲染失败
 - 部署后应用无法正常运行
@@ -133,6 +142,7 @@ VueUse 库大量依赖浏览器原生 API（如 `window`, `document`, `navigator
 **修复方案：**
 
 1. **彻底移除 VueUse 依赖**
+
    ```bash
    bun remove @vueuse/core
    ```
@@ -150,11 +160,13 @@ VueUse 库大量依赖浏览器原生 API（如 `window`, `document`, `navigator
    - 添加了错误边界处理，避免服务端渲染错误
 
 **关键文件：**
+
 - `app/utils/vueuse.ts` - VueUse 功能的兼容性替代实现
 - `app/composables/` - 重写后的组合式函数（已删除）
 - `nuxt.config.ts` - 移除 VueUse 相关配置
 
 **修复效果：**
+
 - ✅ 构建成功，消除所有 VueUse 相关错误
 - ✅ SSR 兼容，服务端渲染正常
 - ✅ 功能完整，保持原有特性
@@ -162,6 +174,7 @@ VueUse 库大量依赖浏览器原生 API（如 `window`, `document`, `navigator
 - ✅ 部署成功，在 Cloudflare Pages 正常运行
 
 **经验总结：**
+
 1. **环境隔离**: SSR 项目必须严格区分客户端和服务端环境
 2. **渐进增强**: 先确保基础功能可用，再添加客户端增强特性
 3. **原生优先**: 简单工具函数优先使用原生 API
@@ -176,6 +189,7 @@ VueUse 库大量依赖浏览器原生 API（如 `window`, `document`, `navigator
 修改 `app/components/ui/sidebar/index.ts` 的 `sidebarMenuButtonVariants` 样式定义：
 
 1. **文字隐藏**：
+
    ```css
    group-data-[collapsible=icon]:[&>span:last-child]:w-0!
    group-data-[collapsible=icon]:[&>span:last-child]:overflow-hidden!
@@ -190,6 +204,7 @@ VueUse 库大量依赖浏览器原生 API（如 `window`, `document`, `navigator
    ```
 
 **修复效果：**
+
 - ✅ 侧边栏收缩时文字完全隐藏
 - ✅ 图标保持 16px 正常大小
 - ✅ 按钮布局保持 32px 正方形

@@ -54,7 +54,7 @@ CLOUDFLARE_D1_TOKEN=your_d1_api_token
 [[d1_databases]]
 binding = "DB"
 database_name = "nuxt-template-db"
-database_id = ""  # 填入你的 D1 数据库 ID
+database_id = "" # 填入你的 D1 数据库 ID
 ```
 
 ### 3. 数据库 Schema
@@ -71,27 +71,26 @@ database_id = ""  # 填入你的 D1 数据库 ID
 ### 1. 数据库基本操作
 
 ```typescript
-import { getDb } from '~/server/lib/db'
-import { users, posts } from '~/server/lib/schema'
 import { eq } from 'drizzle-orm'
+import { getDb } from '~/server/lib/db'
+import { posts, users } from '~/server/lib/schema'
 
 // 在 API 路由中使用
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async event => {
   const db = getDb(event)
 
   // 查询所有用户
   const allUsers = await db.select().from(users)
 
   // 根据条件查询
-  const user = await db.select()
-    .from(users)
-    .where(eq(users.id, 1))
+  const user = await db.select().from(users).where(eq(users.id, 1))
 
   // 插入数据
-  const newUser = await db.insert(users)
+  const newUser = await db
+    .insert(users)
     .values({
       email: 'test@example.com',
-      name: 'Test User'
+      name: 'Test User',
     })
     .returning()
 
@@ -102,6 +101,7 @@ export default defineEventHandler(async (event) => {
 ### 2. API 端点示例
 
 #### GET /api/users
+
 获取所有用户列表
 
 ```bash
@@ -109,6 +109,7 @@ curl -X GET http://localhost:3000/api/users
 ```
 
 #### POST /api/users
+
 创建新用户
 
 ```bash
@@ -227,6 +228,7 @@ bun run db:local:migrate  # 执行迁移（本地）
 ### 5. 环境切换
 
 代码会自动检测运行环境：
+
 - **本地开发**（`NODE_ENV !== 'production'`）：使用 SQLite
 - **生产环境**：使用 Cloudflare D1
 
@@ -243,6 +245,7 @@ bun run db:studio
 ### 7. 种子数据
 
 项目包含示例种子数据：
+
 - 2 个用户（管理员、作者）
 - 3 个分类（技术、生活、教程）
 - 3 篇文章（2 篇已发布，1 篇草稿）
@@ -251,11 +254,13 @@ bun run db:studio
 ### 8. 故障排除
 
 #### 数据库连接问题
+
 - 确认 `data/` 目录存在
 - 检查 SQLite 文件权限
 - 重新运行 `bun run db:reset`
 
 #### 迁移问题
+
 - 删除 `./data/app.db` 重新开始
 - 检查 `migrations/` 目录中的文件
 - 查看控制台错误信息
@@ -266,14 +271,12 @@ bun run db:studio
 
 ```typescript
 // 从 Schema 自动生成类型
-import type { User, NewUser, Post, NewPost } from '~/server/lib/schema'
+import type { NewPost, NewUser, Post, User } from '~/server/lib/schema'
 
 // 在 API 中使用类型
-const createUser = async (userData: NewUser): Promise<User> => {
+async function createUser(userData: NewUser): Promise<User> {
   const db = getDb(event)
-  const result = await db.insert(users)
-    .values(userData)
-    .returning()
+  const result = await db.insert(users).values(userData).returning()
   return result[0]
 }
 ```
@@ -288,16 +291,19 @@ const createUser = async (userData: NewUser): Promise<User> => {
 ## 故障排除
 
 ### 1. 数据库连接失败
+
 - 检查 `wrangler.toml` 中的数据库绑定
 - 确认环境变量配置正确
 - 验证 D1 数据库是否存在
 
 ### 2. 迁移失败
+
 - 检查迁移文件语法
 - 确认数据库连接正常
 - 查看详细错误信息
 
 ### 3. 类型错误
+
 - 重新生成类型：`bun run db:generate`
 - 检查 Schema 定义
 - 重启开发服务器

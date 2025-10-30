@@ -18,11 +18,13 @@
 在 Cloudflare Pages 项目设置中：
 
 **构建配置 (Build Settings):**
+
 - **构建命令**: `bun run build:cf`
 - **构建输出目录**: `dist`
 - **Node.js 版本**: `20.x`
 
 **环境变量 (Environment Variables):**
+
 ```
 NODE_ENV = production
 ```
@@ -66,8 +68,7 @@ NODE_ENV = production
 ```toml
 name = "nuxt-template"
 compatibility_date = "2024-10-28"
-compatibility_flags = ["nodejs_compat"]
-
+compatibility_flags = [ "nodejs_compat" ]
 pages_build_output_dir = ".output/public"
 
 # D1 数据库绑定
@@ -127,7 +128,7 @@ wrangler d1 migrations apply nuxt-template-db --local
 
 ```typescript
 // 在 server/api 路由中
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async event => {
   const db = useCloudflareD1Database(event)
   // 使用 db 进行数据库操作
 })

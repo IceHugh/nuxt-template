@@ -1,8 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import tailwindcss from "@tailwindcss/vite";
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
-  compatibilityDate: "2025-07-15",
+  compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
   // 启用 pages
@@ -12,7 +12,7 @@ export default defineNuxtConfig({
 
   // 优化构建配置
   build: {
-    transpile: ['@vueuse/core']
+    transpile: ['@vueuse/core'],
   },
 
   // SSR 配置
@@ -21,7 +21,7 @@ export default defineNuxtConfig({
   // Vue 配置
   vue: {
     compilerOptions: {
-      isCustomElement: (tag) => tag.includes("-"),
+      isCustomElement: tag => tag.includes('-'),
     },
   },
 
@@ -29,7 +29,7 @@ export default defineNuxtConfig({
   nitro: {
     esbuild: {
       options: {
-        target: "esnext",
+        target: 'esnext',
       },
     },
   },
@@ -43,36 +43,36 @@ export default defineNuxtConfig({
   // 路由配置
   routeRules: {
     // 静态资源缓存
-    "/api/**": { isr: 60 },
-    "/assets/**": { isr: 2592000 }, // 30天
+    '/api/**': { isr: 60 },
+    '/assets/**': { isr: 2592000 }, // 30天
   },
 
-  css: ["~/assets/css/tailwind.css"],
+  css: ['~/assets/css/tailwind.css'],
 
   components: [
     {
-      path: "~/components",
+      path: '~/components',
       pathPrefix: false,
     },
   ],
 
   modules: [
-    "@nuxt/fonts",
-    "@nuxt/image",
-    "@nuxt/icon",
-    "@nuxt/scripts",
-    "@nuxt/test-utils",
-    "shadcn-nuxt",
-    "@nuxtjs/color-mode",
-    "@nuxtjs/i18n",
-    "@pinia/nuxt",
+    '@nuxt/fonts',
+    '@nuxt/image',
+    '@nuxt/icon',
+    '@nuxt/scripts',
+    '@nuxt/test-utils',
+    'shadcn-nuxt',
+    '@nuxtjs/color-mode',
+    '@nuxtjs/i18n',
+    '@pinia/nuxt',
   ],
 
   // Icon 配置
   icon: {
     // 图标组件自定义配置
-    size: "1em",
-    class: "icon",
+    size: '1em',
+    class: 'icon',
     // 自定义图标集合配置
     aliases: {
       // 可以在这里定义图标别名
@@ -87,45 +87,45 @@ export default defineNuxtConfig({
     /**
      * Prefix for all the imported component
      */
-    prefix: "",
+    prefix: '',
     /**
      * Directory that the component lives in.
      * @default "./components/ui"
      */
-    componentDir: "./app/components/ui",
+    componentDir: './app/components/ui',
   },
 
   colorMode: {
-    preference: "system",
-    fallback: "light",
-    dataValue: "theme",
-    classSuffix: "",
+    preference: 'system',
+    fallback: 'light',
+    dataValue: 'theme',
+    classSuffix: '',
   },
 
   i18n: {
     locales: [
       {
-        code: "zh",
-        language: "zh-CN",
-        name: "简体中文",
-        file: "zh.json",
+        code: 'zh',
+        language: 'zh-CN',
+        name: '简体中文',
+        file: 'zh.json',
       },
       {
-        code: "en",
-        language: "en-US",
-        name: "English",
-        file: "en.json",
+        code: 'en',
+        language: 'en-US',
+        name: 'English',
+        file: 'en.json',
       },
     ],
-    defaultLocale: "en",
-    fallbackLocale: "en",
+    defaultLocale: 'en',
+    fallbackLocale: 'en',
     detectBrowserLanguage: {
       useCookie: true,
-      redirectOn: "root",
+      redirectOn: 'root',
     },
     // 在开发环境禁用缺失键警告
     silent: true,
     silentTranslationWarn: true,
     silentFallbackWarn: true,
   },
-});
+})

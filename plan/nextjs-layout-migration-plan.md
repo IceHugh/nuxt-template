@@ -3,6 +3,7 @@
 ## 已明确的决策
 
 ### 技术栈选择
+
 - **目标框架**: Next.js 15 (React 19) → Nuxt 3 (Vue 3)
 - **UI 组件库**: shadcn/ui (React) → shadcn-vue (Vue)
 - **样式系统**: Tailwind CSS + CSS Variables (保持一致)
@@ -12,6 +13,7 @@
 - **状态管理**: React hooks → Vue composables
 
 ### 架构差异
+
 - **布局系统**: React Layout (文件系统路由) → Nuxt Layout (布局组件)
 - **服务端渲染**: React RSC → Vue 3 SSR
 - **组件模式**: React Client Components → Vue 3 Composition API
@@ -31,12 +33,14 @@
 ### 技术栈
 
 **源项目 (Next.js)**:
+
 - React 19 + Next.js 15
 - shadcn/ui + Tailwind CSS
 - next-intl + next-themes
 - tRPC + Lucide React
 
 **目标项目 (Nuxt)**:
+
 - Vue 3 + Nuxt 3
 - shadcn-vue + Tailwind CSS
 - @nuxtjs/i18n + @nuxtjs/color-mode
@@ -240,33 +244,38 @@
 ## 组件映射关系
 
 ### 核心布局组件
-| Next.js 组件 | Nuxt 组件 | 状态 |
-|-------------|-----------|------|
-| `LayoutDefault.tsx` | `app/layouts/default.vue` | 待创建 |
-| `AppSidebar.tsx` | `app/components/layouts/AppSidebar.vue` | 待创建 |
-| `Providers.tsx` | `app/plugins/providers.client.ts` | 待创建 |
+
+| Next.js 组件        | Nuxt 组件                               | 状态   |
+| ------------------- | --------------------------------------- | ------ |
+| `LayoutDefault.tsx` | `app/layouts/default.vue`               | 待创建 |
+| `AppSidebar.tsx`    | `app/components/layouts/AppSidebar.vue` | 待创建 |
+| `Providers.tsx`     | `app/plugins/providers.client.ts`       | 待创建 |
 
 ### 导航组件
-| Next.js 组件 | Nuxt 组件 | 状态 |
-|-------------|-----------|------|
-| `NavMain.tsx` | `app/components/layouts/NavMain.vue` | 待创建 |
-| `NavUser.tsx` | `app/components/layouts/NavUser.vue` | 待创建 |
+
+| Next.js 组件        | Nuxt 组件                                  | 状态   |
+| ------------------- | ------------------------------------------ | ------ |
+| `NavMain.tsx`       | `app/components/layouts/NavMain.vue`       | 待创建 |
+| `NavUser.tsx`       | `app/components/layouts/NavUser.vue`       | 待创建 |
 | `ActionSidebar.tsx` | `app/components/layouts/ActionSidebar.vue` | 待创建 |
 
 ### UI 组件
-| Next.js 组件 | Nuxt 组件 | 状态 |
-|-------------|-----------|------|
-| `ThemeSwitcher.tsx` | `app/components/ThemeToggle.vue` | 已存在，需升级 |
+
+| Next.js 组件           | Nuxt 组件                             | 状态           |
+| ---------------------- | ------------------------------------- | -------------- |
+| `ThemeSwitcher.tsx`    | `app/components/ThemeToggle.vue`      | 已存在，需升级 |
 | `LanguageSwitcher.tsx` | `app/components/LanguageSwitcher.vue` | 已存在，需升级 |
 
 ### Sidebar UI 组件集合
-| Next.js 组件 | Nuxt 组件 | 状态 |
-|-------------|-----------|------|
+
+| Next.js 组件                | Nuxt 组件                     | 状态           |
+| --------------------------- | ----------------------------- | -------------- |
 | `@/components/ui/sidebar/*` | `app/components/ui/sidebar/*` | 待创建完整集合 |
 
 ## 文件结构对比
 
 ### 目标项目 (Next.js)
+
 ```
 src/
 ├── app/
@@ -289,6 +298,7 @@ src/
 ```
 
 ### 目标结构 (Nuxt)
+
 ```
 app/
 ├── app.vue                     # 根布局 (简化版)
@@ -311,22 +321,26 @@ app/
 ## 技术实现要点
 
 ### 1. Sidebar 核心功能
+
 - **可折叠性**: 支持 `offcanvas` 和 `inset` 模式
 - **响应式**: 移动端自动折叠，桌面端固定显示
 - **状态管理**: 使用 Vue 3 响应式状态管理折叠状态
 - **键盘导航**: 完整的键盘访问性支持
 
 ### 2. 主题系统集成
+
 - **CSS 变量**: 使用 Tailwind CSS 的 CSS 变量系统
 - **暗色模式**: 支持 light/dark/system 三种模式
 - **过渡动画**: 平滑的主题切换动画效果
 
 ### 3. 国际化适配
+
 - **路由集成**: 与 @nuxtjs/i18n 路由系统完美集成
 - **语言切换**: 支持动态语言切换，保持当前页面状态
 - **本地化**: 所有 UI 文本支持多语言
 
 ### 4. 性能优化
+
 - **懒加载**: Sidebar 组件按需加载
 - **代码分割**: 不同布局模式独立打包
 - **缓存策略**: 合理的组件缓存和状态持久化
@@ -334,6 +348,7 @@ app/
 ## 风险评估与缓解
 
 ### 高风险项
+
 1. **Sidebar UI 组件复杂性**
    - 风险：Radix Vue API 学习成本高
    - 缓解：分阶段实现，先实现基础功能
@@ -343,6 +358,7 @@ app/
    - 缓解：使用 Vue 3 provide/inject 或 Pinia
 
 ### 中风险项
+
 1. **响应式兼容性**
    - 风险：移动端交互体验不佳
    - 缓解：充分的移动端测试
@@ -352,6 +368,7 @@ app/
    - 缓解：渐进式升级，保持向后兼容
 
 ### 低风险项
+
 1. **国际化集成**
    - 风险：语言切换逻辑复杂
    - 缓解：复用现有 i18n 配置
@@ -359,6 +376,7 @@ app/
 ## 验收标准
 
 ### 功能完整性
+
 - [ ] Sidebar 可正常展开/折叠
 - [ ] 主导航菜单功能正常
 - [ ] 用户信息下拉菜单正常
@@ -366,18 +384,21 @@ app/
 - [ ] 语言切换功能正常
 
 ### 响应式设计
+
 - [ ] 桌面端显示正常
 - [ ] 平板端显示正常
 - [ ] 移动端显示正常
 - [ ] 横竖屏切换正常
 
 ### 性能指标
+
 - [ ] 首屏加载时间 < 2s
 - [ ] 交互响应时间 < 100ms
 - [ ] 无内存泄漏
 - [ ] 打包体积合理
 
 ### 代码质量
+
 - [ ] TypeScript 类型安全
 - [ ] Vue 3 最佳实践
 - [ ] 代码可维护性

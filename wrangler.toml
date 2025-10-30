@@ -1,7 +1,7 @@
 # Cloudflare Pages 配置文件
 name = "nuxt-template"
 compatibility_date = "2024-10-28"
-compatibility_flags = ["nodejs_compat"]
+compatibility_flags = [ "nodejs_compat" ]
 
 # Pages 构建输出目录
 pages_build_output_dir = "dist"

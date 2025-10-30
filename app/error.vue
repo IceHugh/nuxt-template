@@ -1,47 +1,52 @@
 <script setup lang="ts">
-import type { NuxtError } from "#app";
+import type { NuxtError } from '#app'
 
 interface Props {
-  error: NuxtError;
+  error: NuxtError
 }
 
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
 // 国际化支持
-const { t } = useI18n();
+const { t } = useI18n()
 
 // 检查开发环境
-const isDev = computed(() => import.meta.dev);
+const isDev = computed(() => import.meta.dev)
 
 // 处理错误信息
 const errorInfo = computed(() => {
   return {
-    title: t("error.general.title", "出现错误"),
-    description: t("error.general.description", "抱歉，应用程序遇到了一个错误。"),
-    icon: "lucide:alert-triangle",
-    iconClass: "text-red-500",
-  };
-});
+    title: t('error.general.title', '出现错误'),
+    description: t('error.general.description', '抱歉，应用程序遇到了一个错误。'),
+    icon: 'lucide:alert-triangle',
+    iconClass: 'text-red-500',
+  }
+})
 
 // 处理错误
-const handleError = () => clearError({ redirect: "/" });
+const handleError = () => clearError({ redirect: '/' })
 
 // SEO 元数据
 useSeoMeta({
-  title: `${errorInfo.value.title} - ${t("common.title", "Nuxt 4 模板项目")}`,
+  title: `${errorInfo.value.title} - ${t('common.title', 'Nuxt 4 模板项目')}`,
   description: errorInfo.value.description,
-  robots: "noindex, nofollow",
-});
+  robots: 'noindex, nofollow',
+})
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted/20 p-4">
+  <div
+    class="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted/20 p-4"
+  >
     <div class="w-full max-w-lg">
       <Card class="border-border/50 shadow-xl bg-background/90 backdrop-blur-sm">
         <CardContent class="p-8 text-center space-y-6">
           <!-- 错误图标 -->
           <div class="flex justify-center">
-            <div :class="[errorInfo.iconClass, 'w-16 h-16 rounded-full bg-muted flex items-center justify-center']">
+            <div
+              class="w-16 h-16 rounded-full bg-muted flex items-center justify-center"
+              :class="[errorInfo.iconClass]"
+            >
               <Icon :name="errorInfo.icon" class="w-8 h-8" />
             </div>
           </div>
@@ -62,7 +67,9 @@ useSeoMeta({
           <!-- 错误详情（开发环境） -->
           <div v-if="isDev && error" class="text-left">
             <Collapsible>
-              <CollapsibleTrigger class="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
+              <CollapsibleTrigger
+                class="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
+              >
                 <Icon name="lucide:bug" class="w-4 h-4" />
                 错误详情
                 <Icon name="lucide:chevron-down" class="w-4 h-4" />
@@ -82,11 +89,11 @@ useSeoMeta({
 
           <!-- 操作按钮 -->
           <div class="flex flex-col sm:flex-row gap-3">
-            <Button @click="handleError" class="flex-1">
+            <Button class="flex-1" @click="handleError">
               <Icon name="lucide:home" class="w-4 h-4 mr-2" />
               {{ t('error.404.actions.home', '返回首页') }}
             </Button>
-            <Button @click="handleError" variant="outline" class="flex-1">
+            <Button variant="outline" class="flex-1" @click="handleError">
               <Icon name="lucide:refresh-cw" class="w-4 h-4 mr-2" />
               {{ t('error.404.actions.refresh', '刷新页面') }}
             </Button>

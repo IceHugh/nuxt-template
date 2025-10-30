@@ -1,3 +1,18 @@
+<script setup lang="ts">
+// 使用 @nuxtjs/color-mode 提供的 useColorMode
+const colorMode = useColorMode()
+
+// 获取国际化函数
+const { t } = useI18n()
+
+// 切换主题函数
+function toggleTheme() {
+  // 在浅色和深色之间切换
+  const newTheme = colorMode.preference === 'dark' ? 'light' : 'dark'
+  colorMode.preference = newTheme
+}
+</script>
+
 <template>
   <ClientOnly>
     <Button
@@ -23,27 +38,9 @@
         :aria-label="$t('accessibility.toggleTheme')"
         @click="toggleTheme"
       >
-        <Icon
-          name="solar:moon-stars-line-duotone"
-          class="h-5 w-5"
-        />
+        <Icon name="solar:moon-stars-line-duotone" class="h-5 w-5" />
         <span class="sr-only">{{ $t('accessibility.toggleTheme') }}</span>
       </Button>
     </template>
   </ClientOnly>
 </template>
-
-<script setup lang="ts">
-// 使用 @nuxtjs/color-mode 提供的 useColorMode
-const colorMode = useColorMode();
-
-// 获取国际化函数
-const { t } = useI18n();
-
-// 切换主题函数
-const toggleTheme = () => {
-  // 在浅色和深色之间切换
-  const newTheme = colorMode.preference === "dark" ? "light" : "dark";
-  colorMode.preference = newTheme;
-};
-</script>

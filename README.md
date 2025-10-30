@@ -15,31 +15,37 @@
 ## 🏗️ 技术栈
 
 ### 前端框架
+
 - **Nuxt 4** - Vue.js 元框架
 - **Vue 3** - 响应式框架
 - **TypeScript** - 类型安全
 
 ### UI 组件库
+
 - **Tailwind CSS V4** - 原子化 CSS 框架
 - **shadcn-vue** - Vue 3 组件库
 - **@iconify/vue** - 图标系统
 - **@nuxtjs/color-mode** - 深色模式
 
 ### 开发工具
+
 - **Biome** - 代码格式化和检查
 - **date-fns** - 日期处理库
 - **radash** - 函数式编程工具库
 
 ### API 和后端
+
 - **tRPC** - 类型安全的 API
 - **Nitro** - 服务端渲染引擎
 - **Drizzle ORM** - 数据库 ORM
 - **Cloudflare D1** - SQLite 数据库
 
 ### 国际化
+
 - **@nuxtjs/i18n** - 多语言支持
 
 ### 部署
+
 - **Cloudflare Pages** - 静态网站托管
 - **GitHub Actions** - CI/CD 自动化
 - **Wrangler CLI** - Cloudflare 开发工具
@@ -157,34 +163,40 @@ nuxt-template/
 ## 🎯 功能展示
 
 ### 📱 页面导航
+
 - **侧边栏导航**：现代化的响应式侧边栏，支持折叠和移动端适配
 - **多页面应用**：首页、分析、项目、设置、团队、组件测试等完整页面
 - **路由管理**：基于 Nuxt 4 文件路由的自动路由生成
 
 ### UI 组件库
+
 - **完整的 shadcn-vue 组件**：包含 20+ 种常用 UI 组件
 - **响应式设计**：移动端、平板端、桌面端完美适配
 - **深色模式**：一键切换明暗主题，支持系统主题检测
 - **交互组件**：对话框、下拉菜单、标签页、工具提示等
 
 ### 🔧 开发工具演示
+
 - **tRPC API 测试**：类型安全的前后端通信，包含健康检查和调试接口
 - **数据库调试**：实时查看数据库连接状态和操作结果
 - **工具函数测试**：VueUse、date-fns、radash 等工具库的实际应用演示
 - **实时计数器**：展示 Vue 3 响应式系统和组合式 API
 
 ### 🗄️ 数据库支持
+
 - **Drizzle ORM**：类型安全的数据库操作，支持 SQL 和 NoSQL 风格
 - **双数据库支持**：本地开发使用 SQLite，生产环境使用 Cloudflare D1
 - **数据库脚本**：包含初始化、种子数据、重置等完整的数据库管理工具
 - **自动迁移**：数据库架构版本管理和自动迁移
 
 ### 🌍 国际化
+
 - **中英双语**：完整的界面翻译，支持动态语言切换
 - **浏览器检测**：自动检测用户浏览器语言偏好
 - **路由本地化**：支持 URL 路径的本地化
 
 ### 🎨 代码质量
+
 - **Biome**：现代化的代码格式化和检查工具
 - **TypeScript**：全栈类型安全，从前端到后端的完整类型支持
 - **组件化开发**：基于 Vue 3 Composition API 的现代组件模式
@@ -234,11 +246,13 @@ bun run db:local:studio  # 本地 Drizzle Studio
 由于项目暂未配置自动化 CI/CD，需要手动部署到 Cloudflare Pages：
 
 1. **构建项目**：
+
    ```bash
    bun run build:cf
    ```
 
 2. **部署到 Cloudflare Pages**：
+
    ```bash
    # 使用 Wrangler CLI
    npx wrangler pages deploy dist --project-name nuxt-template
@@ -258,12 +272,15 @@ bun run db:local:studio  # 本地 Drizzle Studio
 项目已成功解决 VueUse 在 Cloudflare Pages 环境下的兼容性问题：
 
 #### 问题描述
+
 - **原始问题**：VueUse 依赖的浏览器 API（如 `window`, `document`）在 Cloudflare Pages 的服务端渲染环境下不可用
 - **错误表现**：构建失败，运行时错误，SSR 渲染异常
 - **影响范围**：所有依赖 VueUse 的组合式函数，如 `useMediaQuery`, `useMouse`, `useWindowSize`, `useToggle`
 
 #### 修复方案
+
 1. **彻底移除 VueUse 依赖**：
+
    ```bash
    bun remove @vueuse/core
    ```
@@ -280,6 +297,7 @@ bun run db:local:studio  # 本地 Drizzle Studio
    - 添加了错误边界处理，避免服务端渲染错误
 
 #### 修复效果
+
 - ✅ **构建成功**：消除了所有 VueUse 相关的构建错误
 - ✅ **SSR 兼容**：服务端渲染不再出现 `window is not defined` 错误
 - ✅ **功能完整**：保持了所有原有的功能特性
@@ -287,11 +305,13 @@ bun run db:local:studio  # 本地 Drizzle Studio
 - ✅ **部署成功**：成功部署到 Cloudflare Pages 并正常运行
 
 #### 关键文件
+
 - `app/utils/vueuse.ts` - VueUse 兼容性替代实现
 - `app/composables/` - 重写后的组合式函数
 - `nuxt.config.ts` - 移除 VueUse 相关配置
 
 #### 经验总结
+
 1. **环境检测**：在服务端渲染项目中，必须严格区分客户端和服务端环境
 2. **渐进增强**：先确保基础功能可用，再添加客户端增强特性
 3. **原生优先**：对于简单的工具函数，优先使用原生 API 而非第三方库

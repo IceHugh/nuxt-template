@@ -1,7 +1,8 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-echo "🔍 Running Biome checks..."
-bun run check
+echo "🔍 Running ESLint and Prettier checks..."
+bun run lint
+bun run format:check
 
 echo "✅ Pre-commit checks passed!"

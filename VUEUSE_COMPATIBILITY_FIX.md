@@ -7,6 +7,7 @@
 ## 问题背景
 
 ### 原始问题
+
 在将 Nuxt 4 项目部署到 Cloudflare Pages 时，遇到严重的兼容性问题：
 
 1. **构建失败**：VueUse 相关的构建错误
@@ -15,18 +16,20 @@
 4. **部署失败**：应用在 Cloudflare Pages 环境下无法启动
 
 ### 根本原因分析
+
 VueUse 是一个强大的 Vue 3 组合式函数库，但它大量依赖浏览器原生 API：
 
 ```javascript
 // VueUse 内部常见的浏览器 API 依赖
-window.addEventListener()     // ❌ SSR 环境不可用
-document.querySelector()     // ❌ SSR 环境不可用
-navigator.userAgent         // ❌ SSR 环境不可用
-localStorage                // ❌ SSR 环境不可用
-window.matchMedia()         // ❌ SSR 环境不可用
+window.addEventListener() // ❌ SSR 环境不可用
+document.querySelector() // ❌ SSR 环境不可用
+navigator.userAgent // ❌ SSR 环境不可用
+localStorage // ❌ SSR 环境不可用
+window.matchMedia() // ❌ SSR 环境不可用
 ```
 
 在 Cloudflare Pages 的 SSR 环境中，这些浏览器 API 不存在，导致：
+
 - 构建时无法正确解析依赖
 - 服务端渲染时抛出运行时错误
 - 客户端水合（hydration）失败
@@ -49,7 +52,7 @@ bun run build  # 应该不再出现 VueUse 相关错误
 
 ```typescript
 // app/utils/vueuse.ts
-import { ref, onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 // 替代 VueUse 的 useToggle
 export function useToggle(initialValue = false) {
@@ -61,7 +64,7 @@ export function useToggle(initialValue = false) {
 
   return {
     state: readonly(state),
-    toggle
+    toggle,
   }
 }
 
@@ -122,7 +125,7 @@ export function useMouse() {
 
   return {
     x: readonly(x),
-    y: readonly(y)
+    y: readonly(y),
   }
 }
 
@@ -152,7 +155,7 @@ export function useWindowSize() {
 
   return {
     width: readonly(width),
-    height: readonly(height)
+    height: readonly(height),
   }
 }
 ```
@@ -160,6 +163,7 @@ export function useWindowSize() {
 ### 第三步：更新项目引用
 
 1. **移除原有的 VueUse composables**：
+
    ```bash
    # 删除原有的 VueUse 相关文件
    rm -f app/composables/useMediaQuery.ts
@@ -169,11 +173,12 @@ export function useWindowSize() {
    ```
 
 2. **更新组件引用**：
+
    ```vue
    <script setup lang="ts">
    // 原来：import { useToggle } from '@vueuse/core'
    // 现在：
-   import { useToggle, useMediaQuery, useMouse, useWindowSize } from '~/utils/vueuse'
+   import { useMediaQuery, useMouse, useToggle, useWindowSize } from '~/utils/vueuse'
 
    const { state: isOpen, toggle } = useToggle(false)
    const isMobile = useMediaQuery('(max-width: 768px)')
@@ -194,6 +199,7 @@ export function useWindowSize() {
 ### 第四步：客户端安全检查最佳实践
 
 #### 1. 环境检测模式
+
 ```typescript
 // 安全的 DOM 操作模式
 export function safeDOMOperation() {
@@ -209,6 +215,7 @@ export function safeDOMOperation() {
 ```
 
 #### 2. 渐进增强模式
+
 ```typescript
 // 基础功能 + 客户端增强
 export function useEnhancedFeature() {
@@ -229,6 +236,7 @@ export function useEnhancedFeature() {
 ```
 
 #### 3. 错误边界处理
+
 ```typescript
 export function safeBrowserAPI() {
   const hasError = ref(false)
@@ -253,6 +261,7 @@ export function safeBrowserAPI() {
 ## 修复效果验证
 
 ### 构建验证
+
 ```bash
 # 1. 清理构建缓存
 rm -rf .nuxt dist node_modules/.cache
@@ -265,21 +274,25 @@ bun run build:cf
 ```
 
 **预期结果**：
+
 - ✅ 构建成功，无 VueUse 相关错误
 - ✅ 生成的 `.output` 目录结构正确
 - ✅ 无 `window is not defined` 错误
 
 ### 开发环境验证
+
 ```bash
 bun run dev
 ```
 
 **预期结果**：
+
 - ✅ 开发服务器正常启动
 - ✅ 页面正常渲染
 - ✅ 所有组件功能正常
 
 ### 部署验证
+
 ```bash
 # 部署到 Cloudflare Pages
 bun run build:cf
@@ -287,6 +300,7 @@ npx wrangler pages deploy dist --project-name your-project
 ```
 
 **预期结果**：
+
 - ✅ 部署成功
 - ✅ 访问部署 URL 正常显示
 - ✅ 所有交互功能正常工作
@@ -294,15 +308,18 @@ npx wrangler pages deploy dist --project-name your-project
 ## 性能优化效果
 
 ### 包体积减少
+
 - **原始包体积**：包含 VueUse ~50KB
 - **优化后包体积**：减少约 50KB
 - **压缩后减少**：约 15KB
 
 ### 构建时间
+
 - **构建速度提升**：减少依赖解析时间
 - **热重载优化**：更快的开发环境启动
 
 ### 运行时性能
+
 - **SSR 性能**：消除客户端/服务端不一致问题
 - **水合性能**：更快的客户端水合过程
 
@@ -319,6 +336,7 @@ npx wrangler pages deploy dist --project-name your-project
 ### Q3: 如何处理其他类似的 SSR 兼容性问题？
 
 **A**:
+
 1. 优先选择原生 API
 2. 使用 `process.client` 进行环境检查
 3. 利用 `onMounted` 确保客户端执行
@@ -327,6 +345,7 @@ npx wrangler pages deploy dist --project-name your-project
 ### Q4: 未来是否可以重新使用 VueUse？
 
 **A**:
+
 - 可以关注 VueUse 的 SSR 兼容性改进
 - 等待 Cloudflare Pages 对更多 Web API 的支持
 - 目前建议继续使用原生实现以确保稳定性
@@ -334,16 +353,19 @@ npx wrangler pages deploy dist --project-name your-project
 ## 最佳实践总结
 
 ### 1. 库选择原则
+
 - **SSR 优先**：选择明确支持 SSR 的库
 - **原生优先**：简单功能优先使用原生 API
 - **渐进增强**：确保基础功能在 SSR 环境下可用
 
 ### 2. 开发流程
+
 - **环境测试**：在开发过程中同时测试 SSR 和客户端渲染
 - **构建验证**：定期进行生产构建测试
 - **部署测试**：在目标部署环境中验证功能
 
 ### 3. 代码组织
+
 - **环境隔离**：明确区分客户端和服务端代码
 - **错误处理**：添加适当的错误边界和降级方案
 - **类型安全**：保持 TypeScript 类型检查

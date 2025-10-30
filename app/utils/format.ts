@@ -7,55 +7,55 @@
  * 格式化日期为相对时间
  */
 export function formatRelativeTime(date: Date | string): string {
-  const now = new Date();
-  const targetDate = typeof date === "string" ? new Date(date) : date;
-  const diffInSeconds = Math.floor((now.getTime() - targetDate.getTime()) / 1000);
+  const now = new Date()
+  const targetDate = typeof date === 'string' ? new Date(date) : date
+  const diffInSeconds = Math.floor((now.getTime() - targetDate.getTime()) / 1000)
 
   if (diffInSeconds < 60) {
-    return "刚刚";
+    return '刚刚'
   }
 
-  const diffInMinutes = Math.floor(diffInSeconds / 60);
+  const diffInMinutes = Math.floor(diffInSeconds / 60)
   if (diffInMinutes < 60) {
-    return `${diffInMinutes}分钟前`;
+    return `${diffInMinutes}分钟前`
   }
 
-  const diffInHours = Math.floor(diffInMinutes / 60);
+  const diffInHours = Math.floor(diffInMinutes / 60)
   if (diffInHours < 24) {
-    return `${diffInHours}小时前`;
+    return `${diffInHours}小时前`
   }
 
-  const diffInDays = Math.floor(diffInHours / 24);
+  const diffInDays = Math.floor(diffInHours / 24)
   if (diffInDays < 7) {
-    return `${diffInDays}天前`;
+    return `${diffInDays}天前`
   }
 
-  return targetDate.toLocaleDateString("zh-CN");
+  return targetDate.toLocaleDateString('zh-CN')
 }
 
 /**
  * 格式化文件大小
  */
 export function formatFileSize(bytes: number): string {
-  if (bytes === 0) return "0 B";
+  if (bytes === 0) return '0 B'
 
-  const k = 1024;
-  const sizes = ["B", "KB", "MB", "GB"];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  const k = 1024
+  const sizes = ['B', 'KB', 'MB', 'GB']
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
 
-  return `${parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`;
+  return `${Number.parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`
 }
 
 /**
  * 生成随机ID
  */
 export function generateId(length = 8): string {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let result = "";
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  let result = ''
 
   for (let i = 0; i < length; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
+    result += chars.charAt(Math.floor(Math.random() * chars.length))
   }
 
-  return result;
+  return result
 }
