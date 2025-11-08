@@ -31,9 +31,9 @@ const emit = defineEmits<{
 
 // 格式化内容（处理换行符）
 const formatContent = (content: string) => {
-  return content.split('\n').map((line, index) => (
-    h('p', { key: index, class: index > 0 ? 'mt-2' : '' }, line)
-  ))
+  return content
+    .split('\n')
+    .map((line, index) => h('p', { key: index, class: index > 0 ? 'mt-2' : '' }, line))
 }
 </script>
 
@@ -42,11 +42,7 @@ const formatContent = (content: string) => {
     <div class="p-4">
       <!-- 作者信息 -->
       <div class="flex items-start gap-3">
-        <UAvatar
-          :src="post.author.avatar"
-          :alt="post.author.name"
-          size="md"
-        />
+        <UAvatar :src="post.author.avatar" :alt="post.author.name" size="md" />
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-1">
             <h3 class="font-semibold text-sm">{{ post.author.name }}</h3>
@@ -55,12 +51,7 @@ const formatContent = (content: string) => {
             <span class="text-muted-foreground text-sm">{{ post.timestamp }}</span>
           </div>
         </div>
-        <UButton
-          variant="ghost"
-          size="sm"
-          square
-          icon="i-heroicons-ellipsis-horizontal"
-        />
+        <UButton variant="ghost" size="sm" square icon="i-heroicons-ellipsis-horizontal" />
       </div>
 
       <!-- 内容 -->
@@ -121,12 +112,7 @@ const formatContent = (content: string) => {
           </UButton>
         </div>
 
-        <UButton
-          variant="ghost"
-          size="sm"
-          color="neutral"
-          square
-        >
+        <UButton variant="ghost" size="sm" color="neutral" square>
           <UIcon name="i-heroicons-bookmark" class="w-4 h-4" />
         </UButton>
       </div>

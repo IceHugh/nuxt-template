@@ -2,8 +2,6 @@
 // 语言切换功能
 const { locale, setLocale } = useI18n()
 
-
-
 const toggleLanguage = () => {
   const nextLocale = locale.value === 'zh' ? 'en' : 'zh'
   setLocale(nextLocale)

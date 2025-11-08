@@ -11,10 +11,7 @@ interface Props {
   size?: 'sm' | 'md'
 }
 
-const { user, showActions, size } = withDefaults(defineProps<Props>(), {
-  showActions: false,
-  size: 'sm',
-})
+const { user, showActions = false, size = 'sm' } = defineProps<Props>()
 
 const emit = defineEmits<{
   action: [action: 'settings' | 'profile' | 'logout']
@@ -53,10 +50,6 @@ const handleAction = (action: 'settings' | 'profile' | 'logout') => {
     </div>
 
     <!-- 默认省略号按钮 -->
-    <UIcon
-      v-else
-      name="i-heroicons-ellipsis-horizontal"
-      class="w-5 h-5 text-muted-foreground"
-    />
+    <UIcon v-else name="i-heroicons-ellipsis-horizontal" class="w-5 h-5 text-muted-foreground" />
   </div>
 </template>

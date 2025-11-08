@@ -34,21 +34,21 @@ const errorInfo = computed(() => {
       iconClass: 'text-amber-500',
       color: 'amber' as const,
     },
-    'server': {
+    server: {
       title: t('error.500.title', '服务器错误'),
       description: t('error.500.description', '服务器遇到了一个问题，请稍后再试。'),
       icon: 'lucide:server-crash',
       iconClass: 'text-red-500',
       color: 'red' as const,
     },
-    'client': {
+    client: {
       title: t('error.400.title', '请求错误'),
       description: t('error.400.description', '您的请求有误，请检查后重试。'),
       icon: 'lucide:alert-circle',
       iconClass: 'text-orange-500',
       color: 'orange' as const,
     },
-    'general': {
+    general: {
       title: t('error.general.title', '出现错误'),
       description: t('error.general.description', '抱歉，应用程序遇到了一个错误。'),
       icon: 'lucide:alert-triangle',
@@ -104,12 +104,7 @@ useSeoMeta({
             <p class="text-muted-foreground">
               {{ errorInfo.description }}
             </p>
-            <UBadge
-              v-if="error.statusCode"
-              variant="outline"
-              color="gray"
-              size="sm"
-            >
+            <UBadge v-if="error.statusCode" variant="outline" color="gray" size="sm">
               错误代码: {{ error.statusCode }}
             </UBadge>
           </div>
@@ -118,12 +113,7 @@ useSeoMeta({
           <div v-if="isDev && error" class="text-left">
             <UCollapsible>
               <template #default="{ open }">
-                <UButton
-                  variant="ghost"
-                  color="gray"
-                  size="sm"
-                  class="w-full justify-center"
-                >
+                <UButton variant="ghost" color="gray" size="sm" class="w-full justify-center">
                   <Icon name="lucide:bug" class="w-4 h-4 mr-2" />
                   错误详情
                   <Icon
@@ -162,23 +152,11 @@ useSeoMeta({
 
           <!-- 操作按钮 -->
           <div class="flex flex-col sm:flex-row gap-3 pt-4">
-            <UButton
-              color="primary"
-              variant="solid"
-              size="lg"
-              class="flex-1"
-              @click="handleError"
-            >
+            <UButton color="primary" variant="solid" size="lg" class="flex-1" @click="handleError">
               <Icon name="lucide:home" class="w-4 h-4 mr-2" />
               {{ t('error.404.actions.home', '返回首页') }}
             </UButton>
-            <UButton
-              color="gray"
-              variant="outline"
-              size="lg"
-              class="flex-1"
-              @click="handleError"
-            >
+            <UButton color="gray" variant="outline" size="lg" class="flex-1" @click="handleError">
               <Icon name="lucide:refresh-cw" class="w-4 h-4 mr-2" />
               {{ t('error.404.actions.refresh', '刷新页面') }}
             </UButton>

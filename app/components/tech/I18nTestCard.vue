@@ -26,7 +26,7 @@ const handleTestComplete = () => {
 const getLanguageDisplayName = (code: string) => {
   const names: Record<string, string> = {
     en: 'English',
-    zh: '简体中文'
+    zh: '简体中文',
   }
   return names[code] || code
 }
@@ -83,9 +83,10 @@ onMounted(() => {
         v-for="lang in availableLocales"
         :key="lang"
         class="flex-1 p-2 text-sm rounded-lg transition-all duration-200"
-        :class="currentLanguage === lang
-          ? 'bg-violet-100 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 border border-violet-500/30'
-          : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+        :class="
+          currentLanguage === lang
+            ? 'bg-violet-100 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 border border-violet-500/30'
+            : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
         "
         @click="setLocale(lang)"
       >

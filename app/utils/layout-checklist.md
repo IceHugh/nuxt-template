@@ -3,6 +3,7 @@
 ## ✅ 已验证的功能
 
 ### 1. 左侧边栏 (Left Sidebar)
+
 - [x] Logo 显示 (AppLogo 组件)
 - [x] 导航菜单 (AppNavigation 组件)
 - [x] 发布按钮
@@ -12,6 +13,7 @@
 - [x] 社交链接
 
 ### 2. 主要内容区域 (Main Content)
+
 - [x] 响应式 Header (UHeader)
 - [x] Logo 在不同位置的显示
 - [x] 页面标题显示
@@ -26,6 +28,7 @@
   - [x] 版权信息
 
 ### 3. 右侧边栏 (Right Sidebar)
+
 - [x] 搜索框
 - [x] 趋势话题 (AppTrendingTopics 组件)
 - [x] 推荐用户 (AppSuggestedUsers 组件)
@@ -33,17 +36,20 @@
 - [x] Footer 信息
 
 ### 4. 移动端导航 (Mobile Navigation)
+
 - [x] 底部固定导航 (AppMobileNavigation 组件)
 - [x] 前5个导航项显示
 - [x] 激活状态样式
 
 ### 5. 响应式功能
+
 - [x] 桌面端显示完整的两侧边栏
 - [x] 移动端隐藏侧边栏，显示底部导航
 - [x] 汉堡菜单在移动端可用
 - [x] 移动端内容区域留出底部导航空间
 
 ### 6. 交互功能
+
 - [x] 导航激活状态
 - [x] 徽章显示（通知数量等）
 - [x] 用户操作按钮
@@ -52,6 +58,7 @@
 - [x] 用户关注功能
 
 ### 7. 状态管理
+
 - [x] useLayoutState 组合式函数
 - [x] 响应式状态管理
 - [x] 防抖处理

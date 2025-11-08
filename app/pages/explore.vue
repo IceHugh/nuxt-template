@@ -2,7 +2,7 @@
 // 设置页面元数据
 definePageMeta({
   title: '探索 - Web3 Hub',
-  layout: 'default'
+  layout: 'default',
 })
 
 // 模拟探索内容数据
@@ -15,17 +15,18 @@ const exploreContent = ref([
     category: 'DeFi',
     readTime: '5 分钟阅读',
     likes: 342,
-    views: 1500
+    views: 1500,
   },
   {
     id: 2,
     title: 'Layer2 扩容方案对比',
-    description: '全面对比以太坊主流 Layer2 解决方案，包括 Optimistic Rollups、ZK-Rollups 等技术细节。',
+    description:
+      '全面对比以太坊主流 Layer2 解决方案，包括 Optimistic Rollups、ZK-Rollups 等技术细节。',
     image: 'https://picsum.photos/seed/layer2-comparison/400/250.jpg',
     category: 'Layer2',
     readTime: '8 分钟阅读',
     likes: 567,
-    views: 2300
+    views: 2300,
   },
   {
     id: 3,
@@ -35,8 +36,8 @@ const exploreContent = ref([
     category: 'NFT',
     readTime: '6 分钟阅读',
     likes: 289,
-    views: 1200
-  }
+    views: 1200,
+  },
 ])
 
 // 热门标签
@@ -46,7 +47,7 @@ const trendingTags = [
   { name: 'NFT', count: '6.7K' },
   { name: 'Web3', count: '15.3K' },
   { name: '智能合约', count: '9.1K' },
-  { name: 'DAO', count: '4.5K' }
+  { name: 'DAO', count: '4.5K' },
 ]
 
 // 搜索和筛选状态

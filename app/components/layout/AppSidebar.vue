@@ -11,21 +11,15 @@ interface Props {
 }
 
 const {
-  currentPath,
-  showUserActions,
-  showTrendingTopics,
-  showSuggestedUsers,
-  showBottomLinks,
-  showSocialLinks
-} = withDefaults(defineProps<Props>(), {
-  currentPath: '',
-  isMobile: false,
-  showUserActions: false,
-  showTrendingTopics: true,
-  showSuggestedUsers: true,
-  showBottomLinks: true,
-  showSocialLinks: false,
-})
+  position,
+  currentPath = '',
+  isMobile: _isMobile = false,
+  showUserActions = false,
+  showTrendingTopics = true,
+  showSuggestedUsers = true,
+  showBottomLinks = true,
+  showSocialLinks = false,
+} = defineProps<Props>()
 
 const emit = defineEmits<{
   navigation: [item: any]

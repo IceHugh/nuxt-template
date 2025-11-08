@@ -14,7 +14,7 @@ const emit = defineEmits<{
 
 const isModalOpen = computed({
   get: () => props.modelValue,
-  set: (value) => emit('update:modelValue', value)
+  set: value => emit('update:modelValue', value),
 })
 
 const testResults = ref<string[]>([])
@@ -23,34 +23,10 @@ const testProgress = ref(0)
 
 const getTestSteps = (type: string): string[] => {
   const testSteps = {
-    api: [
-      '连接到 tRPC 服务器',
-      '验证认证状态',
-      '测试查询接口',
-      '测试变更接口',
-      '验证响应时间'
-    ],
-    database: [
-      '连接到数据库',
-      '验证表结构',
-      '测试读取操作',
-      '测试写入操作',
-      '验证数据完整性'
-    ],
-    i18n: [
-      '加载语言文件',
-      '验证翻译完整性',
-      '测试语言切换',
-      '验证日期格式化',
-      '测试数字本地化'
-    ],
-    system: [
-      '检查系统状态',
-      '验证网络连接',
-      '测试API响应时间',
-      '检查内存使用',
-      '验证系统配置'
-    ]
+    api: ['连接到 tRPC 服务器', '验证认证状态', '测试查询接口', '测试变更接口', '验证响应时间'],
+    database: ['连接到数据库', '验证表结构', '测试读取操作', '测试写入操作', '验证数据完整性'],
+    i18n: ['加载语言文件', '验证翻译完整性', '测试语言切换', '验证日期格式化', '测试数字本地化'],
+    system: ['检查系统状态', '验证网络连接', '测试API响应时间', '检查内存使用', '验证系统配置'],
   }
 
   return testSteps[type as keyof typeof testSteps] || []
@@ -104,7 +80,9 @@ const closeModal = () => {
         <div v-if="isTestRunning || testResults.length > 0" class="space-y-2">
           <div class="flex justify-between text-sm">
             <span class="text-gray-600 dark:text-gray-400">测试进度</span>
-            <span class="font-mono text-gray-600 dark:text-gray-400">{{ Math.round(testProgress) }}%</span>
+            <span class="font-mono text-gray-600 dark:text-gray-400"
+              >{{ Math.round(testProgress) }}%</span
+            >
           </div>
           <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
             <div
@@ -130,26 +108,20 @@ const closeModal = () => {
         <!-- 测试按钮 -->
         <div v-if="!isTestRunning && testResults.length === 0" class="text-center py-4">
           <UIcon name="i-lucide-flask" class="w-12 h-12 text-violet-500 mx-auto mb-3" />
-          <p class="text-gray-600 dark:text-gray-400 mb-4">
-            点击下方按钮开始{{ title }}测试
-          </p>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">点击下方按钮开始{{ title }}测试</p>
         </div>
 
         <!-- 测试完成 -->
         <div v-if="!isTestRunning && testResults.length > 0" class="text-center py-4">
           <UIcon name="i-lucide-check-circle" class="w-12 h-12 text-emerald-500 mx-auto mb-3" />
           <p class="text-gray-900 dark:text-white font-medium mb-1">测试完成</p>
-          <p class="text-sm text-gray-600 dark:text-gray-400">
-            所有测试项目均已通过验证
-          </p>
+          <p class="text-sm text-gray-600 dark:text-gray-400">所有测试项目均已通过验证</p>
         </div>
       </div>
 
       <template #footer>
         <div class="flex justify-end gap-3">
-          <UButton variant="outline" @click="closeModal">
-            关闭
-          </UButton>
+          <UButton variant="outline" @click="closeModal"> 关闭 </UButton>
           <UButton
             :loading="isTestRunning"
             :disabled="isTestRunning"

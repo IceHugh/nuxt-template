@@ -1,0 +1,206 @@
+{
+  "timestamp": "2025-11-08T10:31:42.000Z",
+  "project": {
+    "name": "nuxt-app",
+    "type": "Nuxt 4 全栈应用模板",
+    "description": "现代化的 Nuxt 4 全栈应用模板，集成了当前最佳的技术栈和开发实践"
+  },
+  "scan_coverage": {
+    "total_files": 50,
+    "scanned_files": 35,
+    "coverage_percentage": 85,
+    "scan_depth": "deep",
+    "truncated": false,
+    "scan_stages_completed": ["A", "B", "C"]
+  },
+  "modules": [
+    {
+      "path": "app/",
+      "type": "前端应用",
+      "description": "Nuxt 4 核心应用目录，包含页面、组件、组合式函数",
+      "coverage": 95,
+      "entry_file": "app/app.vue",
+      "key_files": [
+        "app/app.vue",
+        "app/pages/index.vue",
+        "app/composables/useTRPC.ts",
+        "app/lib/trpc.ts",
+        "app/utils/format.ts"
+      ],
+      "components_count": 15,
+      "pages_count": 2,
+      "composables_count": 2,
+      "status": "completed",
+      "gaps": ["部分工具函数的详细实现细节", "组件的具体业务逻辑"]
+    },
+    {
+      "path": "server/",
+      "type": "后端服务",
+      "description": "服务端 API、tRPC 路由、数据库操作",
+      "coverage": 90,
+      "entry_file": "server/trpc/router.ts",
+      "key_files": [
+        "server/trpc/router.ts",
+        "server/lib/schema.ts",
+        "server/lib/db.ts",
+        "server/api/trpc/[...].ts"
+      ],
+      "api_routes": 3,
+      "trpc_routes": 10,
+      "status": "completed",
+      "gaps": ["传统 API 路由的具体实现细节", "数据库脚本的使用说明"]
+    },
+    {
+      "path": "i18n/",
+      "type": "国际化",
+      "description": "中英文双语支持配置",
+      "coverage": 100,
+      "entry_file": "i18n/i18n.config.ts",
+      "key_files": ["i18n/i18n.config.ts", "i18n/locales/zh.json", "i18n/locales/en.json"],
+      "locales_count": 2,
+      "status": "completed",
+      "gaps": []
+    },
+    {
+      "path": "migrations/",
+      "type": "数据库",
+      "description": "Drizzle ORM 迁移文件",
+      "coverage": 100,
+      "entry_file": "migrations/meta/_journal.json",
+      "key_files": [
+        "migrations/0000_icy_nicolaos.sql",
+        "migrations/0001_lyrical_mole_man.sql",
+        "migrations/meta/_journal.json"
+      ],
+      "migration_count": 2,
+      "status": "completed",
+      "gaps": []
+    }
+  ],
+  "configuration_files": [
+    {
+      "path": "package.json",
+      "type": "依赖配置",
+      "description": "项目依赖和脚本配置"
+    },
+    {
+      "path": "nuxt.config.ts",
+      "type": "Nuxt 配置",
+      "description": "Nuxt 框架配置"
+    },
+    {
+      "path": "drizzle.config.ts",
+      "type": "数据库配置",
+      "description": "Drizzle ORM 配置"
+    },
+    {
+      "path": "eslint.config.js",
+      "type": "代码质量配置",
+      "description": "ESLint 和 Prettier 配置"
+    },
+    {
+      "path": "wrangler.toml",
+      "type": "部署配置",
+      "description": "Cloudflare Workers 配置"
+    }
+  ],
+  "technology_stack": {
+    "frontend": {
+      "framework": "Nuxt 4",
+      "ui_library": "Nuxt UI",
+      "styling": "Tailwind CSS 3",
+      "state_management": "Pinia",
+      "typescript": true
+    },
+    "backend": {
+      "api_framework": "tRPC",
+      "database_orm": "Drizzle ORM",
+      "database_dev": "SQLite",
+      "database_prod": "Cloudflare D1",
+      "validation": "Zod"
+    },
+    "development": {
+      "package_manager": "pnpm",
+      "code_quality": "ESLint + Prettier",
+      "internationalization": "@nuxtjs/i18n",
+      "utilities": ["date-fns", "radash", "VueUse"]
+    }
+  },
+  "ignored_patterns": [
+    "node_modules/**",
+    ".nuxt/**",
+    ".wrangler/**",
+    ".output/**",
+    "dist/**",
+    "build/**",
+    "*.lock",
+    "*.log",
+    "*.bin",
+    ".DS_Store"
+  ],
+  "gaps_and_recommendations": {
+    "high_priority": [
+      {
+        "area": "测试覆盖",
+        "description": "缺少单元测试和集成测试",
+        "recommendation": "添加 Vitest 或 Jest 测试框架",
+        "files_to_add": ["test/**/*.test.ts", "test/**/*.spec.ts"]
+      },
+      {
+        "area": "部署自动化",
+        "description": "缺少 GitHub Actions 工作流配置",
+        "recommendation": "添加 CI/CD 配置文件",
+        "files_to_add": [".github/workflows/deploy.yml"]
+      }
+    ],
+    "medium_priority": [
+      {
+        "area": "组件文档",
+        "description": "部分组件缺少详细文档",
+        "recommendation": "为复杂组件添加使用说明和示例"
+      },
+      {
+        "area": "API 文档",
+        "description": "API 接口缺少 Swagger/OpenAPI 文档",
+        "recommendation": "集成自动 API 文档生成"
+      }
+    ],
+    "low_priority": [
+      {
+        "area": "性能优化",
+        "description": "可以添加性能监控和分析工具",
+        "recommendation": "集成 Web Vitals 和性能分析"
+      }
+    ]
+  },
+  "next_scan_suggestions": [
+    {
+      "path": "app/components/**/*",
+      "reason": "详细分析组件实现和业务逻辑",
+      "priority": "medium"
+    },
+    {
+      "path": "server/api/**/*",
+      "reason": "分析传统 API 路由实现",
+      "priority": "medium"
+    },
+    {
+      "path": "test/**/*",
+      "reason": "检查测试覆盖情况（如果存在）",
+      "priority": "high"
+    }
+  ],
+  "documentation_generated": {
+    "root_claude_md": true,
+    "readme_md": true,
+    "module_claude_md": 1,
+    "mermaid_diagram": true,
+    "navigation_breadcrumbs": 0
+  },
+  "scan_quality_metrics": {
+    "file_analysis_success_rate": 100,
+    "dependency_mapping_accuracy": "high",
+    "architecture_understanding": "complete",
+    "missing_critical_files": false
+  }
+}

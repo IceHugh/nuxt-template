@@ -62,7 +62,11 @@ const DEFAULT_TRENDING_TOPICS = [
 // 默认推荐用户
 const DEFAULT_SUGGESTED_USERS = [
   { name: 'Web3 Developer', username: '@web3dev', avatar: 'https://i.pravatar.cc/150?u=web3dev' },
-  { name: 'Blockchain Expert', username: '@blockchain', avatar: 'https://i.pravatar.cc/150?u=blockchain' },
+  {
+    name: 'Blockchain Expert',
+    username: '@blockchain',
+    avatar: 'https://i.pravatar.cc/150?u=blockchain',
+  },
   { name: 'NFT Artist', username: '@nftartist', avatar: 'https://i.pravatar.cc/150?u=nftartist' },
 ] as const
 
@@ -73,9 +77,7 @@ export function useLayoutState() {
   const searchQuery = ref('')
 
   // 计算属性 - 优化导航项
-  const navigationItems = computed(() =>
-    DEFAULT_NAVIGATION_ITEMS.map(item => ({ ...item }))
-  )
+  const navigationItems = computed(() => DEFAULT_NAVIGATION_ITEMS.map(item => ({ ...item })))
 
   // 用户信息
   const user = computed(() => ({ ...DEFAULT_USER }))

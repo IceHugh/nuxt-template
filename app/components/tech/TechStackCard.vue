@@ -9,11 +9,11 @@ interface TechStackCardProps {
   actionDisabled?: boolean
 }
 
-const props = withDefaults(defineProps<TechStackCardProps>(), {
-  badge: '',
-  actionLabel: '测试',
-  actionDisabled: false
-})
+const {
+  badge = '',
+  actionLabel = '测试',
+  actionDisabled = false,
+} = defineProps<TechStackCardProps>()
 
 const emit = defineEmits<{
   action: []
@@ -23,14 +23,14 @@ const statusColors = {
   online: 'bg-emerald-500',
   offline: 'bg-gray-400',
   warning: 'bg-amber-500',
-  loading: 'bg-blue-500 animate-pulse'
+  loading: 'bg-blue-500 animate-pulse',
 }
 
 const statusBadgeColors = {
   online: 'emerald',
   offline: 'gray',
   warning: 'amber',
-  loading: 'blue'
+  loading: 'blue',
 }
 
 const handleAction = () => {
@@ -84,7 +84,11 @@ const handleAction = () => {
         >
           <UIcon v-if="status === 'online'" name="i-lucide-play" class="w-4 h-4 mr-2" />
           <UIcon v-else-if="status === 'offline'" name="i-lucide-refresh-cw" class="w-4 h-4 mr-2" />
-          <UIcon v-else-if="status === 'warning'" name="i-lucide-alert-triangle" class="w-4 h-4 mr-2" />
+          <UIcon
+            v-else-if="status === 'warning'"
+            name="i-lucide-alert-triangle"
+            class="w-4 h-4 mr-2"
+          />
           <UIcon v-else name="i-lucide-loader-2" class="w-4 h-4 mr-2 animate-spin" />
           {{ actionLabel }}
         </UButton>

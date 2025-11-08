@@ -1,7 +1,9 @@
 # Vue Props 验证修复报告
 
 ## 🐛 问题描述
+
 控制台出现警告：
+
 ```
 [Vue warn]: Invalid prop: type check failed for prop "currentPath". Expected String with value "undefined", got Undefined
 ```
@@ -9,27 +11,31 @@
 ## 🔧 修复方案
 
 ### 1. AppNavigation.vue
+
 **问题**: `currentPath` 属性定义为必需字符串，但接收到 `undefined`
 **修复**:
+
 ```typescript
 // 修复前
 interface Props {
-  currentPath: string  // 必需属性
+  currentPath: string // 必需属性
 }
 
 // 修复后
 interface Props {
-  currentPath?: string  // 可选属性
+  currentPath?: string // 可选属性
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  currentPath: '',  // 默认值
+  currentPath: '', // 默认值
 })
 ```
 
 ### 2. AppSidebar.vue
+
 **问题**: 同样的 `currentPath` 属性问题
 **修复**:
+
 ```typescript
 // 修复前
 interface Props {
@@ -47,8 +53,10 @@ const props = withDefaults(defineProps<Props>(), {
 ```
 
 ### 3. AppMobileNavigation.vue
+
 **问题**: `currentPath` 属性问题和缺少 props 定义
 **修复**:
+
 ```typescript
 // 修复前
 interface Props {
@@ -79,21 +87,25 @@ const props = withDefaults(defineProps<Props>(), {
 ## 📋 其他组件检查
 
 ### AppUserInfo.vue ✅
+
 - user 属性是必需的，这很合理
 - showActions 和 size 有默认值
 - 无需修复
 
 ### AppTrendingTopics.vue ✅
+
 - topics 数组是必需的，这很合理
 - title 有默认值
 - 无需修复
 
 ### AppSuggestedUsers.vue ✅
+
 - users 数组是必需的，这很合理
 - title 有默认值
 - 无需修复
 
 ### AppLogo.vue ✅
+
 - 所有属性都是可选的且有默认值
 - 无需修复
 

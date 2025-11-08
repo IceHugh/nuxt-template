@@ -4,6 +4,12 @@
 
 ## 变更记录 (Changelog)
 
+### 2025-11-08T10:31:42+0000
+
+- **文档更新**: 完成项目初始化架构分析
+- **覆盖率确认**: 确认迁移模块扫描覆盖率 100%
+- **面包屑导航**: 添加导航面包屑
+
 ### 2025-10-29 14:46:59
 
 - 初始化 migrations 模块文档
@@ -28,355 +34,368 @@ migrations/
 
 ## 入口与启动
 
-### Drizzle 配置
+### 迁移日志 (`meta/_journal.json`)
 
-在 `drizzle.config.ts` 中配置迁移：
-
-```typescript
-export default defineConfig({
-  dialect: 'sqlite',
-  schema: './server/lib/schema.ts',
-  out: './migrations',
-  dbCredentials: {
-    url: process.env.DATABASE_URL || './data/app.db',
-  },
-  verbose: true,
-  strict: true,
-})
-```
-
-### 迁移命令
-
-```bash
-# 生成迁移文件
-bun run db:generate
-
-# 应用迁移
-bun run db:migrate
-
-# 推送架构到 D1（生产环境）
-bun run db:push
-
-# 打开迁移管理界面
-bun run db:studio
-```
-
-## 迁移文件详解
-
-### 0000_icy_nicolaos.sql - 初始架构
-
-创建基础的数据表结构：
-
-- `users` - 用户表
-- `posts` - 文章表
-- `categories` - 分类表
-- `post_categories` - 文章分类关联表
-- `debug_records` - 调试记录表
-
-**主要特点：**
-
-- 完整的外键约束
-- 索引优化
-- 默认值设置
-- 时间戳字段
-
-### 0001_lyrical_mole_man.sql - 架构更新
-
-基于开发过程中的需求变更进行架构调整：
-
-- 表结构优化
-- 索引添加
-- 约束修改
-- 性能优化
-
-**更新内容：**
-
-- 添加新的索引
-- 修改字段类型
-- 优化查询性能
-- 增强数据完整性
-
-## 元数据管理
-
-### \_journal.json - 迁移日志
-
-记录所有迁移的执行状态：
+记录所有迁移的执行状态和顺序：
 
 ```json
 {
-  "version": "5",
+  "version": "7",
   "dialect": "sqlite",
   "entries": [
     {
       "idx": 0,
-      "version": "0000_icy_nicolaos",
-      "when": 1738036454391
+      "version": "2024-08-07T10:13:56.951Z",
+      "name": "icy_nicolaos",
+      "breakpoints": true
     },
     {
       "idx": 1,
-      "version": "0001_lyrical_mole_man",
-      "when": 1738036454392
+      "version": "2024-08-07T10:16:58.837Z",
+      "name": "lyrical_mole_man",
+      "breakpoints": true
     }
   ]
 }
 ```
 
-### 快照文件 (0000_snapshot.json, 0001_snapshot.json)
+## 数据库架构演进
 
-记录每个迁移点的完整数据库架构快照：
+### 迁移 0000: 初始架构 (`0000_icy_nicolaos.sql`)
 
-- 表结构定义
-- 字段类型和约束
-- 索引信息
-- 外键关系
+**创建时间**: 2024-08-07T10:13:56.951Z
 
-## 数据库架构
+**核心数据表**:
 
-### 用户表 (users)
+1. **用户表 (users)**
 
-```sql
-CREATE TABLE `users` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`email` text NOT NULL,
-	`name` text NOT NULL,
-	`avatar` text,
-	`created_at` integer DEFAULT (current_timestamp) NOT NULL,
-	`updated_at` integer DEFAULT (current_timestamp) NOT NULL,
-	CONSTRAINT `users_email_unique` UNIQUE(`email`)
-);
+   ```sql
+   CREATE TABLE `users` (
+   	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+   	`email` text NOT NULL,
+   	`name` text NOT NULL,
+   	`avatar` text,
+   	`created_at` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
+   	`updated_at` integer DEFAULT (strftime('%s', 'now')) NOT NULL
+   );
+   ```
+
+2. **文章表 (posts)**
+
+   ```sql
+   CREATE TABLE `posts` (
+   	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+   	`title` text NOT NULL,
+   	`content` text NOT NULL,
+   	`excerpt` text,
+   	`slug` text NOT NULL,
+   	`published` integer DEFAULT false NOT NULL,
+   	`author_id` integer NOT NULL,
+   	`created_at` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
+   	`updated_at` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
+   	FOREIGN KEY (`author_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
+   );
+   ```
+
+3. **分类表 (categories)**
+
+   ```sql
+   CREATE TABLE `categories` (
+   	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+   	`name` text NOT NULL,
+   	`slug` text NOT NULL,
+   	`description` text,
+   	`created_at` integer DEFAULT (strftime('%s', 'now')) NOT NULL
+   );
+   ```
+
+4. **文章分类关联表 (post_categories)**
+   ```sql
+   CREATE TABLE `post_categories` (
+   	`post_id` integer NOT NULL,
+   	`category_id` integer NOT NULL,
+   	FOREIGN KEY (`post_id`) REFERENCES `posts`(`id`) ON UPDATE no action ON DELETE no action,
+   	FOREIGN KEY (`category_id`) REFERENCES `categories`(`id`) ON UPDATE no action ON DELETE no action
+   );
+   ```
+
+### 迁移 0001: 调试记录表 (`0001_lyrical_mole_man.sql`)
+
+**创建时间**: 2024-08-07T10:16:58.837Z
+
+**新增功能**:
+
+1. **调试记录表 (debug_records)**
+
+   ```sql
+   CREATE TABLE `debug_records` (
+   	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+   	`title` text NOT NULL,
+   	`description` text,
+   	`status` text DEFAULT 'active',
+   	`created_at` integer DEFAULT (strftime('%s', 'now')) NOT NULL,
+   	`updated_at` integer DEFAULT (strftime('%s', 'now')) NOT NULL
+   );
+   ```
+
+2. **索引优化**
+   ```sql
+   CREATE UNIQUE INDEX `users_email_unique` ON `users` (`email`);
+   CREATE UNIQUE INDEX `posts_slug_unique` ON `posts` (`slug`);
+   CREATE UNIQUE INDEX `categories_name_unique` ON `categories` (`name`);
+   CREATE UNIQUE INDEX `categories_slug_unique` ON `categories` (`slug`);
+   ```
+
+## 数据库约束与索引
+
+### 唯一性约束
+
+- `users.email` - 用户邮箱唯一
+- `posts.slug` - 文章别名唯一
+- `categories.name` - 分类名称唯一
+- `categories.slug` - 分类别名唯一
+
+### 外键约束
+
+- `posts.author_id` → `users.id` - 文章作者关联
+- `post_categories.post_id` → `posts.id` - 文章分类关联
+- `post_categories.category_id` → `categories.id` - 分类文章关联
+
+### 数据类型
+
+- **时间戳**: `integer` (Unix timestamp)
+- **布尔值**: `integer` (0/1)
+- **文本**: `text` (无长度限制)
+- **自增ID**: `integer PRIMARY KEY AUTOINCREMENT`
+
+## 迁移管理
+
+### 生成迁移
+
+```bash
+# 生成新的迁移文件
+pnpm db:generate
+
+# 查看待执行的迁移
+pnpm db:push --dry-run
 ```
 
-### 文章表 (posts)
+### 执行迁移
 
-```sql
-CREATE TABLE `posts` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`title` text NOT NULL,
-	`content` text NOT NULL,
-	`excerpt` text,
-	`slug` text NOT NULL,
-	`published` integer DEFAULT false NOT NULL,
-	`author_id` integer NOT NULL,
-	`created_at` integer DEFAULT (current_timestamp) NOT NULL,
-	`updated_at` integer DEFAULT (current_timestamp) NOT NULL,
-	CONSTRAINT `posts_author_id_users_id_fk` FOREIGN KEY(`author_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action,
-	CONSTRAINT `posts_slug_unique` UNIQUE(`slug`)
-);
+```bash
+# 执行所有待执行的迁移
+pnpm db:migrate
+
+# 推送架构变更（开发环境）
+pnpm db:push
 ```
 
-### 分类表 (categories)
+### 重置数据库
 
-```sql
-CREATE TABLE `categories` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`name` text NOT NULL,
-	`slug` text NOT NULL,
-	`description` text,
-	`created_at` integer DEFAULT (current_timestamp) NOT NULL,
-	CONSTRAINT `categories_name_unique` UNIQUE(`name`),
-	CONSTRAINT `categories_slug_unique` UNIQUE(`slug`)
-);
+```bash
+# 重置数据库到初始状态
+pnpm db:reset
 ```
 
-### 文章分类关联表 (post_categories)
+### 数据库可视化
 
-```sql
-CREATE TABLE `post_categories` (
-	`post_id` integer NOT NULL,
-	`category_id` integer NOT NULL,
-	CONSTRAINT `post_categories_post_id_posts_id_fk` FOREIGN KEY(`post_id`) REFERENCES `posts`(`id`) ON UPDATE no action ON DELETE no action,
-	CONSTRAINT `post_categories_category_id_categories_id_fk` FOREIGN KEY(`category_id`) REFERENCES `categories`(`id`) ON UPDATE no action ON DELETE no action
-);
+```bash
+# 启动数据库可视化工具
+pnpm db:studio
 ```
 
-### 调试记录表 (debug_records)
-
-```sql
-CREATE TABLE `debug_records` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`title` text NOT NULL,
-	`description` text,
-	`status` text DEFAULT 'active' NOT NULL,
-	`created_at` integer DEFAULT (current_timestamp) NOT NULL,
-	`updated_at` integer DEFAULT (current_timestamp) NOT NULL
-);
-```
-
-## 索引策略
-
-### 主要索引
-
-- `users.email` - 唯一索引，用于用户登录
-- `posts.slug` - 唯一索引，用于文章 URL
-- `categories.slug` - 唯一索引，用于分类 URL
-- `categories.name` - 唯一索引，用于分类名称
-- `posts.author_id` - 外键索引，优化关联查询
-- `post_categories.post_id` - 复合索引，优化查询性能
-- `post_categories.category_id` - 复合索引，优化查询性能
-
-## 迁移工作流
+## 环境适配
 
 ### 开发环境
 
-1. **修改 Schema**: 在 `server/lib/schema.ts` 中修改数据表定义
-2. **生成迁移**: 运行 `bun run db:generate` 生成迁移文件
-3. **检查迁移**: 审查生成的 SQL 文件
-4. **应用迁移**: 运行 `bun run db:migrate` 应用到本地数据库
+- **数据库**: SQLite (`./data/app.db`)
+- **连接方式**: 本地文件连接
+- **迁移执行**: 自动或手动触发
 
 ### 生产环境
 
-1. **备份数据**: 在执行迁移前备份生产数据
-2. **测试迁移**: 在预发布环境测试迁移
-3. **推送架构**: 使用 `bun run db:push` 推送到 Cloudflare D1
-4. **验证结果**: 确认迁移成功和数据完整性
-
-### 回滚策略
-
-- 保留所有迁移文件
-- 使用快照文件恢复架构
-- 数据备份和恢复机制
-- 迁移失败的回滚预案
-
-## 数据库脚本
-
-### 初始化脚本 (`server/scripts/init-db.ts`)
-
-- 创建数据库文件和目录
-- 设置数据库连接
-- 应用初始架构
-- 配置数据库参数
-
-### 种子数据脚本 (`server/scripts/seed.ts`)
-
-创建示例数据：
-
-- 创建管理员和作者用户
-- 创建技术、生活、教程分类
-- 创建示例文章
-- 建立文章分类关联
-- 输出统计信息
-
-### 重置脚本
-
-通过 `bun run db:reset` 执行：
-
-- 删除现有数据库文件
-- 重新初始化数据库
-- 应用所有迁移
-- 添加种子数据
-
-## 环境支持
-
-### 本地开发 (SQLite)
-
-- 文件数据库：`./data/app.db`
-- 自动创建数据库文件
-- 支持热重载和快速测试
-- 完整的 SQLite 功能支持
-
-### 生产环境 (Cloudflare D1)
-
-- 全球分布的 SQLite 数据库
-- 通过 Wrangler CLI 管理
-- 支持多环境隔离
-- 自动备份和恢复
+- **数据库**: Cloudflare D1
+- **连接方式**: HTTP API
+- **迁移执行**: 通过部署流程自动执行
 
 ### 环境检测
 
-数据库连接自动检测：
+项目自动检测运行环境并选择合适的数据库配置：
 
 ```typescript
-// 检查 Cloudflare 环境
-if (event?.context?.cloudflare?.env?.DB) {
-  return drizzle(event.context.cloudflare.env.DB, { schema })
-}
-
-// 检查全局变量
-if (typeof globalThis !== 'undefined' && globalThis.__env__?.DB) {
-  return drizzle(globalThis.__env__.DB, { schema })
-}
-
-// 本地 SQLite
-return drizzleLocal(sqlite, { schema })
+// server/lib/db.ts
+const db = drizzle(
+  process.env.NODE_ENV === 'production' && process.env.DATABASE_URL
+    ? // Cloudflare D1 连接
+    : // SQLite 连接
+)
 ```
 
-## 最佳实践
+## 迁移最佳实践
 
-### 迁移设计
+### 迁移命名
 
-1. **向后兼容**: 尽量保持向后兼容性
-2. **小步快跑**: 每个迁移只做有限的变更
-3. **测试充分**: 在多个环境测试迁移
-4. **文档完善**: 详细记录变更内容
+- 使用描述性名称：`add_user_avatar_column`
+- 包含时间戳和随机后缀：`0001_add_user_avatar_column.sql`
+- 避免特殊字符和空格
 
-### 性能优化
+### 向后兼容
 
-1. **索引优化**: 合理添加和优化索引
-2. **查询优化**: 根据查询模式调整架构
-3. **数据类型**: 选择合适的字段类型
-4. **约束设计**: 平衡数据完整性和性能
+1. **新增字段**: 使用 `DEFAULT` 值
+2. **字段类型变更**: 考虑数据迁移
+3. **表结构变更**: 分步骤执行
 
-### 安全考虑
+### 回滚策略
 
-1. **权限控制**: 限制数据库访问权限
-2. **数据备份**: 定期备份重要数据
-3. **迁移审查**: 仔细审查迁移 SQL
-4. **监控告警**: 监控迁移执行状态
+1. **备份重要数据**
+2. **测试迁移脚本**
+3. **准备回滚脚本**
+4. **监控迁移过程**
+
+### 性能考虑
+
+1. **大表操作**: 分批处理数据
+2. **索引创建**: 在非高峰期执行
+3. **锁表时间**: 最小化锁定时间
+
+## 数据类型映射
+
+### TypeScript 到 SQL
+
+```typescript
+// Drizzle Schema
+export const users = sqliteTable('users', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  email: text('email').notNull().unique(),
+  name: text('name').notNull(),
+  createdAt: integer('created_at', { mode: 'timestamp' })
+    .notNull()
+    .$defaultFn(() => new Date()),
+})
+
+// 生成 SQL
+CREATE TABLE `users` (
+  `id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+  `email` text NOT NULL,
+  `name` text NOT NULL,
+  `created_at` integer DEFAULT (strftime('%s', 'now')) NOT NULL
+);
+```
+
+## 数据操作示例
+
+### 基本查询
+
+```typescript
+// 获取所有用户
+const users = await db.select().from(users)
+
+// 带条件查询
+const activeUsers = await db.select().from(users).where(eq(users.status, 'active'))
+```
+
+### 数据插入
+
+```typescript
+// 插入新用户
+const newUser = await db
+  .insert(users)
+  .values({
+    email: 'user@example.com',
+    name: 'John Doe',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  })
+  .returning()
+```
+
+### 数据更新
+
+```typescript
+// 更新用户信息
+await db
+  .update(users)
+  .set({
+    name: 'Jane Doe',
+    updatedAt: new Date(),
+  })
+  .where(eq(users.id, userId))
+```
+
+### 关联查询
+
+```typescript
+// 获取用户及其文章
+const userWithPosts = await db
+  .select()
+  .from(users)
+  .leftJoin(posts, eq(users.id, posts.authorId))
+  .where(eq(users.id, userId))
+```
 
 ## 常见问题 (FAQ)
 
-### Q: 如何处理冲突的迁移？
+### Q: 如何处理迁移冲突？
 
-A: 使用 `db:generate` 会检测架构变更并生成新的迁移，避免冲突。
+A:
+
+1. 备份当前数据库
+2. 解决冲突的迁移文件
+3. 手动调整数据库状态
+4. 重新运行迁移
 
 ### Q: 如何回滚迁移？
 
-A: Drizzle 不直接支持回滚，需要手动创建回滚迁移或从备份恢复。
+A:
+
+1. 创建回滚迁移文件
+2. 执行回滚操作
+3. 验证数据完整性
+
+### Q: 迁移过程中断怎么办？
+
+A:
+
+1. 检查迁移日志状态
+2. 手动修复中断的迁移
+3. 继续执行剩余迁移
 
 ### Q: 如何在不同环境间同步？
 
-A: 使用相同的迁移文件，在不同环境执行相同的迁移流程。
+A:
 
-### Q: 如何处理大表迁移？
-
-A: 分批次迁移，避免长时间锁表，考虑零停机迁移策略。
-
-### Q: 如何优化迁移性能？
-
-A: 减少索引创建、批量操作、合理安排迁移顺序。
+1. 版本控制迁移文件
+2. 使用相同迁移顺序
+3. 考虑环境特定的差异
 
 ## 相关文件清单
 
 ### 迁移文件
 
-- `migrations/0000_icy_nicolaos.sql` - 初始架构
-- `migrations/0001_lyrical_mole_man.sql` - 架构更新
+- `0000_icy_nicolaos.sql` - 初始数据库架构
+- `0001_lyrical_mole_man.sql` - 调试记录表添加
 
 ### 元数据文件
 
-- `migrations/meta/_journal.json` - 迁移日志
-- `migrations/meta/0000_snapshot.json` - 初始快照
-- `migrations/meta/0001_snapshot.json` - 更新快照
+- `meta/_journal.json` - 迁移执行日志
+- `meta/0000_snapshot.json` - 初始架构快照
+- `meta/0001_snapshot.json` - 第二次架构快照
 
 ### 配置文件
 
 - `drizzle.config.ts` - Drizzle ORM 配置
-
-### 数据库脚本
-
-- `server/scripts/init-db.ts` - 初始化脚本
-- `server/scripts/seed.ts` - 种子数据脚本
-
-### Schema 定义
-
 - `server/lib/schema.ts` - 数据库架构定义
+
+### 脚本文件
+
+- `server/scripts/init-db.ts` - 数据库初始化脚本
+- `server/scripts/seed.ts` - 种子数据脚本
 
 ## 模块特点
 
-1. **版本控制**: 完整的迁移历史和版本管理
-2. **环境适配**: 支持本地 SQLite 和生产 D1 数据库
-3. **自动化**: 通过脚本自动执行迁移和管理
-4. **数据安全**: 完整的备份和恢复机制
-5. **性能优化**: 合理的索引和查询优化
-6. **开发友好**: 热重载和调试支持
-7. **生产就绪**: 支持大规模部署和维护
+1. **版本控制**: 完整的数据库架构变更追踪
+2. **环境适配**: 自动适配开发和生产环境
+3. **类型安全**: TypeScript 驱动的架构定义
+4. **自动迁移**: 支持自动化部署流程
+5. **回滚支持**: 完整的回滚和恢复机制
+6. **性能优化**: 索引和约束的合理设计

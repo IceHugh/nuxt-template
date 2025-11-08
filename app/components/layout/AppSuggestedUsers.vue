@@ -10,9 +10,7 @@ interface Props {
   title?: string
 }
 
-const { users, title } = withDefaults(defineProps<Props>(), {
-  title: '推荐关注',
-})
+const { users, title = '推荐关注' } = defineProps<Props>()
 
 const emit = defineEmits<{
   follow: [user: SuggestedUser]
@@ -51,13 +49,7 @@ const handleViewProfile = (user: SuggestedUser) => {
             <p class="text-xs text-muted-foreground">{{ suggestedUser.username }}</p>
           </div>
         </div>
-        <UButton
-          size="xs"
-          variant="outline"
-          @click="handleFollow(suggestedUser)"
-        >
-          关注
-        </UButton>
+        <UButton size="xs" variant="outline" @click="handleFollow(suggestedUser)"> 关注 </UButton>
       </div>
     </div>
   </UCard>

@@ -16,23 +16,27 @@
 ## Impact
 
 **影响的规格:**
+
 - `ui-layout` - 用户界面布局系统
 - `theme-design` - 主题设计系统
 - `feature-testing` - 功能展示和测试
 
 **影响的代码:**
+
 - `app/layouts/default.vue` - 主布局文件
 - `app/pages/index.vue` - 首页内容
 - `app/components/` - 新增技术栈展示组件
 - `assets/css/` - Web3主题样式文件
 
 **技术变更:**
+
 - 增加Web3风格的CSS变量和主题配置
 - 新增技术栈测试组件和交互逻辑
 - 更新布局系统以支持新的视觉设计
 - 集成实时状态显示和API测试功能
 
 **用户体验变更:**
+
 - 更现代化的视觉体验和品牌认知
 - 更清晰的技术栈功能展示
 - 更好的移动端适配和交互体验

@@ -41,7 +41,6 @@ const sidebarSize = 'lg'
 const mobileItems = computed(() => {
   return props.variant === 'mobile' ? props.items.slice(0, 5) : props.items
 })
-
 </script>
 
 <template>
@@ -75,11 +74,12 @@ const mobileItems = computed(() => {
       variant="ghost"
       color="neutral"
       :size="mobileSize"
-      class="flex-col items-center justify-center p-2 h-auto hover:bg-gray-100 dark:hover:bg-gray-800" :class="[
+      class="flex-col items-center justify-center p-2 h-auto hover:bg-gray-100 dark:hover:bg-gray-800"
+      :class="[
         // 使用固定的类名顺序确保 SSR 一致性
         {
-          'text-primary': currentPath === item.to
-        }
+          'text-primary': currentPath === item.to,
+        },
       ]"
       @click="handleNavigation(item)"
     >

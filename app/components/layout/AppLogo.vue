@@ -4,10 +4,7 @@ interface Props {
   showText?: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  size: 'md',
-  showText: true,
-})
+const { size = 'md', showText = true } = defineProps<Props>()
 
 const sizeClasses = {
   sm: 'w-6 h-6 text-lg',
@@ -15,10 +12,9 @@ const sizeClasses = {
   lg: 'w-10 h-10 text-2xl',
 } as const
 
-const iconClass = computed(() => sizeClasses[props.size])
+const iconClass = computed(() => sizeClasses[size])
 const textClass = computed(
-  () =>
-    `${props.size === 'sm' ? 'text-lg' : props.size === 'lg' ? 'text-2xl' : 'text-xl'} font-bold`
+  () => `${size === 'sm' ? 'text-lg' : size === 'lg' ? 'text-2xl' : 'text-xl'} font-bold`
 )
 </script>
 

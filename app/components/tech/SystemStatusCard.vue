@@ -98,7 +98,9 @@ const getProgressColor = (value: number, thresholds: { warning: number; danger: 
             <UIcon name="i-lucide-cpu" class="w-4 h-4 text-gray-500" />
             <span class="text-sm font-medium text-gray-700 dark:text-gray-300">CPU 使用率</span>
           </div>
-          <span :class="`text-sm font-semibold ${getStatusColor(cpuUsage, { warning: 70, danger: 90 })}`">
+          <span
+            :class="`text-sm font-semibold ${getStatusColor(cpuUsage, { warning: 70, danger: 90 })}`"
+          >
             {{ cpuUsage }}%
           </span>
         </div>
@@ -118,7 +120,9 @@ const getProgressColor = (value: number, thresholds: { warning: number; danger: 
             <UIcon name="i-lucide-hard-drive" class="w-4 h-4 text-gray-500" />
             <span class="text-sm font-medium text-gray-700 dark:text-gray-300">内存使用</span>
           </div>
-          <span :class="`text-sm font-semibold ${getStatusColor(memoryUsage, { warning: 80, danger: 95 })}`">
+          <span
+            :class="`text-sm font-semibold ${getStatusColor(memoryUsage, { warning: 80, danger: 95 })}`"
+          >
             {{ memoryUsage }}%
           </span>
         </div>

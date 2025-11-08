@@ -36,9 +36,7 @@ export function throttle<T extends (...args: any[]) => any>(
 }
 
 // 异步加载组件
-export async function loadComponent<T = any>(
-  loader: () => Promise<T>
-): Promise<T> {
+export async function loadComponent<T = any>(loader: () => Promise<T>): Promise<T> {
   try {
     return await loader()
   } catch (error) {
@@ -81,8 +79,8 @@ export function formatNumber(num: number): string {
 export function lazyLoadImage(imgElement: HTMLImageElement, src: string): void {
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        entries.forEach(entry => {
           if (entry.isIntersecting) {
             imgElement.src = src
             observer.unobserve(imgElement)

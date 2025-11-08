@@ -10,9 +10,7 @@ interface Props {
   title?: string
 }
 
-const { topics, title } = withDefaults(defineProps<Props>(), {
-  title: '趋势话题',
-})
+const { topics, title = '趋势话题' } = defineProps<Props>()
 
 const emit = defineEmits<{
   select: [topic: TrendingTopic]
