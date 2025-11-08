@@ -136,7 +136,7 @@ const loadMore = async () => {
                 loading="lazy"
               />
               <div class="absolute top-2 left-2">
-                <UBadge variant="secondary" size="xs">
+                <UBadge variant="outline" size="xs">
                   {{ item.category }}
                 </UBadge>
               </div>
@@ -187,7 +187,7 @@ const loadMore = async () => {
 
       <!-- 加载更多 -->
       <div class="flex justify-center mt-8">
-        <UButton variant="outline" loading="loadingMore" @click="loadMore">
+        <UButton variant="outline" :loading="loadingMore" @click="loadMore">
           {{ loadingMore ? '加载中...' : '加载更多' }}
         </UButton>
       </div>
