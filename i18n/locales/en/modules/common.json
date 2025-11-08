@@ -1,0 +1,18 @@
+{
+  "title": "BTC Name Link",
+  "subtitle": "Bitcoin Name Link Application Based on Nuxt 4",
+  "language": "Language",
+  "appName": "Application Name",
+  "network": "Network",
+  "feeRate": "Fee Rate",
+  "loading": "Loading...",
+  "retry": "Retry",
+  "refresh": "Refresh",
+  "clearAll": "Clear All",
+  "loadingMore": "Loading more...",
+  "error": "Error",
+  "success": "Success",
+  "accessibility": {
+    "toggleLanguage": "Toggle language"
+  }
+}

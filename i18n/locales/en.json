@@ -1,0 +1,23 @@
+{
+  "navigation": {
+    "home": "Home",
+    "explore": "Explore",
+    "analytics": "Analytics",
+    "settings": "Settings"
+  },
+  "sections": {
+    "api": {
+      "title": "API Testing",
+      "description": "Test backend API interface functionality"
+    }
+  },
+  "api": {
+    "health": {
+      "title": "Health Check",
+      "description": "Test server health status"
+    }
+  },
+  "buttons": {
+    "testHealthAPI": "Test Health API"
+  }
+}

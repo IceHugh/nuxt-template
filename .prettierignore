@@ -1,0 +1,48 @@
+# 依赖目录
+node_modules
+.nuxt
+.wrangler
+.output
+dist
+build
+
+# UI 组件库（通常由代码生成器维护）
+app/components/ui/**
+components/ui/**
+
+# 生成文件
+*.min.js
+*.min.css
+*.d.ts
+
+# 配置文件
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# 日志文件
+*.log
+logs
+
+# 环境文件
+.env*
+
+# 缓存目录
+.cache
+.temp
+.tmp
+
+# 公共静态资源
+public/**
+!public/*.html
+
+# 测试覆盖率
+coverage
+
+# 编辑器配置
+.vscode
+.idea
+
+# 系统文件
+.DS_Store
+Thumbs.db

@@ -1,0 +1,18 @@
+{
+  "title": "BTC Name Link",
+  "subtitle": "基于Nuxt 4的比特币名称链接应用",
+  "language": "语言",
+  "appName": "应用名称",
+  "network": "网络",
+  "feeRate": "费率",
+  "loading": "加载中...",
+  "retry": "重试",
+  "refresh": "刷新",
+  "clearAll": "清空全部",
+  "loadingMore": "加载更多...",
+  "error": "错误",
+  "success": "成功",
+  "accessibility": {
+    "toggleLanguage": "切换语言"
+  }
+}

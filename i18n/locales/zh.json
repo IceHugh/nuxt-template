@@ -1,0 +1,23 @@
+{
+  "navigation": {
+    "home": "首页",
+    "explore": "探索",
+    "analytics": "分析",
+    "settings": "设置"
+  },
+  "sections": {
+    "api": {
+      "title": "API 测试",
+      "description": "测试后端 API 接口功能"
+    }
+  },
+  "api": {
+    "health": {
+      "title": "健康检查",
+      "description": "测试服务器健康状态"
+    }
+  },
+  "buttons": {
+    "testHealthAPI": "测试健康 API"
+  }
+}

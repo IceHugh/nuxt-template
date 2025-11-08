@@ -1,0 +1,42 @@
+# Cloudflare Pages 配置文件
+name = "nuxt-template"
+compatibility_date = "2024-10-28"
+compatibility_flags = [ "nodejs_compat" ]
+
+# Pages 构建输出目录
+pages_build_output_dir = "dist"
+
+# D1 数据库绑定
+[[d1_databases]]
+binding = "DB"
+database_name = "nuxt-template-db"
+# 注意：请替换为实际的数据库 ID，可以通过 wrangler d1 list 查看
+database_id = "1f3e3c81-d302-4ee7-b3b0-5304e4d99ced"
+
+# 环境变量
+[vars]
+NODE_ENV = "production"
+
+# 预览环境配置
+[env.preview]
+name = "nuxt-template-preview"
+
+# 预览环境 D1 绑定
+[[env.preview.d1_databases]]
+binding = "DB"
+database_name = "nuxt-template-db"
+database_id = "1f3e3c81-d302-4ee7-b3b0-5304e4d99ced"
+
+# 生产环境配置
+[env.production]
+name = "nuxt-template-prod"
+
+# 生产环境环境变量
+[env.production.vars]
+NODE_ENV = "production"
+
+# 生产环境 D1 绑定
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "nuxt-template-db"
+database_id = "1f3e3c81-d302-4ee7-b3b0-5304e4d99ced"
